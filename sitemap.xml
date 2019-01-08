@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://hexo.io/zh-tw/api/console.html</loc>
+    <loc>https://hexo.io/zh-cn/docs/writing.html</loc>
     
     <lastmod>2019-01-08T10:02:40.000Z</lastmod>
     
@@ -30,35 +30,14 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/zh-cn/api/deployer.html</loc>
-    
-    <lastmod>2019-01-08T10:02:40.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://hexo.io/zh-cn/api/console.html</loc>
-    
-    <lastmod>2019-01-08T10:02:40.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://hexo.io/zh-cn/api/generator.html</loc>
-    
-    <lastmod>2019-01-08T10:02:40.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://hexo.io/zh-cn/api/helper.html</loc>
-    
-    <lastmod>2019-01-08T10:02:40.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://hexo.io/zh-cn/api/events.html</loc>
+    
+    <lastmod>2019-01-08T10:02:40.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hexo.io/zh-cn/api/deployer.html</loc>
     
     <lastmod>2019-01-08T10:02:40.000Z</lastmod>
     
@@ -72,7 +51,14 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/zh-cn/api/locals.html</loc>
+    <loc>https://hexo.io/zh-cn/api/console.html</loc>
+    
+    <lastmod>2019-01-08T10:02:40.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hexo.io/zh-cn/api/helper.html</loc>
     
     <lastmod>2019-01-08T10:02:40.000Z</lastmod>
     
@@ -86,7 +72,14 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/zh-cn/api/migrator.html</loc>
+    <loc>https://hexo.io/zh-cn/api/locals.html</loc>
+    
+    <lastmod>2019-01-08T10:02:40.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hexo.io/zh-cn/api/generator.html</loc>
     
     <lastmod>2019-01-08T10:02:40.000Z</lastmod>
     
@@ -100,21 +93,21 @@
   </url>
   
   <url>
+    <loc>https://hexo.io/zh-cn/api/processor.html</loc>
+    
+    <lastmod>2019-01-08T10:02:40.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hexo.io/zh-cn/api/migrator.html</loc>
+    
+    <lastmod>2019-01-08T10:02:40.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://hexo.io/zh-cn/api/renderer.html</loc>
-    
-    <lastmod>2019-01-08T10:02:40.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://hexo.io/zh-cn/api/rendering.html</loc>
-    
-    <lastmod>2019-01-08T10:02:40.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://hexo.io/zh-cn/api/scaffolds.html</loc>
     
     <lastmod>2019-01-08T10:02:40.000Z</lastmod>
     
@@ -128,7 +121,7 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/zh-cn/api/processor.html</loc>
+    <loc>https://hexo.io/zh-cn/api/scaffolds.html</loc>
     
     <lastmod>2019-01-08T10:02:40.000Z</lastmod>
     
@@ -142,14 +135,7 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/zh-cn/api/themes.html</loc>
-    
-    <lastmod>2019-01-08T10:02:40.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://hexo.io/zh-cn/docs/asset-folders.html</loc>
+    <loc>https://hexo.io/zh-cn/api/rendering.html</loc>
     
     <lastmod>2019-01-08T10:02:40.000Z</lastmod>
     
@@ -163,6 +149,13 @@
   </url>
   
   <url>
+    <loc>https://hexo.io/zh-cn/docs/asset-folders.html</loc>
+    
+    <lastmod>2019-01-08T10:02:40.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://hexo.io/zh-cn/docs/configuration.html</loc>
     
     <lastmod>2019-01-08T10:02:40.000Z</lastmod>
@@ -170,7 +163,14 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/zh-cn/docs/contributing.html</loc>
+    <loc>https://hexo.io/zh-cn/api/themes.html</loc>
+    
+    <lastmod>2019-01-08T10:02:40.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hexo.io/zh-cn/docs/deployment.html</loc>
     
     <lastmod>2019-01-08T10:02:40.000Z</lastmod>
     
@@ -184,13 +184,6 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/zh-cn/docs/generating.html</loc>
-    
-    <lastmod>2019-01-08T10:02:40.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://hexo.io/zh-cn/docs/front-matter.html</loc>
     
     <lastmod>2019-01-08T10:02:40.000Z</lastmod>
@@ -198,7 +191,7 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/zh-cn/docs/deployment.html</loc>
+    <loc>https://hexo.io/zh-cn/docs/contributing.html</loc>
     
     <lastmod>2019-01-08T10:02:40.000Z</lastmod>
     
@@ -219,6 +212,13 @@
   </url>
   
   <url>
+    <loc>https://hexo.io/zh-cn/docs/generating.html</loc>
+    
+    <lastmod>2019-01-08T10:02:40.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://hexo.io/zh-cn/docs/permalinks.html</loc>
     
     <lastmod>2019-01-08T10:02:40.000Z</lastmod>
@@ -233,14 +233,14 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/zh-cn/docs/plugins.html</loc>
+    <loc>https://hexo.io/zh-cn/docs/server.html</loc>
     
     <lastmod>2019-01-08T10:02:40.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://hexo.io/zh-cn/docs/server.html</loc>
+    <loc>https://hexo.io/zh-cn/docs/plugins.html</loc>
     
     <lastmod>2019-01-08T10:02:40.000Z</lastmod>
     
@@ -261,13 +261,6 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/zh-cn/docs/templates.html</loc>
-    
-    <lastmod>2019-01-08T10:02:40.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://hexo.io/zh-cn/docs/themes.html</loc>
     
     <lastmod>2019-01-08T10:02:40.000Z</lastmod>
@@ -275,7 +268,7 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/zh-cn/docs/troubleshooting.html</loc>
+    <loc>https://hexo.io/zh-cn/docs/templates.html</loc>
     
     <lastmod>2019-01-08T10:02:40.000Z</lastmod>
     
@@ -289,6 +282,13 @@
   </url>
   
   <url>
+    <loc>https://hexo.io/zh-cn/docs/troubleshooting.html</loc>
+    
+    <lastmod>2019-01-08T10:02:40.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://hexo.io/zh-cn/index.html</loc>
     
     <lastmod>2019-01-08T10:02:40.000Z</lastmod>
@@ -296,14 +296,7 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/zh-tw/api/box.html</loc>
-    
-    <lastmod>2019-01-08T10:02:40.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://hexo.io/zh-cn/docs/writing.html</loc>
+    <loc>https://hexo.io/zh-cn/docs/helpers.html</loc>
     
     <lastmod>2019-01-08T10:02:40.000Z</lastmod>
     
@@ -311,6 +304,20 @@
   
   <url>
     <loc>https://hexo.io/zh-tw/api/deployer.html</loc>
+    
+    <lastmod>2019-01-08T10:02:40.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hexo.io/zh-tw/api/console.html</loc>
+    
+    <lastmod>2019-01-08T10:02:40.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hexo.io/zh-tw/api/box.html</loc>
     
     <lastmod>2019-01-08T10:02:40.000Z</lastmod>
     
@@ -359,13 +366,6 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/zh-tw/api/posts.html</loc>
-    
-    <lastmod>2019-01-08T10:02:40.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://hexo.io/zh-tw/api/migrator.html</loc>
     
     <lastmod>2019-01-08T10:02:40.000Z</lastmod>
@@ -380,7 +380,7 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/zh-tw/api/renderer.html</loc>
+    <loc>https://hexo.io/zh-tw/api/posts.html</loc>
     
     <lastmod>2019-01-08T10:02:40.000Z</lastmod>
     
@@ -388,6 +388,13 @@
   
   <url>
     <loc>https://hexo.io/zh-tw/api/rendering.html</loc>
+    
+    <lastmod>2019-01-08T10:02:40.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hexo.io/zh-tw/api/renderer.html</loc>
     
     <lastmod>2019-01-08T10:02:40.000Z</lastmod>
     
@@ -429,7 +436,7 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/zh-tw/docs/commands.html</loc>
+    <loc>https://hexo.io/zh-tw/docs/contributing.html</loc>
     
     <lastmod>2019-01-08T10:02:40.000Z</lastmod>
     
@@ -443,7 +450,21 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/zh-tw/docs/contributing.html</loc>
+    <loc>https://hexo.io/zh-tw/docs/data-files.html</loc>
+    
+    <lastmod>2019-01-08T10:02:40.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hexo.io/zh-tw/docs/commands.html</loc>
+    
+    <lastmod>2019-01-08T10:02:40.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hexo.io/zh-tw/docs/index.html</loc>
     
     <lastmod>2019-01-08T10:02:40.000Z</lastmod>
     
@@ -464,28 +485,7 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/zh-tw/docs/data-files.html</loc>
-    
-    <lastmod>2019-01-08T10:02:40.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://hexo.io/zh-tw/docs/generating.html</loc>
-    
-    <lastmod>2019-01-08T10:02:40.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://hexo.io/zh-tw/docs/index.html</loc>
-    
-    <lastmod>2019-01-08T10:02:40.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://hexo.io/zh-tw/docs/migration.html</loc>
     
     <lastmod>2019-01-08T10:02:40.000Z</lastmod>
     
@@ -499,14 +499,7 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/zh-tw/docs/permalinks.html</loc>
-    
-    <lastmod>2019-01-08T10:02:40.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://hexo.io/zh-tw/docs/plugins.html</loc>
+    <loc>https://hexo.io/zh-tw/docs/migration.html</loc>
     
     <lastmod>2019-01-08T10:02:40.000Z</lastmod>
     
@@ -520,6 +513,13 @@
   </url>
   
   <url>
+    <loc>https://hexo.io/zh-tw/docs/permalinks.html</loc>
+    
+    <lastmod>2019-01-08T10:02:40.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://hexo.io/zh-tw/docs/setup.html</loc>
     
     <lastmod>2019-01-08T10:02:40.000Z</lastmod>
@@ -527,7 +527,7 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/zh-tw/docs/themes.html</loc>
+    <loc>https://hexo.io/zh-tw/docs/plugins.html</loc>
     
     <lastmod>2019-01-08T10:02:40.000Z</lastmod>
     
@@ -541,14 +541,21 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/zh-tw/docs/troubleshooting.html</loc>
+    <loc>https://hexo.io/zh-tw/docs/templates.html</loc>
     
     <lastmod>2019-01-08T10:02:40.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://hexo.io/zh-tw/docs/templates.html</loc>
+    <loc>https://hexo.io/zh-tw/docs/themes.html</loc>
+    
+    <lastmod>2019-01-08T10:02:40.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hexo.io/zh-tw/docs/troubleshooting.html</loc>
     
     <lastmod>2019-01-08T10:02:40.000Z</lastmod>
     
@@ -569,14 +576,7 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/zh-cn/docs/helpers.html</loc>
-    
-    <lastmod>2019-01-08T10:02:40.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://hexo.io/ko/docs/deployment.html</loc>
+    <loc>https://hexo.io/ko/docs/contributing.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
@@ -584,6 +584,13 @@
   
   <url>
     <loc>https://hexo.io/ko/docs/front-matter.html</loc>
+    
+    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hexo.io/ko/docs/index.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
@@ -604,7 +611,7 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/ko/docs/index.html</loc>
+    <loc>https://hexo.io/ko/docs/migration.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
@@ -618,7 +625,7 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/ko/docs/migration.html</loc>
+    <loc>https://hexo.io/ko/docs/plugins.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
@@ -632,28 +639,7 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/ko/docs/plugins.html</loc>
-    
-    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://hexo.io/ko/docs/tag-plugins.html</loc>
-    
-    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://hexo.io/ko/docs/setup.html</loc>
-    
-    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://hexo.io/ko/docs/themes.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
@@ -667,7 +653,14 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/ko/docs/variables.html</loc>
+    <loc>https://hexo.io/ko/docs/themes.html</loc>
+    
+    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hexo.io/ko/docs/tag-plugins.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
@@ -688,14 +681,7 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/pt-br/api/events.html</loc>
-    
-    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://hexo.io/pt-br/api/console.html</loc>
+    <loc>https://hexo.io/ko/docs/variables.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
@@ -716,14 +702,21 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/pt-br/api/filter.html</loc>
+    <loc>https://hexo.io/pt-br/api/console.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://hexo.io/pt-br/api/generator.html</loc>
+    <loc>https://hexo.io/pt-br/api/events.html</loc>
+    
+    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hexo.io/pt-br/api/filter.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
@@ -744,7 +737,7 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/pt-br/api/locals.html</loc>
+    <loc>https://hexo.io/pt-br/api/generator.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
@@ -758,21 +751,21 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/pt-br/api/processor.html</loc>
-    
-    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://hexo.io/pt-br/api/renderer.html</loc>
-    
-    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://hexo.io/pt-br/api/posts.html</loc>
+    
+    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hexo.io/pt-br/api/locals.html</loc>
+    
+    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hexo.io/pt-br/api/processor.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
@@ -786,7 +779,7 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/pt-br/api/scaffolds.html</loc>
+    <loc>https://hexo.io/pt-br/api/renderer.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
@@ -800,7 +793,14 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/pt-br/api/themes.html</loc>
+    <loc>https://hexo.io/pt-br/api/scaffolds.html</loc>
+    
+    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hexo.io/pt-br/docs/asset-folders.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
@@ -814,7 +814,7 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/pt-br/docs/asset-folders.html</loc>
+    <loc>https://hexo.io/pt-br/api/themes.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
@@ -835,13 +835,6 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/pt-br/docs/configuration.html</loc>
-    
-    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://hexo.io/pt-br/docs/data-files.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
@@ -849,7 +842,7 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/pt-br/docs/deployment.html</loc>
+    <loc>https://hexo.io/pt-br/docs/configuration.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
@@ -857,6 +850,13 @@
   
   <url>
     <loc>https://hexo.io/pt-br/docs/front-matter.html</loc>
+    
+    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hexo.io/pt-br/docs/deployment.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
@@ -877,13 +877,6 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/pt-br/docs/internationalization.html</loc>
-    
-    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://hexo.io/pt-br/docs/migration.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
@@ -891,7 +884,7 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/pt-br/docs/permalinks.html</loc>
+    <loc>https://hexo.io/pt-br/docs/internationalization.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
@@ -905,13 +898,6 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/pt-br/docs/server.html</loc>
-    
-    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://hexo.io/pt-br/docs/setup.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
@@ -919,7 +905,14 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/pt-br/docs/templates.html</loc>
+    <loc>https://hexo.io/pt-br/docs/permalinks.html</loc>
+    
+    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hexo.io/pt-br/docs/server.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
@@ -933,13 +926,6 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/pt-br/docs/themes.html</loc>
-    
-    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://hexo.io/pt-br/docs/troubleshooting.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
@@ -947,7 +933,21 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/ru/api/box.html</loc>
+    <loc>https://hexo.io/pt-br/docs/themes.html</loc>
+    
+    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hexo.io/pt-br/docs/templates.html</loc>
+    
+    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hexo.io/pt-br/docs/variables.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
@@ -961,7 +961,7 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/pt-br/docs/variables.html</loc>
+    <loc>https://hexo.io/ru/api/box.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
@@ -982,14 +982,14 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/ru/api/events.html</loc>
+    <loc>https://hexo.io/ru/api/filter.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://hexo.io/ru/api/filter.html</loc>
+    <loc>https://hexo.io/ru/api/events.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
@@ -1024,13 +1024,6 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/ru/api/posts.html</loc>
-    
-    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://hexo.io/ru/api/locals.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
@@ -1045,7 +1038,21 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/news/2015/02/27/new-documentation-and-registry/</loc>
+    <loc>https://hexo.io/ru/api/posts.html</loc>
+    
+    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hexo.io/news/2014/07/13/hexo-2-8-released/</loc>
+    
+    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hexo.io/ru/api/renderer.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
@@ -1059,7 +1066,7 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/ru/api/rendering.html</loc>
+    <loc>https://hexo.io/ru/api/tag.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
@@ -1073,13 +1080,6 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/ru/docs/asset-folders.html</loc>
-    
-    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://hexo.io/ru/api/themes.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
@@ -1087,14 +1087,7 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/ru/api/tag.html</loc>
-    
-    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://hexo.io/ru/docs/commands.html</loc>
+    <loc>https://hexo.io/ru/docs/asset-folders.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
@@ -1108,13 +1101,6 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/ru/docs/data-files.html</loc>
-    
-    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://hexo.io/ru/docs/contributing.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
@@ -1122,7 +1108,14 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/ru/docs/deployment.html</loc>
+    <loc>https://hexo.io/ru/docs/commands.html</loc>
+    
+    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hexo.io/ru/docs/data-files.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
@@ -1136,13 +1129,6 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/ru/docs/index.html</loc>
-    
-    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://hexo.io/ru/docs/generating.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
@@ -1150,7 +1136,14 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/ru/docs/migration.html</loc>
+    <loc>https://hexo.io/ru/docs/index.html</loc>
+    
+    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hexo.io/ru/docs/deployment.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
@@ -1164,14 +1157,14 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/ru/docs/permalinks.html</loc>
+    <loc>https://hexo.io/ru/docs/migration.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://hexo.io/ru/docs/plugins.html</loc>
+    <loc>https://hexo.io/ru/docs/permalinks.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
@@ -1185,13 +1178,6 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/ru/docs/tag-plugins.html</loc>
-    
-    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://hexo.io/ru/docs/setup.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
@@ -1199,7 +1185,7 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/ru/docs/templates.html</loc>
+    <loc>https://hexo.io/ru/docs/plugins.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
@@ -1213,7 +1199,14 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/ru/docs/variables.html</loc>
+    <loc>https://hexo.io/ru/docs/templates.html</loc>
+    
+    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hexo.io/ru/docs/tag-plugins.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
@@ -1227,6 +1220,13 @@
   </url>
   
   <url>
+    <loc>https://hexo.io/th/api/box.html</loc>
+    
+    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://hexo.io/ru/docs/writing.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
@@ -1234,7 +1234,7 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/th/api/box.html</loc>
+    <loc>https://hexo.io/ru/docs/variables.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
@@ -1276,7 +1276,7 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/th/api/index.html</loc>
+    <loc>https://hexo.io/th/api/generator.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
@@ -1290,14 +1290,7 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/th/api/generator.html</loc>
-    
-    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://hexo.io/th/api/migrator.html</loc>
+    <loc>https://hexo.io/th/api/index.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
@@ -1311,14 +1304,7 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/th/api/processor.html</loc>
-    
-    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://hexo.io/th/api/rendering.html</loc>
+    <loc>https://hexo.io/th/api/migrator.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
@@ -1332,13 +1318,6 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/th/api/scaffolds.html</loc>
-    
-    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://hexo.io/th/api/router.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
@@ -1346,7 +1325,7 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/th/api/themes.html</loc>
+    <loc>https://hexo.io/th/api/rendering.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
@@ -1354,6 +1333,13 @@
   
   <url>
     <loc>https://hexo.io/th/api/tag.html</loc>
+    
+    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hexo.io/th/api/scaffolds.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
@@ -1374,6 +1360,13 @@
   </url>
   
   <url>
+    <loc>https://hexo.io/th/api/processor.html</loc>
+    
+    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://hexo.io/th/docs/configuration.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
@@ -1381,14 +1374,7 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/th/docs/contributing.html</loc>
-    
-    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://hexo.io/th/docs/data-files.html</loc>
+    <loc>https://hexo.io/th/api/themes.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
@@ -1402,6 +1388,20 @@
   </url>
   
   <url>
+    <loc>https://hexo.io/th/docs/data-files.html</loc>
+    
+    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hexo.io/th/docs/contributing.html</loc>
+    
+    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://hexo.io/th/docs/index.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
@@ -1409,21 +1409,14 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/th/docs/generating.html</loc>
-    
-    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://hexo.io/th/docs/migration.html</loc>
-    
-    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://hexo.io/th/docs/internationalization.html</loc>
+    
+    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hexo.io/th/docs/generating.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
@@ -1444,14 +1437,14 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/th/docs/setup.html</loc>
+    <loc>https://hexo.io/th/docs/server.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://hexo.io/th/docs/server.html</loc>
+    <loc>https://hexo.io/th/docs/migration.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
@@ -1472,7 +1465,7 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/th/docs/writing.html</loc>
+    <loc>https://hexo.io/th/docs/setup.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
@@ -1486,21 +1479,7 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/th/docs/deployment.html</loc>
-    
-    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://hexo.io/th/docs/tag-plugins.html</loc>
-    
-    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://hexo.io/th/docs/troubleshooting.html</loc>
+    <loc>https://hexo.io/th/docs/writing.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
@@ -1535,14 +1514,14 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/news/2018/12/26/hexo-autoprefixer-2-0-0_released/</loc>
+    <loc>https://hexo.io/news/2018/12/12/hexo-filter-responsive-images-1-4-0_1-4-1_hexo-asset-pipeline-1-7-0_released/</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://hexo.io/news/2018/12/12/hexo-filter-responsive-images-1-4-0_1-4-1_hexo-asset-pipeline-1-7-0_released/</loc>
+    <loc>https://hexo.io/news/2018/12/26/hexo-autoprefixer-2-0-0_released/</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
@@ -1577,14 +1556,14 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/api/deployer.html</loc>
+    <loc>https://hexo.io/api/events.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://hexo.io/api/events.html</loc>
+    <loc>https://hexo.io/api/deployer.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
@@ -1605,13 +1584,6 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/api/helper.html</loc>
-    
-    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://hexo.io/api/index.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
@@ -1619,7 +1591,7 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/api/migrator.html</loc>
+    <loc>https://hexo.io/api/helper.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
@@ -1633,7 +1605,7 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/api/posts.html</loc>
+    <loc>https://hexo.io/api/migrator.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
@@ -1641,6 +1613,20 @@
   
   <url>
     <loc>https://hexo.io/api/processor.html</loc>
+    
+    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hexo.io/api/posts.html</loc>
+    
+    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hexo.io/api/renderer.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
@@ -1668,20 +1654,6 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/api/renderer.html</loc>
-    
-    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://hexo.io/api/themes.html</loc>
-    
-    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://hexo.io/api/tag.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
@@ -1689,14 +1661,7 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/docs/configuration.html</loc>
-    
-    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://hexo.io/docs/contributing.html</loc>
+    <loc>https://hexo.io/api/themes.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
@@ -1717,14 +1682,7 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/docs/front-matter.html</loc>
-    
-    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://hexo.io/docs/generating.html</loc>
+    <loc>https://hexo.io/docs/configuration.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
@@ -1738,6 +1696,13 @@
   </url>
   
   <url>
+    <loc>https://hexo.io/docs/contributing.html</loc>
+    
+    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://hexo.io/docs/deployment.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
@@ -1745,7 +1710,28 @@
   </url>
   
   <url>
+    <loc>https://hexo.io/docs/generating.html</loc>
+    
+    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://hexo.io/docs/index.html</loc>
+    
+    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hexo.io/docs/front-matter.html</loc>
+    
+    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hexo.io/docs/internationalization.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
@@ -1766,21 +1752,28 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/docs/internationalization.html</loc>
-    
-    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://hexo.io/docs/setup.html</loc>
-    
-    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://hexo.io/docs/plugins.html</loc>
+    
+    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hexo.io/th/docs/deployment.html</loc>
+    
+    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hexo.io/th/docs/tag-plugins.html</loc>
+    
+    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hexo.io/th/docs/troubleshooting.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
@@ -1794,14 +1787,14 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/docs/themes.html</loc>
+    <loc>https://hexo.io/docs/tag-plugins.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://hexo.io/docs/tag-plugins.html</loc>
+    <loc>https://hexo.io/docs/setup.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
@@ -1815,14 +1808,21 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/docs/writing.html</loc>
+    <loc>https://hexo.io/docs/troubleshooting.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://hexo.io/docs/troubleshooting.html</loc>
+    <loc>https://hexo.io/docs/themes.html</loc>
+    
+    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hexo.io/docs/writing.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
@@ -1836,13 +1836,6 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/ko/index.html</loc>
-    
-    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://hexo.io/plugins/index.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
@@ -1850,7 +1843,7 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/pt-br/index.html</loc>
+    <loc>https://hexo.io/ko/index.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
@@ -1864,21 +1857,14 @@
   </url>
   
   <url>
+    <loc>https://hexo.io/pt-br/index.html</loc>
+    
+    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://hexo.io/themes/index.html</loc>
-    
-    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://hexo.io/news/2014/06/14/hexo-2-7-released/</loc>
-    
-    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://hexo.io/news/2014/07/13/hexo-2-8-released/</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
@@ -1892,6 +1878,20 @@
   </url>
   
   <url>
+    <loc>https://hexo.io/news/2014/06/14/hexo-2-7-released/</loc>
+    
+    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hexo.io/news/2015/02/27/new-documentation-and-registry/</loc>
+    
+    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://hexo.io/docs/helpers.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
@@ -1899,14 +1899,14 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/ko/api/box.html</loc>
+    <loc>https://hexo.io/ko/api/console.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://hexo.io/ko/api/console.html</loc>
+    <loc>https://hexo.io/ko/api/box.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
@@ -1927,13 +1927,6 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/ko/api/filter.html</loc>
-    
-    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://hexo.io/ko/api/generator.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
@@ -1941,7 +1934,7 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/ko/api/helper.html</loc>
+    <loc>https://hexo.io/ko/api/filter.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
@@ -1949,6 +1942,13 @@
   
   <url>
     <loc>https://hexo.io/ko/api/index.html</loc>
+    
+    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hexo.io/ko/api/helper.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
@@ -1976,7 +1976,7 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/ko/api/processor.html</loc>
+    <loc>https://hexo.io/ko/api/router.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
@@ -1990,14 +1990,7 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/ko/api/rendering.html</loc>
-    
-    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://hexo.io/ko/api/router.html</loc>
+    <loc>https://hexo.io/ko/api/processor.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
@@ -2011,6 +2004,13 @@
   </url>
   
   <url>
+    <loc>https://hexo.io/ko/api/rendering.html</loc>
+    
+    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://hexo.io/ko/api/tag.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
@@ -2018,14 +2018,14 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/ko/api/themes.html</loc>
+    <loc>https://hexo.io/ko/docs/asset-folders.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://hexo.io/ko/docs/asset-folders.html</loc>
+    <loc>https://hexo.io/ko/api/themes.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
@@ -2046,7 +2046,14 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/ko/docs/contributing.html</loc>
+    <loc>https://hexo.io/ko/docs/data-files.html</loc>
+    
+    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hexo.io/ko/docs/deployment.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
@@ -2081,14 +2088,7 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/ko/docs/data-files.html</loc>
-    
-    <lastmod>2019-01-08T10:02:39.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://hexo.io/ru/api/renderer.html</loc>
+    <loc>https://hexo.io/ru/api/rendering.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
