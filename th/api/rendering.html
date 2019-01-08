@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="th">
+<head prefix="og: http://ogp.me/ns#"><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <title>Rendering | Hexo</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://hexo.io/th/api/rendering.html">
+  <!-- Alternative links -->
+  
+    
+      <link rel="alternative" hreflang="en" href="https://hexo.io/api/rendering.html">
+    
+      <link rel="alternative" hreflang="zh-tw" href="https://hexo.io/zh-tw/api/rendering.html">
+    
+      <link rel="alternative" hreflang="zh-cn" href="https://hexo.io/zh-cn/api/rendering.html">
+    
+      <link rel="alternative" hreflang="ru" href="https://hexo.io/ru/api/rendering.html">
+    
+      <link rel="alternative" hreflang="ko" href="https://hexo.io/ko/api/rendering.html">
+    
+      <link rel="alternative" hreflang="pt-br" href="https://hexo.io/pt-br/api/rendering.html">
+    
+      <link rel="alternative" hreflang="th" href="https://hexo.io/th/api/rendering.html">
+    
+  
+  <!-- Icon -->
+  <link rel="apple-touch-icon" sizes="57x57" href="/icon/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/icon/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/icon/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/icon/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/icon/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/icon/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/icon/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/icon/apple-touch-icon-152x152.png">
+  <link rel="icon" type="image/png" href="/icon/favicon-196x196.png" sizes="196x196">
+  <link rel="icon" type="image/png" href="/icon/favicon-160x160.png" sizes="160x160">
+  <link rel="icon" type="image/png" href="/icon/favicon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/png" href="/icon/favicon-16x16.png" sizes="16x16">
+  <link rel="icon" type="image/png" href="/icon/favicon-32x32.png" sizes="32x32">
+  <meta name="msapplication-TileColor" content="#2f83cd">
+  <meta name="msapplication-TileImage" content="/icon/mstile-144x144.png">
+  <!-- CSS -->
+  <!-- build:css build/css/navy.css -->
+  <link rel="stylesheet" href="/css/navy.css">
+  <!-- endbuild -->
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css">
+  <!-- RSS -->
+  <link rel="alternate" href="/atom.xml" title="Hexo">
+  <!-- Open Graph -->
+  <meta name="description" content="มีทั้งหมดสองวิธีสำหรับการ render ไฟล์หรือ string ใน hexo : hexo.render.renderท่ีเป็น asynchronous และวิธี hexo.render.renderSync ท่ีเป็น  synchronous เนื่องจากว่าสองวิธีนี้คล้ายกันมาก ก็เลยมีการอธิบาย">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Rendering">
+<meta property="og:url" content="https://hexo.io/th/api/rendering.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="มีทั้งหมดสองวิธีสำหรับการ render ไฟล์หรือ string ใน hexo : hexo.render.renderท่ีเป็น asynchronous และวิธี hexo.render.renderSync ท่ีเป็น  synchronous เนื่องจากว่าสองวิธีนี้คล้ายกันมาก ก็เลยมีการอธิบาย">
+<meta property="og:locale" content="th">
+<meta property="og:updated_time" content="2019-01-08T10:02:39.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Rendering">
+<meta name="twitter:description" content="มีทั้งหมดสองวิธีสำหรับการ render ไฟล์หรือ string ใน hexo : hexo.render.renderท่ีเป็น asynchronous และวิธี hexo.render.renderSync ท่ีเป็น  synchronous เนื่องจากว่าสองวิธีนี้คล้ายกันมาก ก็เลยมีการอธิบาย">
+<meta name="twitter:site" content="hexojs">
+<meta property="fb:admins" content="100000247608790">
+  <!-- Google Analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-48498357-3', 'auto');
+  ga('send', 'pageview');
+</script>
+
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-6482217598104186",
+          enable_page_level_ads: true
+     });
+  </script>
+</head>
+
+<body>
+  <div id="container">
+    <header id="header" class="wrapper">
+  <div id="header-inner" class="inner">
+    <h1 id="logo-wrap">
+      <a href="/th/" id="logo">Hexo</a>
+    </h1>
+    <nav id="main-nav">
+      <a href="/th/docs/" class="main-nav-link">Docs</a><a href="/th/api/" class="main-nav-link">API</a><a href="/news/" class="main-nav-link">ข่าวสาร</a><a href="/plugins/" class="main-nav-link">ปลั๊กอิน</a><a href="/themes/" class="main-nav-link">ธีม</a>
+      <a href="https://github.com/hexojs/hexo" class="main-nav-link"><i class="fa fa-github-alt"></i></a>
+      <div id="search-input-wrap">
+        <div id="search-input-icon">
+          <i class="fa fa-search"></i>
+        </div>
+        <input type="search" id="search-input" placeholder="Search...">
+      </div>
+    </nav>
+    <div id="lang-select-wrap">
+      <label id="lang-select-label"><i class="fa fa-globe"></i><span>ภาษาไทย</span></label>
+      <select id="lang-select" data-canonical="api/rendering.html">
+        
+          <option value="en">English</option>
+        
+          <option value="zh-tw">正體中文</option>
+        
+          <option value="zh-cn">简体中文</option>
+        
+          <option value="ru">Русский</option>
+        
+          <option value="ko">한국어</option>
+        
+          <option value="pt-br">Português (Brasil)</option>
+        
+          <option value="th" selected>ภาษาไทย</option>
+        
+      </select>
+    </div>
+    <a id="mobile-nav-toggle">
+      <span class="mobile-nav-toggle-bar"></span>
+      <span class="mobile-nav-toggle-bar"></span>
+      <span class="mobile-nav-toggle-bar"></span>
+    </a>
+  </div>
+</header>
+
+    <div id="content-wrap">
+  <div id="content" class="wrapper">
+    <div id="content-inner">
+      <article class="article-container" itemscope itemtype="http://schema.org/Article">
+        <div class="article-inner">
+          <div class="article">
+            <div class="inner">
+              <header class="article-header">
+                <h1 class="article-title" itemprop="name">Rendering</h1>
+                <a href="https://github.com/hexojs/site/edit/master/source/th/api/rendering.md" class="article-edit-link" title="Improve this doc"><i class="fa fa-pencil"></i></a>
+              </header>
+              <div class="article-content" itemprop="articleBody">
+                <p>มีทั้งหมดสองวิธีสำหรับการ render ไฟล์หรือ string ใน hexo : <code>hexo.render.render</code>ท่ีเป็น asynchronous และวิธี <code>hexo.render.renderSync</code> ท่ีเป็น  synchronous เนื่องจากว่าสองวิธีนี้คล้ายกันมาก ก็เลยมีการอธิบายแต่ <code>hexo.render.render</code> ท่ีเป็นวิธี asynchronous เท่านั้นในย่อหน้าต่อไป</p>
+<h2 id="Render-a-String" class="article-heading"><a href="#Render-a-String" class="headerlink" title="Render a String"></a>Render a String<a class="article-anchor" href="#Render-a-String" aria-hidden="true"></a></h2><p>เวลา render string ผู้ใช้ต้องบ่งชี้ถึง <code>engine</code> ท่ีชัดเจนเพื่อทำให้ hexo เข้าใจว่าต้องใช้ rendering engine ตัวใหน</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">hexo.render.render(&#123;<span class="attr">text</span>: <span class="string">'example'</span>, <span class="attr">engine</span>: <span class="string">'swig'</span>&#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params">result</span>)</span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="Render-a-File" class="article-heading"><a href="#Render-a-File" class="headerlink" title="Render a File"></a>Render a File<a class="article-anchor" href="#Render-a-File" aria-hidden="true"></a></h2><p>เมื่อ render ไฟล์ จะไม่ต้องชี้ <code>engine</code> ให้ชั้ดเจน เพราะว่า hexo จะค้นหา rendering engine ท่ีเกี่ยวข้องตาม extension ของไฟล์โดยอัตโนมัติ แต่ถ้าชี้ <code>engine</code> ให้ชั้ดเจนก็ไม่มีปัญหา</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">hexo.render.render(&#123;<span class="attr">path</span>: <span class="string">'path/to/file.swig'</span>&#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params">result</span>)</span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="Render-Options" class="article-heading"><a href="#Render-Options" class="headerlink" title="Render Options"></a>Render Options<a class="article-anchor" href="#Render-Options" aria-hidden="true"></a></h2><p>ผู้ใช้สามารถส่ง options object เข้าไปเป็น argument ท่ีสอง</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">hexo.render.render(&#123;<span class="attr">text</span>: <span class="string">''</span>&#125;, &#123;<span class="attr">foo</span>: <span class="string">'foo'</span>&#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params">result</span>)</span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="after-render-Filters" class="article-heading"><a href="#after-render-Filters" class="headerlink" title="after_render Filters"></a>after_render Filters<a class="article-anchor" href="#after-render-Filters" aria-hidden="true"></a></h2><p>เมื่อเสร็จการ rendering hexo จะ execute filter <code>after_render</code> ยกตัวอย่างเช่น ผู้ใช้สามารถ implement a JavaScript minifier ด้วยลักษณะนี้</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> UglifyJS = <span class="built_in">require</span>(<span class="string">'uglify-js'</span>);</span><br><span class="line"></span><br><span class="line">hexo.extend.filter.register(<span class="string">'after_render:js'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">str, data</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> result = UglifyJS.minify(str);</span><br><span class="line">  <span class="keyword">return</span> result.code;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="Check-Whether-a-File-is-Renderable" class="article-heading"><a href="#Check-Whether-a-File-is-Renderable" class="headerlink" title="Check Whether a File is Renderable"></a>Check Whether a File is Renderable<a class="article-anchor" href="#Check-Whether-a-File-is-Renderable" aria-hidden="true"></a></h2><p>ผู้ใช้สามารถใช้วิธี <code>isRenderable</code> หรือ  <code>isRenderableSync</code> ไปตรวจว่าไฟล์นั้น renderable  หรือไม่ เมื่อมี renderer ท่ีเกี่ยวข้อง ผลท่ีส่งกลับจะเป็น true</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">hexo.render.isRenderable(<span class="string">'layout.swig'</span>) <span class="comment">// true</span></span><br><span class="line">hexo.render.isRenderable(<span class="string">'image.png'</span>) <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+<h2 id="Get-the-Output-Extension" class="article-heading"><a href="#Get-the-Output-Extension" class="headerlink" title="Get the Output Extension"></a>Get the Output Extension<a class="article-anchor" href="#Get-the-Output-Extension" aria-hidden="true"></a></h2><p> ผู้ใช้สามารถได้ rendered output  ด้วยวิธี <code>getOutput</code>   ถ้าไฟล์ไม่ใช่  renderable ผลท่ีส่งกลับด้วยวิธีนี้จะเป็น empty string</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">hexo.render.getOutput(<span class="string">'layout.swig'</span>) <span class="comment">// html</span></span><br><span class="line">hexo.render.getOutput(<span class="string">'image.png'</span>) <span class="comment">// '''</span></span><br></pre></td></tr></table></figure>
+
+              </div>
+              <footer class="article-footer">
+                <time class="article-footer-updated" datetime="2019-01-08T10:02:39.000Z" itemprop="dateModified">Last updated: 2019-01-08</time>
+                <a href="box.html" class="article-footer-prev" title="Box"><i class="fa fa-chevron-left"></i><span>Prev</span></a><a href="posts.html" class="article-footer-next" title="Posts"><span>Next</span><i class="fa fa-chevron-right"></i></a>
+              </footer>
+              
+<section id="comments">
+  <div id="disqus_thread"></div>
+</section>
+<script>
+  var disqus_shortname = 'hexojs';
+  var disqus_url = 'https://hexo.io/th/api/rendering.html';
+  var disqus_title = "Rendering";
+  var disqus_config = function(){
+    this.language = 'th';
+  };
+  (function(){
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'https://go.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+            </div>
+          </div>
+          <aside id="article-toc" role="navigation">
+            <div id="article-toc-inner">
+              <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=hexoio" id="_carbonads_js"></script>
+              <strong class="sidebar-title">Contents</strong>
+              <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Render-a-String"><span class="toc-text">Render a String</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Render-a-File"><span class="toc-text">Render a File</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Render-Options"><span class="toc-text">Render Options</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#after-render-Filters"><span class="toc-text">after_render Filters</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Check-Whether-a-File-is-Renderable"><span class="toc-text">Check Whether a File is Renderable</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Get-the-Output-Extension"><span class="toc-text">Get the Output Extension</span></a></li></ol>
+              <a href="#" id="article-toc-top">Back to Top</a>
+            </div>
+          </aside>
+        </div>
+      </article>
+      <aside id="sidebar" role="navigation">
+  <div class="inner">
+    <strong class="sidebar-title">Core</strong><a href="index.html" class="sidebar-link">Overview</a><a href="events.html" class="sidebar-link">Events</a><a href="locals.html" class="sidebar-link">Locals</a><a href="router.html" class="sidebar-link">Router</a><a href="box.html" class="sidebar-link">Box</a><a href="rendering.html" class="sidebar-link current">Rendering</a><a href="posts.html" class="sidebar-link">Posts</a><a href="scaffolds.html" class="sidebar-link">Scaffolds</a><a href="themes.html" class="sidebar-link">Themes</a><strong class="sidebar-title">Extensions</strong><a href="console.html" class="sidebar-link">Console</a><a href="deployer.html" class="sidebar-link">Deployer</a><a href="filter.html" class="sidebar-link">Filter</a><a href="generator.html" class="sidebar-link">Generator</a><a href="helper.html" class="sidebar-link">Helper</a><a href="migrator.html" class="sidebar-link">Migrator</a><a href="processor.html" class="sidebar-link">Processor</a><a href="renderer.html" class="sidebar-link">Renderer</a><a href="tag.html" class="sidebar-link">Tag</a>
+  </div>
+</aside>
+    </div>
+  </div>
+</div>
+
+    <footer id="footer" class="wrapper">
+  <div class="inner">
+    <div id="footer-copyright">
+      &copy; 2019 <a href="https://github.com/hexojs/hexo/graphs/contributors" target="_blank">Hexo</a><br>
+      Documentation licensed under <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a>.
+    </div>
+    <div id="footer-links">
+      <a href="https://twitter.com/hexojs" class="footer-link" target="_blank"><i class="fa fa-twitter"></i></a>
+      <a href="https://github.com/hexojs/hexo" class="footer-link" target="_blank"><i class="fa fa-github-alt"></i></a>
+    </div>
+  </div>
+</footer>
+
+  </div>
+  <div id="mobile-nav-dimmer"></div>
+  <nav id="mobile-nav">
+  <div id="mobile-nav-inner">
+    <ul id="mobile-nav-list">
+      <a href="/th/docs/" class="mobile-nav-link">Docs</a><a href="/th/api/" class="mobile-nav-link">API</a><a href="/news/" class="mobile-nav-link">ข่าวสาร</a><a href="/plugins/" class="mobile-nav-link">ปลั๊กอิน</a><a href="/themes/" class="mobile-nav-link">ธีม</a>
+      <li class="mobile-nav-item">
+        <a href="https://github.com/hexojs/hexo" class="mobile-nav-link" rel="external" target="_blank">GitHub</a>
+      </li>
+    </ul>
+    
+      <strong class="mobile-nav-title">Core</strong><a href="index.html" class="mobile-nav-link">Overview</a><a href="events.html" class="mobile-nav-link">Events</a><a href="locals.html" class="mobile-nav-link">Locals</a><a href="router.html" class="mobile-nav-link">Router</a><a href="box.html" class="mobile-nav-link">Box</a><a href="rendering.html" class="mobile-nav-link current">Rendering</a><a href="posts.html" class="mobile-nav-link">Posts</a><a href="scaffolds.html" class="mobile-nav-link">Scaffolds</a><a href="themes.html" class="mobile-nav-link">Themes</a><strong class="mobile-nav-title">Extensions</strong><a href="console.html" class="mobile-nav-link">Console</a><a href="deployer.html" class="mobile-nav-link">Deployer</a><a href="filter.html" class="mobile-nav-link">Filter</a><a href="generator.html" class="mobile-nav-link">Generator</a><a href="helper.html" class="mobile-nav-link">Helper</a><a href="migrator.html" class="mobile-nav-link">Migrator</a><a href="processor.html" class="mobile-nav-link">Processor</a><a href="renderer.html" class="mobile-nav-link">Renderer</a><a href="tag.html" class="mobile-nav-link">Tag</a>
+    
+  </div>
+  <div id="mobile-lang-select-wrap">
+    <span id="mobile-lang-select-label"><i class="fa fa-globe"></i><span>ภาษาไทย</span></span>
+    <select id="mobile-lang-select" data-canonical="api/rendering.html">
+      
+        <option value="en">English</option>
+      
+        <option value="zh-tw">正體中文</option>
+      
+        <option value="zh-cn">简体中文</option>
+      
+        <option value="ru">Русский</option>
+      
+        <option value="ko">한국어</option>
+      
+        <option value="pt-br">Português (Brasil)</option>
+      
+        <option value="th" selected>ภาษาไทย</option>
+      
+    </select>
+  </div>
+</nav>
+  <!-- Scripts -->
+<!-- Cookie -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.min.js"></script>
+<!-- build:js build/js/main.js -->
+<script src="/js/lang_select.js"></script>
+<script src="/js/toc.js"></script>
+<script src="/js/mobile_nav.js"></script>
+<!-- endbuild -->
+
+<!-- Algolia -->
+
+
+</body>
+</html>
