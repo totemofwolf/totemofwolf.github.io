@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://hexo.io/news/2019/01/12/Build-openvpn.html</loc>
+    
+    <lastmod>2019-01-13T12:48:42.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hexo.io/news/2019/01/13/speedup-typecho-using-memcached.html</loc>
+    
+    <lastmod>2019-01-13T06:01:15.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://hexo.io/news/2019/01/13/nginx-proxy-pass-keepalive-settings.html</loc>
     
     <lastmod>2019-01-13T02:30:42.000Z</lastmod>
@@ -40,13 +54,6 @@
     <loc>https://hexo.io/news/2019/01/12/dns-and-smart-dns.html</loc>
     
     <lastmod>2019-01-12T09:08:39.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://hexo.io/news/2019/01/12/Build-openvpn.html</loc>
-    
-    <lastmod>2019-01-12T08:55:48.000Z</lastmod>
     
   </url>
   
@@ -310,14 +317,14 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/zh-cn/api/renderer.html</loc>
+    <loc>https://hexo.io/zh-cn/index.html</loc>
     
     <lastmod>2019-01-08T10:02:40.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://hexo.io/zh-cn/index.html</loc>
+    <loc>https://hexo.io/zh-cn/api/router.html</loc>
     
     <lastmod>2019-01-08T10:02:40.000Z</lastmod>
     
@@ -625,7 +632,7 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/zh-cn/api/router.html</loc>
+    <loc>https://hexo.io/zh-cn/api/renderer.html</loc>
     
     <lastmod>2019-01-08T10:02:40.000Z</lastmod>
     
@@ -1038,14 +1045,14 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/ru/api/migrator.html</loc>
+    <loc>https://hexo.io/about/index.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://hexo.io/about/index.html</loc>
+    <loc>https://hexo.io/ru/api/rendering.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     
@@ -2081,7 +2088,7 @@
   </url>
   
   <url>
-    <loc>https://hexo.io/ru/api/rendering.html</loc>
+    <loc>https://hexo.io/ru/api/migrator.html</loc>
     
     <lastmod>2019-01-08T10:02:39.000Z</lastmod>
     

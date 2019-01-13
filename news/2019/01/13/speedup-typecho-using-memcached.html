@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head prefix="og: http://ogp.me/ns#"><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <title>speedup typecho using memcached | W0ng.Unic0rn blog</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://hexo.io/news/2019/01/13/speedup-typecho-using-memcached.html">
+  <!-- Alternative links -->
+  
+  <!-- Icon -->
+  <link rel="apple-touch-icon" sizes="57x57" href="/icon/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/icon/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/icon/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/icon/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/icon/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/icon/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/icon/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/icon/apple-touch-icon-152x152.png">
+  <link rel="icon" type="image/png" href="/icon/favicon-196x196.png" sizes="196x196">
+  <link rel="icon" type="image/png" href="/icon/favicon-160x160.png" sizes="160x160">
+  <link rel="icon" type="image/png" href="/icon/favicon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/png" href="/icon/favicon-16x16.png" sizes="16x16">
+  <link rel="icon" type="image/png" href="/icon/favicon-32x32.png" sizes="32x32">
+  <meta name="msapplication-TileColor" content="#2f83cd">
+  <meta name="msapplication-TileImage" content="/icon/mstile-144x144.png">
+  <!-- CSS -->
+  <!-- build:css build/css/navy.css -->
+  <link rel="stylesheet" href="/css/navy.css">
+  <!-- endbuild -->
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css">
+  <!-- RSS -->
+  <link rel="alternate" href="/atom.xml" title="W0ng.Unic0rn blog">
+  <!-- Open Graph -->
+  <meta name="description" content="安装libmemcachedyum install cyrus-sasl-devel -ywget https://launchpad.net/libmemcached/1.0/1.0.18/+download/libmemcached-1.0.18.tar.gztar zxf libmemcached-1.0.18.tar.gzcd libmemcached-1.0.18./configure">
+<meta property="og:type" content="article">
+<meta property="og:title" content="speedup typecho using memcached">
+<meta property="og:url" content="https://hexo.io/news/2019/01/13/speedup-typecho-using-memcached.html">
+<meta property="og:site_name" content="W0ng.Unic0rn blog">
+<meta property="og:description" content="安装libmemcachedyum install cyrus-sasl-devel -ywget https://launchpad.net/libmemcached/1.0/1.0.18/+download/libmemcached-1.0.18.tar.gztar zxf libmemcached-1.0.18.tar.gzcd libmemcached-1.0.18./configure">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2019-01-13T06:01:15.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="speedup typecho using memcached">
+<meta name="twitter:description" content="安装libmemcachedyum install cyrus-sasl-devel -ywget https://launchpad.net/libmemcached/1.0/1.0.18/+download/libmemcached-1.0.18.tar.gztar zxf libmemcached-1.0.18.tar.gzcd libmemcached-1.0.18./configure">
+  <!-- Google Analytics -->
+  
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-6482217598104186",
+          enable_page_level_ads: true
+     });
+  </script>
+</head>
+
+<body>
+  <div id="container">
+    <header id="header" class="wrapper">
+  <div id="header-inner" class="inner">
+    <h1 id="logo-wrap">
+      <a href="/zh-cn/" id="logo">Hexo</a>
+    </h1>
+    <nav id="main-nav">
+      <a href="/zh-cn/docs/" class="main-nav-link">文档</a><a href="/zh-cn/api/" class="main-nav-link">API</a><a href="/news/" class="main-nav-link">新闻</a><a href="/plugins/" class="main-nav-link">插件</a><a href="/themes/" class="main-nav-link">主题</a>
+      <a href="https://github.com/" class="main-nav-link"><i class="fa fa-github-alt"></i></a>
+      <div id="search-input-wrap">
+        <div id="search-input-icon">
+          <i class="fa fa-search"></i>
+        </div>
+        <input type="search" id="search-input" placeholder="Search...">
+      </div>
+    </nav>
+    <div id="lang-select-wrap">
+      <label id="lang-select-label"><i class="fa fa-globe"></i><span>简体中文</span></label>
+      <select id="lang-select" data-canonical="">
+        
+          <option value="en">English</option>
+        
+          <option value="zh-tw">正體中文</option>
+        
+          <option value="zh-cn" selected>简体中文</option>
+        
+          <option value="ru">Русский</option>
+        
+          <option value="ko">한국어</option>
+        
+          <option value="pt-br">Português (Brasil)</option>
+        
+          <option value="th">ภาษาไทย</option>
+        
+      </select>
+    </div>
+    <a id="mobile-nav-toggle">
+      <span class="mobile-nav-toggle-bar"></span>
+      <span class="mobile-nav-toggle-bar"></span>
+      <span class="mobile-nav-toggle-bar"></span>
+    </a>
+  </div>
+</header>
+
+    <div id="content-wrap">
+  <div class="wrapper">
+    <div class="inner">
+      <article class="article post" itemscope itemtype="http://schema.org/Article">
+  <header class="article-header">
+    
+      <h1 class="article-title" itemprop="name">speedup typecho using memcached</h1>
+    
+    <a href="/news/2019/01/13/speedup-typecho-using-memcached.html" class="article-date"><time datetime="2019-01-12T16:00:00.000Z">2019-01-13</time></a>
+  </header>
+  <div class="article-content" itemprop="articleBody">
+    <hr>
+<h2 id="安装libmemcached" class="article-heading"><a href="#安装libmemcached" class="headerlink" title="安装libmemcached"></a>安装libmemcached<a class="article-anchor" href="#安装libmemcached" aria-hidden="true"></a></h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum install cyrus-sasl-devel -y</span><br><span class="line">wget https://launchpad.net/libmemcached/1.0/1.0.18/+download/libmemcached-1.0.18.tar.gz</span><br><span class="line">tar zxf libmemcached-1.0.18.tar.gz</span><br><span class="line"><span class="built_in">cd</span> libmemcached-1.0.18</span><br><span class="line">./configure --libdir=/usr/lib64</span><br><span class="line">make</span><br><span class="line">make install clean</span><br><span class="line">ldconfig</span><br><span class="line"></span><br><span class="line"><span class="comment"># ll /usr/lib64/libmemcached* -th</span></span><br><span class="line">-rw-r--r-- 1 root root 212K Jan 14 19:01 /usr/lib64/libmemcachedutil.a</span><br><span class="line">-rw-r--r-- 1 root root 2.9M Jan 14 19:01 /usr/lib64/libmemcached.a</span><br><span class="line">-rwxr-xr-x 1 root root 1.1K Jan 14 19:01 /usr/lib64/libmemcachedutil.la</span><br><span class="line">lrwxrwxrwx 1 root root   25 Jan 14 19:01 /usr/lib64/libmemcachedutil.so -&gt; libmemcachedutil.so.2.0.0</span><br><span class="line">lrwxrwxrwx 1 root root   25 Jan 14 19:01 /usr/lib64/libmemcachedutil.so.2 -&gt; libmemcachedutil.so.2.0.0</span><br><span class="line">-rwxr-xr-x 1 root root 111K Jan 14 19:01 /usr/lib64/libmemcachedutil.so.2.0.0</span><br><span class="line">-rwxr-xr-x 1 root root  974 Jan 14 19:01 /usr/lib64/libmemcached.la</span><br><span class="line">lrwxrwxrwx 1 root root   22 Jan 14 19:01 /usr/lib64/libmemcached.so -&gt; libmemcached.so.11.0.0</span><br><span class="line">lrwxrwxrwx 1 root root   22 Jan 14 19:01 /usr/lib64/libmemcached.so.11 -&gt; libmemcached.so.11.0.0</span><br><span class="line">-rwxr-xr-x 1 root root 1.3M Jan 14 19:01 /usr/lib64/libmemcached.so.11.0.0</span><br><span class="line">lrwxrwxrwx 1 root root   25 Jan 14 18:31 /usr/lib64/libmemcachedutil.so.0 -&gt; libmemcachedutil.so.0.0.0</span><br><span class="line">lrwxrwxrwx 1 root root   21 Jan 14 18:31 /usr/lib64/libmemcached.so.2 -&gt; libmemcached.so.2.0.0</span><br><span class="line">-rwxr-xr-x 1 root root  64K Nov 12  2010 /usr/lib64/libmemcached.so.2.0.0</span><br><span class="line">-rwxr-xr-x 1 root root 6.9K Nov 12  2010 /usr/lib64/libmemcachedutil.so.0.0.0</span><br></pre></td></tr></table></figure>
+<h2 id="安装php-memcached" class="article-heading"><a href="#安装php-memcached" class="headerlink" title="安装php-memcached"></a>安装php-memcached<a class="article-anchor" href="#安装php-memcached" aria-hidden="true"></a></h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/production/server/php/bin/phpize</span><br><span class="line">./configure --with-php-config=/production/server/php/bin/php-config --<span class="built_in">enable</span>-memcached --<span class="built_in">enable</span>-memcached-json</span><br><span class="line">make -j2</span><br><span class="line">make install clean</span><br><span class="line"></span><br><span class="line">Installing shared extensions:     /production/server/php/lib/php/extensions/no-debug-non-zts-20131226/</span><br><span class="line">find . -name \*.gcno -o -name \*.gcda | xargs rm -f</span><br><span class="line">find . -name \*.lo -o -name \*.o | xargs rm -f</span><br><span class="line">find . -name \*.la -o -name \*.a | xargs rm -f</span><br><span class="line">find . -name \*.so | xargs rm -f</span><br><span class="line">find . -name .libs -a -<span class="built_in">type</span> d|xargs rm -rf</span><br><span class="line">rm -f libphp.la       modules/* libs/*</span><br></pre></td></tr></table></figure>
+<h2 id="打开扩展" class="article-heading"><a href="#打开扩展" class="headerlink" title="打开扩展"></a>打开扩展<a class="article-anchor" href="#打开扩展" aria-hidden="true"></a></h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">vim php/etc/php.ini</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加以下配置</span></span><br><span class="line">[memcached]</span><br><span class="line">extension=memcached.so</span><br><span class="line"></span><br><span class="line">sbin/php-fpm -t</span><br><span class="line">[14-Jan-2018 19:13:55] NOTICE: configuration file /production/server/php/etc/php-fpm.conf <span class="built_in">test</span> is successful</span><br><span class="line"></span><br><span class="line"><span class="comment"># service php-fpm reload</span></span><br><span class="line"><span class="comment"># /production/server/php/bin/php -m | grep memcached</span></span><br><span class="line">memcached</span><br></pre></td></tr></table></figure>
+<h2 id="安装配置memcached" class="article-heading"><a href="#安装配置memcached" class="headerlink" title="安装配置memcached"></a>安装配置memcached<a class="article-anchor" href="#安装配置memcached" aria-hidden="true"></a></h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum install memcached -y</span><br><span class="line">diff /etc/sysconfig/memcached /etc/sysconfig/memcached.ori</span><br><span class="line">5c5</span><br><span class="line">&lt; OPTIONS=<span class="string">"-l 127.0.0.1"</span></span><br><span class="line">---</span><br><span class="line">&gt; OPTIONS=<span class="string">""</span></span><br></pre></td></tr></table></figure>
+<h2 id="安装插件" class="article-heading"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件<a class="article-anchor" href="#安装插件" aria-hidden="true"></a></h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/phpgao/TpCache.git</span><br></pre></td></tr></table></figure>
+  </div>
+  
+</article>
+
+    </div>
+  </div>
+</div>
+    <footer id="footer" class="wrapper">
+  <div class="inner">
+    <div id="footer-copyright">
+      &copy; 2019 <a href="https://github.com/hexojs/hexo/graphs/contributors" target="_blank">W0ng.Unic0rn</a><br>
+      Documentation licensed under <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a>.
+    </div>
+    <div id="footer-links">
+      <a href="https://twitter.com/" class="footer-link" target="_blank"><i class="fa fa-twitter"></i></a>
+      <a href="https://github.com/" class="footer-link" target="_blank"><i class="fa fa-github-alt"></i></a>
+    </div>
+  </div>
+</footer>
+
+  </div>
+  <div id="mobile-nav-dimmer"></div>
+  <nav id="mobile-nav">
+  <div id="mobile-nav-inner">
+    <ul id="mobile-nav-list">
+      <a href="/zh-cn/docs/" class="mobile-nav-link">文档</a><a href="/zh-cn/api/" class="mobile-nav-link">API</a><a href="/news/" class="mobile-nav-link">新闻</a><a href="/plugins/" class="mobile-nav-link">插件</a><a href="/themes/" class="mobile-nav-link">主题</a>
+      <li class="mobile-nav-item">
+        <a href="https://github.com/" class="mobile-nav-link" rel="external" target="_blank">GitHub</a>
+      </li>
+    </ul>
+    
+  </div>
+  <div id="mobile-lang-select-wrap">
+    <span id="mobile-lang-select-label"><i class="fa fa-globe"></i><span>简体中文</span></span>
+    <select id="mobile-lang-select" data-canonical="">
+      
+        <option value="en">English</option>
+      
+        <option value="zh-tw">正體中文</option>
+      
+        <option value="zh-cn" selected>简体中文</option>
+      
+        <option value="ru">Русский</option>
+      
+        <option value="ko">한국어</option>
+      
+        <option value="pt-br">Português (Brasil)</option>
+      
+        <option value="th">ภาษาไทย</option>
+      
+    </select>
+  </div>
+</nav>
+  <!-- Scripts -->
+<!-- Cookie -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.min.js"></script>
+<!-- build:js build/js/main.js -->
+<script src="/js/lang_select.js"></script>
+<script src="/js/toc.js"></script>
+<script src="/js/mobile_nav.js"></script>
+<!-- endbuild -->
+
+<!-- Algolia -->
+
+
+</body>
+</html>
