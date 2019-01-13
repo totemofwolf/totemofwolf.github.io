@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head prefix="og: http://ogp.me/ns#"><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <title>centos lvm usage | W0ng.Unic0rn blog</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://hexo.io/news/2019/01/13/centos-lvm-usage.html">
+  <!-- Alternative links -->
+  
+  <!-- Icon -->
+  <link rel="apple-touch-icon" sizes="57x57" href="/icon/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/icon/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/icon/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/icon/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/icon/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/icon/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/icon/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/icon/apple-touch-icon-152x152.png">
+  <link rel="icon" type="image/png" href="/icon/favicon-196x196.png" sizes="196x196">
+  <link rel="icon" type="image/png" href="/icon/favicon-160x160.png" sizes="160x160">
+  <link rel="icon" type="image/png" href="/icon/favicon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/png" href="/icon/favicon-16x16.png" sizes="16x16">
+  <link rel="icon" type="image/png" href="/icon/favicon-32x32.png" sizes="32x32">
+  <meta name="msapplication-TileColor" content="#2f83cd">
+  <meta name="msapplication-TileImage" content="/icon/mstile-144x144.png">
+  <!-- CSS -->
+  <!-- build:css build/css/navy.css -->
+  <link rel="stylesheet" href="/css/navy.css">
+  <!-- endbuild -->
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css">
+  <!-- RSS -->
+  <link rel="alternate" href="/atom.xml" title="W0ng.Unic0rn blog">
+  <!-- Open Graph -->
+  <meta name="description" content="ref: https://blog.csdn.net/u012439646/article/details/73380197   使用lvm# fdisk -lDisk /dev/vdc: 107.4 GB, 107374182400 bytes, 209715200 sectorsUnits = sectors of 1 * 512 = 512 bytesSector size (logica">
+<meta property="og:type" content="article">
+<meta property="og:title" content="centos lvm usage">
+<meta property="og:url" content="https://hexo.io/news/2019/01/13/centos-lvm-usage.html">
+<meta property="og:site_name" content="W0ng.Unic0rn blog">
+<meta property="og:description" content="ref: https://blog.csdn.net/u012439646/article/details/73380197   使用lvm# fdisk -lDisk /dev/vdc: 107.4 GB, 107374182400 bytes, 209715200 sectorsUnits = sectors of 1 * 512 = 512 bytesSector size (logica">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2019-01-12T16:59:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="centos lvm usage">
+<meta name="twitter:description" content="ref: https://blog.csdn.net/u012439646/article/details/73380197   使用lvm# fdisk -lDisk /dev/vdc: 107.4 GB, 107374182400 bytes, 209715200 sectorsUnits = sectors of 1 * 512 = 512 bytesSector size (logica">
+  <!-- Google Analytics -->
+  
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-6482217598104186",
+          enable_page_level_ads: true
+     });
+  </script>
+</head>
+
+<body>
+  <div id="container">
+    <header id="header" class="wrapper">
+  <div id="header-inner" class="inner">
+    <h1 id="logo-wrap">
+      <a href="/zh-cn/" id="logo">Hexo</a>
+    </h1>
+    <nav id="main-nav">
+      <a href="/zh-cn/docs/" class="main-nav-link">文档</a><a href="/zh-cn/api/" class="main-nav-link">API</a><a href="/news/" class="main-nav-link">新闻</a><a href="/plugins/" class="main-nav-link">插件</a><a href="/themes/" class="main-nav-link">主题</a>
+      <a href="https://github.com/" class="main-nav-link"><i class="fa fa-github-alt"></i></a>
+      <div id="search-input-wrap">
+        <div id="search-input-icon">
+          <i class="fa fa-search"></i>
+        </div>
+        <input type="search" id="search-input" placeholder="Search...">
+      </div>
+    </nav>
+    <div id="lang-select-wrap">
+      <label id="lang-select-label"><i class="fa fa-globe"></i><span>简体中文</span></label>
+      <select id="lang-select" data-canonical="">
+        
+          <option value="en">English</option>
+        
+          <option value="zh-tw">正體中文</option>
+        
+          <option value="zh-cn" selected>简体中文</option>
+        
+          <option value="ru">Русский</option>
+        
+          <option value="ko">한국어</option>
+        
+          <option value="pt-br">Português (Brasil)</option>
+        
+          <option value="th">ภาษาไทย</option>
+        
+      </select>
+    </div>
+    <a id="mobile-nav-toggle">
+      <span class="mobile-nav-toggle-bar"></span>
+      <span class="mobile-nav-toggle-bar"></span>
+      <span class="mobile-nav-toggle-bar"></span>
+    </a>
+  </div>
+</header>
+
+    <div id="content-wrap">
+  <div class="wrapper">
+    <div class="inner">
+      <article class="article post" itemscope itemtype="http://schema.org/Article">
+  <header class="article-header">
+    
+      <h1 class="article-title" itemprop="name">centos lvm usage</h1>
+    
+    <a href="/news/2019/01/13/centos-lvm-usage.html" class="article-date"><time datetime="2019-01-12T16:00:00.000Z">2019-01-13</time></a>
+  </header>
+  <div class="article-content" itemprop="articleBody">
+    <ul>
+<li>ref: <a href="https://blog.csdn.net/u012439646/article/details/73380197" target="_blank" rel="noopener">https://blog.csdn.net/u012439646/article/details/73380197</a></li>
+</ul>
+<hr>
+<h2 id="使用lvm" class="article-heading"><a href="#使用lvm" class="headerlink" title="使用lvm"></a>使用lvm<a class="article-anchor" href="#使用lvm" aria-hidden="true"></a></h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># fdisk -l</span></span><br><span class="line">Disk /dev/vdc: 107.4 GB, 107374182400 bytes, 209715200 sectors</span><br><span class="line">Units = sectors of 1 * 512 = 512 bytes</span><br><span class="line">Sector size (logical/physical): 512 bytes / 512 bytes</span><br><span class="line">I/O size (minimum/optimal): 512 bytes / 512 bytes</span><br><span class="line"></span><br><span class="line"><span class="comment"># pvcreate /dev/vdc</span></span><br><span class="line">Physical volume <span class="string">"/dev/vdc"</span> successfully created.</span><br><span class="line"><span class="comment"># pvs</span></span><br><span class="line">PV VG Fmt Attr PSize PFree</span><br><span class="line">/dev/vdc lvm2 --- 100.00g 100.00g</span><br><span class="line"></span><br><span class="line"><span class="comment"># vgcreate vg0 /dev/vdc</span></span><br><span class="line">Volume group <span class="string">"vg0"</span> successfully created</span><br><span class="line"><span class="comment"># vgs</span></span><br><span class="line">VG <span class="comment">#PV #LV #SN Attr VSize VFree</span></span><br><span class="line">vg0 1 0 0 wz--n- &lt;100.00g &lt;100.00g</span><br><span class="line"></span><br><span class="line"><span class="comment"># lvcreate -n lv0 -l 100%FREE vg0</span></span><br><span class="line">Logical volume <span class="string">"lv0"</span> created.</span><br><span class="line"><span class="comment"># lvs</span></span><br><span class="line">LV VG Attr LSize Pool Origin Data% Meta% Move Log Cpy%Sync Convert</span><br><span class="line">lv0 vg0 -wi<span class="_">-a</span>----- &lt;100.00g</span><br><span class="line"></span><br><span class="line"><span class="comment"># fdisk -l</span></span><br><span class="line">Disk /dev/mapper/vg0-lv0: 107.4 GB, 107369988096 bytes, 209707008 sectors</span><br><span class="line">Units = sectors of 1 * 512 = 512 bytes</span><br><span class="line">Sector size (logical/physical): 512 bytes / 512 bytes</span><br><span class="line">I/O size (minimum/optimal): 512 bytes / 512 bytes</span><br><span class="line"></span><br><span class="line"><span class="comment"># mkfs.xfs /dev/mapper/vg0-lv0</span></span><br><span class="line">meta-data=/dev/mapper/vg0-lv0 isize=512 agcount=4, agsize=6553344 blks</span><br><span class="line">= sectsz=512 attr=2, projid32bit=1</span><br><span class="line">= crc=1 finobt=0, sparse=0</span><br><span class="line">data = bsize=4096 blocks=26213376, imaxpct=25</span><br><span class="line">= sunit=0 swidth=0 blks</span><br><span class="line">naming =version 2 bsize=4096 ascii-ci=0 ftype=1</span><br><span class="line"><span class="built_in">log</span> =internal <span class="built_in">log</span> bsize=4096 blocks=12799, version=2</span><br><span class="line">= sectsz=512 sunit=0 blks, lazy-count=1</span><br><span class="line">realtime =none extsz=4096 blocks=0, rtextents=0</span><br><span class="line"></span><br><span class="line"><span class="comment"># mount -t xfs /dev/mapper/vg0-lv0 /program1</span></span><br><span class="line"><span class="comment"># mount</span></span><br><span class="line">/dev/mapper/vg0-lv0 on /program1 <span class="built_in">type</span> xfs (rw,relatime,attr2,inode64,noquota)</span><br></pre></td></tr></table></figure>
+<h2 id="lvm动态扩容" class="article-heading"><a href="#lvm动态扩容" class="headerlink" title="lvm动态扩容"></a>lvm动态扩容<a class="article-anchor" href="#lvm动态扩容" aria-hidden="true"></a></h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># df -h</span></span><br><span class="line">Filesystem Size Used Avail Use% Mounted on</span><br><span class="line">/dev/mapper/vg0-lv0 100G 80G 21G 80% /production</span><br><span class="line"></span><br><span class="line">- 格式化磁盘</span><br><span class="line"><span class="comment"># fdisk /dev/vdc</span></span><br><span class="line">Welcome to fdisk (util-linux 2.23.2).</span><br><span class="line">Changes will remain <span class="keyword">in</span> memory only, until you decide to write them.</span><br><span class="line">Be careful before using the write <span class="built_in">command</span>.</span><br><span class="line">Device does not contain a recognized partition table</span><br><span class="line">Building a new DOS disklabel with disk identifier 0x8198bb09.</span><br><span class="line">Command (m <span class="keyword">for</span> <span class="built_in">help</span>): n</span><br><span class="line">Partition <span class="built_in">type</span>:</span><br><span class="line">p primary (0 primary, 0 extended, 4 free)</span><br><span class="line">e extended</span><br><span class="line">Select (default p): p</span><br><span class="line">Partition number (1-4, default 1): 1</span><br><span class="line">First sector (2048-209715199, default 2048):</span><br><span class="line">Using default value 2048</span><br><span class="line">Last sector, +sectors or +size&#123;K,M,G&#125; (2048-209715199, default 209715199):</span><br><span class="line">Using default value 209715199</span><br><span class="line">Partition 1 of <span class="built_in">type</span> Linux and of size 100 GiB is <span class="built_in">set</span></span><br><span class="line">Command (m <span class="keyword">for</span> <span class="built_in">help</span>): wq</span><br><span class="line">The partition table has been altered!</span><br><span class="line">Calling ioctl() to re-read partition table.</span><br><span class="line">Syncing disks.</span><br><span class="line"></span><br><span class="line"><span class="comment"># fdisk -l</span></span><br><span class="line">Disk /dev/vdc: 107.4 GB, 107374182400 bytes, 209715200 sectors</span><br><span class="line">Units = sectors of 1 * 512 = 512 bytes</span><br><span class="line">Sector size (logical/physical): 512 bytes / 512 bytes</span><br><span class="line">I/O size (minimum/optimal): 512 bytes / 512 bytes</span><br><span class="line">Disk label <span class="built_in">type</span>: dos</span><br><span class="line">Disk identifier: 0x8198bb09</span><br><span class="line">Device Boot Start End Blocks Id System</span><br><span class="line">/dev/vdc1 2048 209715199 104856576 83 Linux</span><br><span class="line"></span><br><span class="line"><span class="comment"># pvcreate /dev/vdc1</span></span><br><span class="line">Physical volume <span class="string">"/dev/vdc1"</span> successfully created.</span><br><span class="line"></span><br><span class="line"><span class="comment"># vgdisplay</span></span><br><span class="line">--- Volume group ---</span><br><span class="line">VG Name vg0</span><br><span class="line">System ID</span><br><span class="line">Format lvm2</span><br><span class="line">Metadata Areas 1</span><br><span class="line">Metadata Sequence No 2</span><br><span class="line">VG Access <span class="built_in">read</span>/write</span><br><span class="line">VG Status resizable</span><br><span class="line">MAX LV 0</span><br><span class="line">Cur LV 1</span><br><span class="line">Open LV 1</span><br><span class="line">Max PV 0</span><br><span class="line">Cur PV 1</span><br><span class="line">Act PV 1</span><br><span class="line">VG Size &lt;100.00 GiB</span><br><span class="line">PE Size 4.00 MiB</span><br><span class="line">Total PE 25599</span><br><span class="line">Alloc PE / Size 25550 / 99.80 GiB</span><br><span class="line">Free PE / Size 49 / 196.00 MiB</span><br><span class="line">VG UUID IN0nD4-p7Hs-WHS1-ABGF-yv6r-NzJa-WAbNbr</span><br><span class="line"></span><br><span class="line"><span class="comment"># vgextend vg0 /dev/vdc1</span></span><br><span class="line">Volume group <span class="string">"vg0"</span> successfully extended</span><br><span class="line"></span><br><span class="line"><span class="comment"># vgdisplay</span></span><br><span class="line">--- Volume group ---</span><br><span class="line">VG Name vg0</span><br><span class="line">System ID</span><br><span class="line">Format lvm2</span><br><span class="line">Metadata Areas 2</span><br><span class="line">Metadata Sequence No 3</span><br><span class="line">VG Access <span class="built_in">read</span>/write</span><br><span class="line">VG Status resizable</span><br><span class="line">MAX LV 0</span><br><span class="line">Cur LV 1</span><br><span class="line">Open LV 1</span><br><span class="line">Max PV 0</span><br><span class="line">Cur PV 2</span><br><span class="line">Act PV 2</span><br><span class="line">VG Size 199.99 GiB</span><br><span class="line">PE Size 4.00 MiB</span><br><span class="line">Total PE 51198</span><br><span class="line">Alloc PE / Size 25550 / 99.80 GiB</span><br><span class="line">Free PE / Size 25648 / &lt;100.19 GiB</span><br><span class="line">VG UUID IN0nD4-p7Hs-WHS1-ABGF-yv6r-NzJa-WAbNbr</span><br><span class="line"></span><br><span class="line"><span class="comment"># lvdisplay</span></span><br><span class="line">--- Logical volume ---</span><br><span class="line">LV Path /dev/vg0/lv0</span><br><span class="line">LV Name lv0</span><br><span class="line">VG Name vg0</span><br><span class="line">LV UUID VPxQt7-Ryf0-scQb-u39k-AtH6-Un6i-F9nbro</span><br><span class="line">LV Write Access <span class="built_in">read</span>/write</span><br><span class="line">LV Creation host, time wiki-jira-nexus-gitlab-29-202, 2018-05-25 16:55:10 +0800</span><br><span class="line">LV Status available</span><br><span class="line"><span class="comment"># open 1</span></span><br><span class="line">LV Size 99.80 GiB</span><br><span class="line">Current LE 25550</span><br><span class="line">Segments 1</span><br><span class="line">Allocation inherit</span><br><span class="line">Read ahead sectors auto</span><br><span class="line">- currently <span class="built_in">set</span> to 256</span><br><span class="line">Block device 252:0</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># lvextend -l +100%FREE /dev/vg0/lv0</span></span><br><span class="line">Size of logical volume vg0/lv0 changed from 99.80 GiB (25550 extents) to 199.99 GiB (51198 extents).</span><br><span class="line">Logical volume vg0/lv0 successfully resized.</span><br><span class="line"><span class="comment"># lvdisplay</span></span><br><span class="line">--- Logical volume ---</span><br><span class="line">LV Path /dev/vg0/lv0</span><br><span class="line">LV Name lv0</span><br><span class="line">VG Name vg0</span><br><span class="line">LV UUID VPxQt7-Ryf0-scQb-u39k-AtH6-Un6i-F9nbro</span><br><span class="line">LV Write Access <span class="built_in">read</span>/write</span><br><span class="line">LV Creation host, time wiki-jira-nexus-gitlab-29-202, 2018-05-25 16:55:10 +0800</span><br><span class="line">LV Status available</span><br><span class="line"><span class="comment"># open 1</span></span><br><span class="line">LV Size 199.99 GiB</span><br><span class="line">Current LE 51198</span><br><span class="line">Segments 2</span><br><span class="line">Allocation inherit</span><br><span class="line">Read ahead sectors auto</span><br><span class="line">- currently <span class="built_in">set</span> to 256</span><br><span class="line">Block device 252:0</span><br><span class="line"></span><br><span class="line">查看磁盘格式：</span><br><span class="line"><span class="comment"># mount</span></span><br><span class="line">/dev/mapper/vg0-lv0 on /production <span class="built_in">type</span> xfs</span><br><span class="line"></span><br><span class="line">- xfs扩容</span><br><span class="line"><span class="comment"># xfs_growfs /dev/vg0/lv0</span></span><br><span class="line">meta-data=/dev/mapper/vg0-lv0 isize=512 agcount=4, agsize=6540800 blks</span><br><span class="line">= sectsz=512 attr=2, projid32bit=1</span><br><span class="line">= crc=1 finobt=0 spinodes=0</span><br><span class="line">data = bsize=4096 blocks=26163200, imaxpct=25</span><br><span class="line">= sunit=0 swidth=0 blks</span><br><span class="line">naming =version 2 bsize=4096 ascii-ci=0 ftype=1</span><br><span class="line"><span class="built_in">log</span> =internal bsize=4096 blocks=12775, version=2</span><br><span class="line">= sectsz=512 sunit=0 blks, lazy-count=1</span><br><span class="line">realtime =none extsz=4096 blocks=0, rtextents=0</span><br><span class="line">data blocks changed from 26163200 to 52426752</span><br><span class="line"></span><br><span class="line"><span class="comment"># df -h | grep /production</span></span><br><span class="line">/dev/mapper/vg0-lv0 200G 80G 121G 40% /production</span><br></pre></td></tr></table></figure>
+
+  </div>
+  
+</article>
+
+    </div>
+  </div>
+</div>
+    <footer id="footer" class="wrapper">
+  <div class="inner">
+    <div id="footer-copyright">
+      &copy; 2019 <a href="https://github.com/hexojs/hexo/graphs/contributors" target="_blank">W0ng.Unic0rn</a><br>
+      Documentation licensed under <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a>.
+    </div>
+    <div id="footer-links">
+      <a href="https://twitter.com/" class="footer-link" target="_blank"><i class="fa fa-twitter"></i></a>
+      <a href="https://github.com/" class="footer-link" target="_blank"><i class="fa fa-github-alt"></i></a>
+    </div>
+  </div>
+</footer>
+
+  </div>
+  <div id="mobile-nav-dimmer"></div>
+  <nav id="mobile-nav">
+  <div id="mobile-nav-inner">
+    <ul id="mobile-nav-list">
+      <a href="/zh-cn/docs/" class="mobile-nav-link">文档</a><a href="/zh-cn/api/" class="mobile-nav-link">API</a><a href="/news/" class="mobile-nav-link">新闻</a><a href="/plugins/" class="mobile-nav-link">插件</a><a href="/themes/" class="mobile-nav-link">主题</a>
+      <li class="mobile-nav-item">
+        <a href="https://github.com/" class="mobile-nav-link" rel="external" target="_blank">GitHub</a>
+      </li>
+    </ul>
+    
+  </div>
+  <div id="mobile-lang-select-wrap">
+    <span id="mobile-lang-select-label"><i class="fa fa-globe"></i><span>简体中文</span></span>
+    <select id="mobile-lang-select" data-canonical="">
+      
+        <option value="en">English</option>
+      
+        <option value="zh-tw">正體中文</option>
+      
+        <option value="zh-cn" selected>简体中文</option>
+      
+        <option value="ru">Русский</option>
+      
+        <option value="ko">한국어</option>
+      
+        <option value="pt-br">Português (Brasil)</option>
+      
+        <option value="th">ภาษาไทย</option>
+      
+    </select>
+  </div>
+</nav>
+  <!-- Scripts -->
+<!-- Cookie -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.min.js"></script>
+<!-- build:js build/js/main.js -->
+<script src="/js/lang_select.js"></script>
+<script src="/js/toc.js"></script>
+<script src="/js/mobile_nav.js"></script>
+<!-- endbuild -->
+
+<!-- Algolia -->
+
+
+</body>
+</html>

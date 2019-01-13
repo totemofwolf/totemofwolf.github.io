@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head prefix="og: http://ogp.me/ns#"><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <title>Build openvpn | W0ng.Unic0rn blog</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://hexo.io/news/2019/01/12/Build-openvpn.html">
+  <!-- Alternative links -->
+  
+  <!-- Icon -->
+  <link rel="apple-touch-icon" sizes="57x57" href="/icon/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/icon/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/icon/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/icon/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/icon/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/icon/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/icon/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/icon/apple-touch-icon-152x152.png">
+  <link rel="icon" type="image/png" href="/icon/favicon-196x196.png" sizes="196x196">
+  <link rel="icon" type="image/png" href="/icon/favicon-160x160.png" sizes="160x160">
+  <link rel="icon" type="image/png" href="/icon/favicon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/png" href="/icon/favicon-16x16.png" sizes="16x16">
+  <link rel="icon" type="image/png" href="/icon/favicon-32x32.png" sizes="32x32">
+  <meta name="msapplication-TileColor" content="#2f83cd">
+  <meta name="msapplication-TileImage" content="/icon/mstile-144x144.png">
+  <!-- CSS -->
+  <!-- build:css build/css/navy.css -->
+  <link rel="stylesheet" href="/css/navy.css">
+  <!-- endbuild -->
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css">
+  <!-- RSS -->
+  <link rel="alternate" href="/atom.xml" title="W0ng.Unic0rn blog">
+  <!-- Open Graph -->
+  <meta name="description" content="openvpn搭建应用场景 外出人员访问内部资源：ERP，OA，文件共享，wiki。 运维访问IDC机房  协议说明  L2TP：PPTP的后续版本，两个端点之间的单一隧道，支持隧道验证，没有与生俱来的加密和保密支持，通常需要和IPSEC配合使用。 SSL VPN：使用TLSv1、SSLv3，不是一个基于web的软件，不与ipsec及其他的VPN软件兼容，C/S架构，单独使用openVPN客户端。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Build openvpn">
+<meta property="og:url" content="https://hexo.io/news/2019/01/12/Build-openvpn.html">
+<meta property="og:site_name" content="W0ng.Unic0rn blog">
+<meta property="og:description" content="openvpn搭建应用场景 外出人员访问内部资源：ERP，OA，文件共享，wiki。 运维访问IDC机房  协议说明  L2TP：PPTP的后续版本，两个端点之间的单一隧道，支持隧道验证，没有与生俱来的加密和保密支持，通常需要和IPSEC配合使用。 SSL VPN：使用TLSv1、SSLv3，不是一个基于web的软件，不与ipsec及其他的VPN软件兼容，C/S架构，单独使用openVPN客户端。">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2019-01-12T08:55:48.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Build openvpn">
+<meta name="twitter:description" content="openvpn搭建应用场景 外出人员访问内部资源：ERP，OA，文件共享，wiki。 运维访问IDC机房  协议说明  L2TP：PPTP的后续版本，两个端点之间的单一隧道，支持隧道验证，没有与生俱来的加密和保密支持，通常需要和IPSEC配合使用。 SSL VPN：使用TLSv1、SSLv3，不是一个基于web的软件，不与ipsec及其他的VPN软件兼容，C/S架构，单独使用openVPN客户端。">
+  <!-- Google Analytics -->
+  
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-6482217598104186",
+          enable_page_level_ads: true
+     });
+  </script>
+</head>
+
+<body>
+  <div id="container">
+    <header id="header" class="wrapper">
+  <div id="header-inner" class="inner">
+    <h1 id="logo-wrap">
+      <a href="/zh-cn/" id="logo">Hexo</a>
+    </h1>
+    <nav id="main-nav">
+      <a href="/zh-cn/docs/" class="main-nav-link">文档</a><a href="/zh-cn/api/" class="main-nav-link">API</a><a href="/news/" class="main-nav-link">新闻</a><a href="/plugins/" class="main-nav-link">插件</a><a href="/themes/" class="main-nav-link">主题</a>
+      <a href="https://github.com/" class="main-nav-link"><i class="fa fa-github-alt"></i></a>
+      <div id="search-input-wrap">
+        <div id="search-input-icon">
+          <i class="fa fa-search"></i>
+        </div>
+        <input type="search" id="search-input" placeholder="Search...">
+      </div>
+    </nav>
+    <div id="lang-select-wrap">
+      <label id="lang-select-label"><i class="fa fa-globe"></i><span>简体中文</span></label>
+      <select id="lang-select" data-canonical="">
+        
+          <option value="en">English</option>
+        
+          <option value="zh-tw">正體中文</option>
+        
+          <option value="zh-cn" selected>简体中文</option>
+        
+          <option value="ru">Русский</option>
+        
+          <option value="ko">한국어</option>
+        
+          <option value="pt-br">Português (Brasil)</option>
+        
+          <option value="th">ภาษาไทย</option>
+        
+      </select>
+    </div>
+    <a id="mobile-nav-toggle">
+      <span class="mobile-nav-toggle-bar"></span>
+      <span class="mobile-nav-toggle-bar"></span>
+      <span class="mobile-nav-toggle-bar"></span>
+    </a>
+  </div>
+</header>
+
+    <div id="content-wrap">
+  <div class="wrapper">
+    <div class="inner">
+      <article class="article post" itemscope itemtype="http://schema.org/Article">
+  <header class="article-header">
+    
+      <h1 class="article-title" itemprop="name">Build openvpn</h1>
+    
+    <a href="/news/2019/01/12/Build-openvpn.html" class="article-date"><time datetime="2019-01-11T16:00:00.000Z">2019-01-12</time></a>
+  </header>
+  <div class="article-content" itemprop="articleBody">
+    <h1 id="openvpn搭建" class="article-heading"><a href="#openvpn搭建" class="headerlink" title="openvpn搭建"></a>openvpn搭建<a class="article-anchor" href="#openvpn搭建" aria-hidden="true"></a></h1><h2 id="应用场景" class="article-heading"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景<a class="article-anchor" href="#应用场景" aria-hidden="true"></a></h2><ul>
+<li><strong>外出人员访问内部资源：ERP，OA，文件共享，wiki。</strong></li>
+<li><strong>运维访问IDC机房</strong></li>
+</ul>
+<h2 id="协议说明" class="article-heading"><a href="#协议说明" class="headerlink" title="协议说明"></a>协议说明<a class="article-anchor" href="#协议说明" aria-hidden="true"></a></h2><blockquote>
+</blockquote>
+<pre><code>L2TP：PPTP的后续版本，两个端点之间的单一隧道，支持隧道验证，没有与生俱来的加密和保密支持，通常需要和IPSEC配合使用。
+SSL VPN：使用TLSv1、SSLv3，不是一个基于web的软件，不与ipsec及其他的VPN软件兼容，C/S架构，单独使用openVPN客户端。
+对于认证，OpenVPN提供了两种认证方法：基于用户名/密码的认证与SSL证书认证。适合外出移动或家庭办公用户考虑使用。
+IPSEC：适合于企业异地总分公司或多个IDC机房间不间断按需连接。ipsec VPN的开源实现openswan
+</code></pre><h2 id="使用方案建议：" class="article-heading"><a href="#使用方案建议：" class="headerlink" title="使用方案建议："></a>使用方案建议：<a class="article-anchor" href="#使用方案建议：" aria-hidden="true"></a></h2><pre><code>1、不差钱，可以选择硬件产品
+2、互联网公司、开源、省钱
+3、个人：拨号选择openVPN；不希望使用拨号客户端，则选择pptp；多个企业间或IDC机房互联，选择ipsecVPN或者openVPN
+</code></pre><p>基于一个单一的IP端口，默认1194，默认使用udp协议通讯，建议使用TCP协议工作。</p>
+<p>tcpdump<br>route</p>
+<h2 id="环境准备" class="article-heading"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备<a class="article-anchor" href="#环境准备" aria-hidden="true"></a></h2><h3 id="安装基础" class="article-heading"><a href="#安装基础" class="headerlink" title="安装基础"></a>安装基础<a class="article-anchor" href="#安装基础" aria-hidden="true"></a></h3><blockquote>
+<p>YUM安装</p>
+</blockquote>
+<hr>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># yum install openssl openssl-devel openvpn openvpn-auth-ldap lzo -y</span></span><br><span class="line"></span><br><span class="line">========================================================================================================================</span><br><span class="line"> Package                           Arch                   Version                            Repository            Size</span><br><span class="line">========================================================================================================================</span><br><span class="line">Installing:</span><br><span class="line"> lzo                               x86_64                 2.03-3.1.el6_5.1                   base                  55 k</span><br><span class="line"> openvpn                           x86_64                 2.3.14-1.el6                       epel                 424 k</span><br><span class="line"> openvpn-auth-ldap                 x86_64                 2.0.3-6.el6                        epel                  42 k</span><br><span class="line">Installing <span class="keyword">for</span> dependencies:</span><br><span class="line"> libobjc                           x86_64                 4.4.7-17.el6                       base                  92 k</span><br><span class="line"> pkcs11-helper                     x86_64                 1.11-3.el6                         epel                  54 k</span><br></pre></td></tr></table></figure>
+<hr>
+<blockquote>
+<p>自编译安装</p>
+</blockquote>
+<ul>
+<li><p>安装依赖【推荐】</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum install -y lzo lzo-devel openssl openssl-devel pam pam-devel rpm-build</span><br><span class="line">yum install -y pkcs11-helper pkcs11-helper-devel</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>下载安装压缩库【可选】</p>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget http://www.oberhumer.com/opensource/lzo/download/lzo-2.06.tar.gz</span><br><span class="line">tar zxf lzo-2.06.tar.gz</span><br><span class="line"><span class="built_in">cd</span> lzo-2.06</span><br><span class="line">./configure</span><br><span class="line">make</span><br><span class="line">make install clean</span><br><span class="line"><span class="built_in">cd</span> ..</span><br></pre></td></tr></table></figure>
+<ul>
+<li>下载安装openvpn</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget http://swupdate.openvpn.org/community/releases/openvpn-2.2.2.tar.gz</span><br><span class="line">rm -rf openvpn-2.2.2 &amp;&amp; tar zxf openvpn-2.2.2.tar.gz</span><br><span class="line"><span class="built_in">cd</span> openvpn-2.2.2</span><br><span class="line">./configure --with-lzo-headers=/usr/<span class="built_in">local</span>/include --with-lzo-lib=/usr/<span class="built_in">local</span>/lib</span><br><span class="line">make -j4</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+<p><em>Tips</em></p>
+<blockquote>
+<p>make: *** No targets specified and no makefile found.  Stop.<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum reinstall openssl* -y</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>如果发现yum install安装也不行，需要执行<code>yum reinstall</code></p>
+</blockquote>
+<p><em>查看安装结果</em><br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># which openvpn</span></span><br><span class="line">/usr/<span class="built_in">local</span>/sbin/openvpn</span><br></pre></td></tr></table></figure></p>
+<h3 id="配置openvpn-server，并建立CA证书" class="article-heading"><a href="#配置openvpn-server，并建立CA证书" class="headerlink" title="配置openvpn server，并建立CA证书"></a>配置openvpn server，并建立CA证书<a class="article-anchor" href="#配置openvpn-server，并建立CA证书" aria-hidden="true"></a></h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/src</span><br><span class="line"><span class="built_in">cd</span> openvpn-2.2.2/easy-rsa/2.0</span><br><span class="line">cp -ap vars&#123;,.orig&#125;</span><br><span class="line">ls -la vars*</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># vim vars</span><br><span class="line">&gt;  # modify by lang</span><br><span class="line">export KEY_COUNTRY=&quot;CN&quot;</span><br><span class="line">export KEY_PROVINCE=&quot;BJ&quot;</span><br><span class="line">export KEY_CITY=&quot;Beijing&quot;</span><br><span class="line">export KEY_ORG=&quot;oldboy&quot;</span><br><span class="line">export KEY_EMAIL=&quot;543683682@qq.com&quot;</span><br><span class="line">export KEY_EMAIL=543683682@qq.com</span><br><span class="line">export KEY_CN=91taogu</span><br><span class="line">export KEY_NAME=91taogu</span><br><span class="line">export KEY_OU=91taogu</span><br><span class="line">export PKCS11_MODULE_PATH=changeme</span><br><span class="line">export PKCS11_PIN=1234</span><br><span class="line"># modify by lang</span><br><span class="line"></span><br><span class="line"># source vars</span><br><span class="line"># ./clean-all</span><br><span class="line"># ./build-ca</span><br><span class="line"></span><br><span class="line">Generating a 1024 bit RSA private key</span><br><span class="line">............++++++</span><br><span class="line">........................................++++++</span><br><span class="line">writing new private key to &apos;ca.key&apos;</span><br><span class="line">-----</span><br><span class="line">You are about to be asked to enter information that will be incorporated</span><br><span class="line">into your certificate request.</span><br><span class="line">What you are about to enter is what is called a Distinguished Name or a DN.</span><br><span class="line">There are quite a few fields but you can leave some blank</span><br><span class="line">For some fields there will be a default value,</span><br><span class="line">If you enter &apos;.&apos;, the field will be left blank.</span><br><span class="line">-----</span><br><span class="line">Country Name (2 letter code) [CN]:</span><br><span class="line">State or Province Name (full name) [BJ]:</span><br><span class="line">Locality Name (eg, city) [Beijing]:</span><br><span class="line">Organization Name (eg, company) [oldboy]:91taogu</span><br><span class="line">Organizational Unit Name (eg, section) [91taogu]:</span><br><span class="line">Common Name (eg, your name or your server&apos;s hostname) [91taogu]:</span><br><span class="line">Name [91taogu]:</span><br><span class="line">Email Address [543683682@qq.com]:</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ll keys/</span><br><span class="line">&gt; total 12</span><br><span class="line">-rw-r--r-- 1 root root 1330 Jul 18 21:01 ca.crt &lt;-证书</span><br><span class="line">-rw------- 1 root root  920 Jul 18 21:01 ca.key &lt;-RSA key</span><br><span class="line">-rw-r--r-- 1 root root    0 Jul 18 21:00 index.txt</span><br><span class="line">-rw-r--r-- 1 root root    3 Jul 18 21:00 serial</span><br></pre></td></tr></table></figure>
+<h3 id="生成vpn服务器端证书和密钥文件" class="article-heading"><a href="#生成vpn服务器端证书和密钥文件" class="headerlink" title="生成vpn服务器端证书和密钥文件"></a>生成vpn服务器端证书和密钥文件<a class="article-anchor" href="#生成vpn服务器端证书和密钥文件" aria-hidden="true"></a></h3><ul>
+<li><p>[x] ./build-key-server server</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Generating a 1024 bit RSA private key</span><br><span class="line">....++++++</span><br><span class="line">..........++++++</span><br><span class="line">writing new private key to <span class="string">'server.key'</span></span><br><span class="line">-----</span><br><span class="line">You are about to be asked to enter information that will be incorporated</span><br><span class="line">into your certificate request.</span><br><span class="line">What you are about to enter is what is called a Distinguished Name or a DN.</span><br><span class="line">There are quite a few fields but you can leave some blank</span><br><span class="line">For some fields there will be a default value,</span><br><span class="line">If you enter <span class="string">'.'</span>, the field will be left blank.</span><br><span class="line">-----</span><br><span class="line">Country Name (2 letter code) [CN]:</span><br><span class="line">State or Province Name (full name) [BJ]:</span><br><span class="line">Locality Name (eg, city) [Beijing]:</span><br><span class="line">Organization Name (eg, company) [oldboy]:91taogu</span><br><span class="line">Organizational Unit Name (eg, section) [91taogu]:</span><br><span class="line">Common Name (eg, your name or your server<span class="string">'s hostname) [server]:</span></span><br><span class="line"><span class="string">Name [91taogu]:</span></span><br><span class="line"><span class="string">Email Address [543683682@qq.com]:</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Please enter the following '</span>extra<span class="string">' attributes</span></span><br><span class="line"><span class="string">to be sent with your certificate request</span></span><br><span class="line"><span class="string">A challenge password []:1234Qwer</span></span><br><span class="line"><span class="string">An optional company name []:91taogu</span></span><br><span class="line"><span class="string">Using configuration from /usr/local/src/openvpn-2.2.2/easy-rsa/2.0/openssl-1.0.0.cnf</span></span><br><span class="line"><span class="string">Check that the request matches the signature</span></span><br><span class="line"><span class="string">Signature ok</span></span><br><span class="line"><span class="string">The Subject'</span>s Distinguished Name is as follows</span><br><span class="line">countryName           :PRINTABLE:<span class="string">'CN'</span></span><br><span class="line">stateOrProvinceName   :PRINTABLE:<span class="string">'BJ'</span></span><br><span class="line">localityName          :PRINTABLE:<span class="string">'Beijing'</span></span><br><span class="line">organizationName      :PRINTABLE:<span class="string">'91taogu'</span></span><br><span class="line">organizationalUnitName:PRINTABLE:<span class="string">'91taogu'</span></span><br><span class="line">commonName            :PRINTABLE:<span class="string">'server'</span></span><br><span class="line">name                  :PRINTABLE:<span class="string">'91taogu'</span></span><br><span class="line">emailAddress          :IA5STRING:<span class="string">'543683682@qq.com'</span></span><br><span class="line">Certificate is to be certified until Jul 15 13:15:47 2025 GMT (3650 days)</span><br><span class="line">Sign the certificate? [y/n]:y</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">1 out of 1 certificate requests certified, commit? [y/n]y</span><br><span class="line">Write out database with 1 new entries</span><br><span class="line">Data Base Updated</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>[x] 检测结果</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ll keys/</span><br><span class="line">total 40</span><br><span class="line">-rw-r--r-- 1 root root 4029 Jul 18 21:15 01.pem</span><br><span class="line">-rw-r--r-- 1 root root 1330 Jul 18 21:01 ca.crt</span><br><span class="line">-rw------- 1 root root  920 Jul 18 21:01 ca.key</span><br><span class="line">-rw-r--r-- 1 root root  124 Jul 18 21:15 index.txt</span><br><span class="line">-rw-r--r-- 1 root root   21 Jul 18 21:15 index.txt.attr</span><br><span class="line">-rw-r--r-- 1 root root    0 Jul 18 21:00 index.txt.old</span><br><span class="line">-rw-r--r-- 1 root root    3 Jul 18 21:15 serial</span><br><span class="line">-rw-r--r-- 1 root root    3 Jul 18 21:00 serial.old</span><br><span class="line">-rw-r--r-- 1 root root 4029 Jul 18 21:15 server.crt</span><br><span class="line">-rw-r--r-- 1 root root  777 Jul 18 21:15 server.csr</span><br><span class="line">-rw------- 1 root root  916 Jul 18 21:15 server.key</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="生成vpn客户端证书和密钥文件方案" class="article-heading"><a href="#生成vpn客户端证书和密钥文件方案" class="headerlink" title="生成vpn客户端证书和密钥文件方案"></a>生成vpn客户端证书和密钥文件方案<a class="article-anchor" href="#生成vpn客户端证书和密钥文件方案" aria-hidden="true"></a></h3><ul>
+<li><p>[x] 无密码</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># ./build-key test</span></span><br><span class="line">Generating a 1024 bit RSA private key</span><br><span class="line">.........................................................++++++</span><br><span class="line">.......++++++</span><br><span class="line">writing new private key to <span class="string">'test.key'</span></span><br><span class="line">-----</span><br><span class="line">You are about to be asked to enter information that will be incorporated</span><br><span class="line">into your certificate request.</span><br><span class="line">What you are about to enter is what is called a Distinguished Name or a DN.</span><br><span class="line">There are quite a few fields but you can leave some blank</span><br><span class="line">For some fields there will be a default value,</span><br><span class="line">If you enter <span class="string">'.'</span>, the field will be left blank.</span><br><span class="line">-----</span><br><span class="line">Country Name (2 letter code) [CN]:</span><br><span class="line">State or Province Name (full name) [BJ]:</span><br><span class="line">Locality Name (eg, city) [Beijing]:</span><br><span class="line">Organization Name (eg, company) [oldboy]:91taogu</span><br><span class="line">Organizational Unit Name (eg, section) [91taogu]:</span><br><span class="line">Common Name (eg, your name or your server<span class="string">'s hostname) [test]:</span></span><br><span class="line"><span class="string">Name [91taogu]:</span></span><br><span class="line"><span class="string">Email Address [543683682@qq.com]:</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Please enter the following '</span>extra<span class="string">' attributes</span></span><br><span class="line"><span class="string">to be sent with your certificate request</span></span><br><span class="line"><span class="string">A challenge password []:1234Qwer</span></span><br><span class="line"><span class="string">An optional company name []:</span></span><br><span class="line"><span class="string">Using configuration from /usr/local/src/openvpn-2.2.2/easy-rsa/2.0/openssl-1.0.0.cnf</span></span><br><span class="line"><span class="string">Check that the request matches the signature</span></span><br><span class="line"><span class="string">Signature ok</span></span><br><span class="line"><span class="string">The Subject'</span>s Distinguished Name is as follows</span><br><span class="line">countryName           :PRINTABLE:<span class="string">'CN'</span></span><br><span class="line">stateOrProvinceName   :PRINTABLE:<span class="string">'BJ'</span></span><br><span class="line">localityName          :PRINTABLE:<span class="string">'Beijing'</span></span><br><span class="line">organizationName      :PRINTABLE:<span class="string">'91taogu'</span></span><br><span class="line">organizationalUnitName:PRINTABLE:<span class="string">'91taogu'</span></span><br><span class="line">commonName            :PRINTABLE:<span class="string">'test'</span></span><br><span class="line">name                  :PRINTABLE:<span class="string">'91taogu'</span></span><br><span class="line">emailAddress          :IA5STRING:<span class="string">'543683682@qq.com'</span></span><br><span class="line">Certificate is to be certified until Jul 15 13:23:41 2025 GMT (3650 days)</span><br><span class="line">Sign the certificate? [y/n]:y</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">1 out of 1 certificate requests certified, commit? [y/n]y</span><br><span class="line">Write out database with 1 new entries</span><br><span class="line">Data Base Updated</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>[x] 带密码</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./build-key-pass ett</span><br><span class="line">Generating a 1024 bit RSA private key</span><br><span class="line">....................................++++++</span><br><span class="line">.++++++</span><br><span class="line">writing new private key to <span class="string">'ett.key'</span></span><br><span class="line">Enter PEM pass phrase: &lt;-1234Qwer</span><br><span class="line">Verifying - Enter PEM pass phrase:</span><br><span class="line">-----</span><br><span class="line">You are about to be asked to enter information that will be incorporated</span><br><span class="line">into your certificate request.</span><br><span class="line">What you are about to enter is what is called a Distinguished Name or a DN.</span><br><span class="line">There are quite a few fields but you can leave some blank</span><br><span class="line">For some fields there will be a default value,</span><br><span class="line">If you enter <span class="string">'.'</span>, the field will be left blank.</span><br><span class="line">-----</span><br><span class="line">Country Name (2 letter code) [CN]:</span><br><span class="line">State or Province Name (full name) [BJ]:</span><br><span class="line">Locality Name (eg, city) [Beijing]:</span><br><span class="line">Organization Name (eg, company) [oldboy]:91taogu</span><br><span class="line">Organizational Unit Name (eg, section) [91taogu]:</span><br><span class="line">Common Name (eg, your name or your server<span class="string">'s hostname) [ett]:</span></span><br><span class="line"><span class="string">Name [91taogu]:</span></span><br><span class="line"><span class="string">Email Address [543683682@qq.com]:</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Please enter the following '</span>extra<span class="string">' attributes</span></span><br><span class="line"><span class="string">to be sent with your certificate request</span></span><br><span class="line"><span class="string">A challenge password []:1234Qwer</span></span><br><span class="line"><span class="string">An optional company name []:</span></span><br><span class="line"><span class="string">Using configuration from /usr/local/src/openvpn-2.2.2/easy-rsa/2.0/openssl-1.0.0.cnf</span></span><br><span class="line"><span class="string">Check that the request matches the signature</span></span><br><span class="line"><span class="string">Signature ok</span></span><br><span class="line"><span class="string">The Subject'</span>s Distinguished Name is as follows</span><br><span class="line">countryName           :PRINTABLE:<span class="string">'CN'</span></span><br><span class="line">stateOrProvinceName   :PRINTABLE:<span class="string">'BJ'</span></span><br><span class="line">localityName          :PRINTABLE:<span class="string">'Beijing'</span></span><br><span class="line">organizationName      :PRINTABLE:<span class="string">'91taogu'</span></span><br><span class="line">organizationalUnitName:PRINTABLE:<span class="string">'91taogu'</span></span><br><span class="line">commonName            :PRINTABLE:<span class="string">'ett'</span></span><br><span class="line">name                  :PRINTABLE:<span class="string">'91taogu'</span></span><br><span class="line">emailAddress          :IA5STRING:<span class="string">'543683682@qq.com'</span></span><br><span class="line">Certificate is to be certified until Jul 15 13:26:38 2025 GMT (3650 days)</span><br><span class="line">Sign the certificate? [y/n]:y</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">1 out of 1 certificate requests certified, commit? [y/n]y</span><br><span class="line">Write out database with 1 new entries</span><br><span class="line">Data Base Updated</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="生成vpn密钥协议交换文件" class="article-heading"><a href="#生成vpn密钥协议交换文件" class="headerlink" title="生成vpn密钥协议交换文件"></a>生成vpn密钥协议交换文件<a class="article-anchor" href="#生成vpn密钥协议交换文件" aria-hidden="true"></a></h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./build-dh</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>生成结果：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ll keys/dh1024.pem</span><br><span class="line">-rw-r--r-- 1 root root 245 Jul 18 21:29 keys/dh1024.pem</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h3 id="详解服务器及客户端的证书各文件用途" class="article-heading"><a href="#详解服务器及客户端的证书各文件用途" class="headerlink" title="详解服务器及客户端的证书各文件用途"></a>详解服务器及客户端的证书各文件用途<a class="article-anchor" href="#详解服务器及客户端的证书各文件用途" aria-hidden="true"></a></h3><blockquote>
+<p>| 文件名 | 被依赖 | 目的 | 保密 |<br>ca.cert | server+all clts | RootCACert | NO<br>ca.key key | signing mach only | RootCAkey | YES<br>dh{n}.pem | server only | DH parameters | NO<br>server.crt | server only | Svr Cert | NO<br>server.key | server only | Svr key | Yes</p>
+</blockquote>
+<p>test.crt | test only | clt Cert | NO<br>test.key | test only | clt key | YES<br>ett.crt | ett only | ett Cert | NO<br>ett.key | ett only | ett key | YES</p>
+<h4 id="生成防止恶意攻击文件" class="article-heading"><a href="#生成防止恶意攻击文件" class="headerlink" title="生成防止恶意攻击文件"></a>生成防止恶意攻击文件<a class="article-anchor" href="#生成防止恶意攻击文件" aria-hidden="true"></a></h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">openvpn --genkey --secret keys/ta.key</span><br><span class="line">ll keys/ta.key</span><br></pre></td></tr></table></figure>
+<h4 id="重要命令说明" class="article-heading"><a href="#重要命令说明" class="headerlink" title="重要命令说明"></a>重要命令说明<a class="article-anchor" href="#重要命令说明" aria-hidden="true"></a></h4><blockquote>
+<ul>
+<li>vars 用来创建环境变量，设置所有需要的变量脚本</li>
+<li>clean-all 清除文件及目录</li>
+<li>build-ca 脚本生成ca证书</li>
+<li>build-dh 脚本生成dh文件</li>
+<li>buid-key-server 生成服务器端密钥</li>
+<li>build-key 生成客户端密钥</li>
+<li>build-key-pass 带密码</li>
+<li>pkitool 脚本直接使用vars环境变量设置，直接生成证书（非交互）</li>
+</ul>
+</blockquote>
+<h4 id="详解openvpn服务端重要配置参数并实践" class="article-heading"><a href="#详解openvpn服务端重要配置参数并实践" class="headerlink" title="详解openvpn服务端重要配置参数并实践"></a>详解openvpn服务端重要配置参数并实践<a class="article-anchor" href="#详解openvpn服务端重要配置参数并实践" aria-hidden="true"></a></h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mkdir -p /etc/openvpn</span><br><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/src/openvpn-2.2.2/easy-rsa/2.0</span><br><span class="line">cp -ap keys /etc/openvpn</span><br><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/src/openvpn-2.2.2/sample-config-files</span><br><span class="line">cp -afv client.conf server.conf /etc/openvpn/</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tree /etc/openvpn/</span><br><span class="line">/etc/openvpn/</span><br><span class="line">├── 01.pem</span><br><span class="line">├── 02.pem</span><br><span class="line">├── 03.pem</span><br><span class="line">├── ca.crt</span><br><span class="line">├── ca.key</span><br><span class="line">├── client.conf</span><br><span class="line">├── dh1024.pem</span><br><span class="line">├── ett.crt</span><br><span class="line">├── ett.csr</span><br><span class="line">├── ett.key</span><br><span class="line">├── index.txt</span><br><span class="line">├── index.txt.attr</span><br><span class="line">├── index.txt.attr.old</span><br><span class="line">├── index.txt.old</span><br><span class="line">├── serial</span><br><span class="line">├── serial.old</span><br><span class="line">├── server.conf</span><br><span class="line">├── server.crt</span><br><span class="line">├── server.csr</span><br><span class="line">├── server.key</span><br><span class="line">├── ta.key</span><br><span class="line">├── test.crt</span><br><span class="line">├── test.csr</span><br><span class="line">└── test.key</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /etc/openvpn/</span><br><span class="line">cp -ap server.conf&#123;,.orig&#125;</span><br><span class="line">grep -vE <span class="string">";|#|^$"</span> server.conf</span><br><span class="line"></span><br><span class="line">port 1194</span><br><span class="line">proto udp</span><br><span class="line">dev tun</span><br><span class="line">ca ca.crt</span><br><span class="line">cert server.crt</span><br><span class="line">dh dh1024.pem</span><br><span class="line">server 10.8.0.0 255.255.255.0</span><br><span class="line">ifconfig-pool-persist ipp.txt</span><br><span class="line">keepalive 10 120</span><br><span class="line">comp-lzo</span><br><span class="line">persist-key</span><br><span class="line">persist-tun</span><br><span class="line">status openvpn-status.log</span><br><span class="line">verb 3</span><br></pre></td></tr></table></figure>
+<h4 id="server-conf配置案例" class="article-heading"><a href="#server-conf配置案例" class="headerlink" title="server.conf配置案例"></a>server.conf配置案例<a class="article-anchor" href="#server-conf配置案例" aria-hidden="true"></a></h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">local 10.0.0.28 openvpn监听的外网地址10.0.0.28:1194</span><br><span class="line"></span><br><span class="line">port 52115      监听的端口，默认是1194，为了安全起见修改为52115</span><br><span class="line"></span><br><span class="line">proto udp       并发多时，选择tcp</span><br><span class="line"></span><br><span class="line">dev tun         vpn server采用的路由模式，可以选tap或者tun</span><br><span class="line"></span><br><span class="line">ca ca.cert      ca证书，此文件需要和server.conf在一个目录下，否则需要绝对路径调用</span><br><span class="line"></span><br><span class="line">cert server.cert</span><br><span class="line">key server.key  &lt;====重要</span><br><span class="line">dh dh1024.pem</span><br><span class="line"></span><br><span class="line">server 10.8.0.0 255.255.255.0 这个是VPN server动态分配给VPN client的地址池，一般不需要更改，这个段不要和现网冲突</span><br><span class="line"></span><br><span class="line">ifconfig-pool-persist ipp.txt</span><br><span class="line"></span><br><span class="line">push &quot;route 172.16.1.0 255.255.255.0&quot; 这是VPN server所在的内网网段，如果有多个网段可以写多个push，此命令实际作用是在VPN客户端本地生成。</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>如果想知道VPN到底在本地加了哪些路由，可以在拨号前笔记本记下所有路由的条目，然后使用软件比较变化即可。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">client-to-client 允许拨号的多个client互相通讯</span><br><span class="line"></span><br><span class="line">duplicate-cn    允许多个客户端使用同一账号连接 &lt;== 多人共享账号</span><br><span class="line"></span><br><span class="line">keepalive 10 120 每10秒ping一次，若120s未收到包，即认为客户端断开</span><br><span class="line"></span><br><span class="line">comp-lzo    开启压缩功能</span><br><span class="line"></span><br><span class="line">persist-key 当VPN超时后，重启VPN后，保持上一次使用的私钥，而不重新读取私钥</span><br><span class="line"></span><br><span class="line">persist=tun 通过keepalive检测VPN超时后，当重新启动VPN后，保持tun或者tap设备自动连接状态</span><br><span class="line"></span><br><span class="line">status openvpn-status.log openvpn日志状态信息</span><br><span class="line"></span><br><span class="line"><span class="built_in">log</span> /var/<span class="built_in">log</span>/openvpn.log    日志文件</span><br><span class="line"></span><br><span class="line">verb 3      指定日志文件冗余</span><br></pre></td></tr></table></figure>
+<p><em>Tips</em></p>
+<blockquote>
+<p>先执行export LANG=”ZH_GB18030”，然后编辑配置文件server.conf，清空所有内容，拷贝上面内容，然后执行 <em>dos2unix server.conf</em></p>
+</blockquote>
+<h4 id="实际服务器端VPN配置文件server-conf配置" class="article-heading"><a href="#实际服务器端VPN配置文件server-conf配置" class="headerlink" title="实际服务器端VPN配置文件server.conf配置"></a>实际服务器端VPN配置文件server.conf配置<a class="article-anchor" href="#实际服务器端VPN配置文件server-conf配置" aria-hidden="true"></a></h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">local</span> 124.43.12.115</span><br><span class="line">port 52115</span><br><span class="line">proto tcp</span><br><span class="line">dev tun</span><br><span class="line"></span><br><span class="line">ca /etc/openvpn/keys/ca.crt</span><br><span class="line">cert /etc/openvpn/keys/server.crt</span><br><span class="line">key /etc/openvpn/keys/server.key</span><br><span class="line">dh /etc/openvpn/keys/dh1024.pem</span><br><span class="line"></span><br><span class="line">server 10.8.0.0 255.255.255.0</span><br><span class="line">push <span class="string">"route 10.0.0.0 255.255.255.0"</span></span><br><span class="line">ifconfig-pool-persist ipp.txt</span><br><span class="line">keepalive 10 120</span><br><span class="line">comp-lzo</span><br><span class="line">persist-key</span><br><span class="line">persist-tun</span><br><span class="line">status openvpn-status.log</span><br><span class="line">verb 3</span><br><span class="line"></span><br><span class="line">client-to-client</span><br><span class="line">duplicate-cn</span><br><span class="line"><span class="built_in">log</span> /var/<span class="built_in">log</span>/openvpn.log</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>cp -ap server.conf{,.orig}<br>grep -vE “;|#|^$” server.conf &gt; tmp.log<br>mv tmp.log server.conf</p>
+</blockquote>
+<h4 id="配置调试vpn并准备运行vpn服务" class="article-heading"><a href="#配置调试vpn并准备运行vpn服务" class="headerlink" title="配置调试vpn并准备运行vpn服务"></a>配置调试vpn并准备运行vpn服务<a class="article-anchor" href="#配置调试vpn并准备运行vpn服务" aria-hidden="true"></a></h4><blockquote>
+<ul>
+<li>取消服务器防火墙对openvpn（默认1194，本例52115）的拦截。并允许服务进行转发<br>iptables -A INPUT -p tcp –dport 52115 -j ACCEPT<br>iptables -L -n<br>vim /etc/sysconfig/iptables</li>
+</ul>
+</blockquote>
+<p><em>先关闭IPtables</em></p>
+<ul>
+<li>selinux</li>
+<li>开启内核转发（路由）：<br>ip_forward = 1</li>
+</ul>
+<h4 id="启动服务器端VPN" class="article-heading"><a href="#启动服务器端VPN" class="headerlink" title="启动服务器端VPN"></a>启动服务器端VPN<a class="article-anchor" href="#启动服务器端VPN" aria-hidden="true"></a></h4><p>/usr/local/sbin/openvpn –config /etc/openvpn/server.conf &amp;</p>
+<p>无意外服务开启后，会出现 tun0网卡；<br>意外的日志：<br>/var/log/openvpn.log</p>
+<blockquote>
+<p>tail -f /var/log/openvpn.log<br>Sat Oct 24 18:06:41 2015 OpenVPN 2.2.2 x86_64-unknown-linux-gnu [SSL] [LZO2] [EPOLL] [eurephia] built on Jul 18 2015<br>Sat Oct 24 18:06:41 2015 NOTE: OpenVPN 2.1 requires ‘–script-security 2’ or higher to call user-defined scripts or executables<br>Sat Oct 24 18:06:41 2015 Diffie-Hellman initialized with 1024 bit key<br>Sat Oct 24 18:06:41 2015 TLS-Auth MTU parms [ L:1542 D:138 EF:38 EB:0 ET:0 EL:0 ]<br>Sat Oct 24 18:06:41 2015 Socket Buffers: R=[8388608-&gt;131072] S=[8388608-&gt;131072]<br>Sat Oct 24 18:06:41 2015 TCP/UDP: Socket bind failed on local address 59.108.85.71:52115: Cannot assign requested address<br>Sat Oct 24 18:06:41 2015 Exiting</p>
+</blockquote>
+<blockquote>
+<p>ip addr<br>1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN<br>    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00<br>    inet 127.0.0.1/8 scope host lo<br>2: em1: &lt;BROADCAST,MULTICAST&gt; mtu 1500 qdisc noop state DOWN qlen 1000<br>    link/ether b8:2a:72:da:82:a4 brd ff:ff:ff:ff:ff:ff<br>3: em2: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc mq state UP qlen 1000<br>    link/ether b8:2a:72:da:82:a5 brd ff:ff:ff:ff:ff:ff<br>    inet 192.168.20.11/24 brd 192.168.20.255 scope global em2<br>4: em3: &lt;BROADCAST,MULTICAST&gt; mtu 1500 qdisc noop state DOWN qlen 1000<br>    link/ether b8:2a:72:da:82:a6 brd ff:ff:ff:ff:ff:ff<br>5: em4: &lt;BROADCAST,MULTICAST&gt; mtu 1500 qdisc noop state DOWN qlen 1000<br>    link/ether b8:2a:72:da:82:a7 brd ff:ff:ff:ff:ff:ff<br>6: tun0: &lt;POINTOPOINT,MULTICAST,NOARP,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UNKNOWN qlen 100<br>    link/[65534]<br>    inet 10.8.0.1 peer 10.8.0.2/32 scope global tun0</p>
+</blockquote>
+<ul>
+<li><p>开机加载<br>echo ‘/usr/local/sbin/openvpn –config /etc/openvpn/server.conf &amp;’ &gt;&gt; /etc/rc.local</p>
+</li>
+<li><p>自带启动脚本：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">/usr/local/sbin/openvpn --daemon --writepid /var/run/openvpn/server/pid --config server.conf --cd /etc/openvpn</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="规范启动openvpn" class="article-heading"><a href="#规范启动openvpn" class="headerlink" title="规范启动openvpn"></a>规范启动openvpn<a class="article-anchor" href="#规范启动openvpn" aria-hidden="true"></a></h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd /usr/local/src/openvpn-2.2.2/sample-scripts</span><br><span class="line">cp openvpn.init /etc/init.d/openvpn</span><br><span class="line">chmod 700 /etc/init.d/openvpn</span><br><span class="line">chkconfig --add openvpn</span><br></pre></td></tr></table></figure>
+<p>如果/etc/openvpn下conf文件过多，导致无法启动，请尝试修改/etc/init.d/openvpn：</p>
+<blockquote>
+<p>service openvpn restart<br>Shutting down openvpn:                                     [  OK  ]<br>Starting openvpn:                                          [FAILED]<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ls *.conf</span><br><span class="line">--&gt;</span><br><span class="line">ls server.conf</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p>OR:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd /etc/openvpn/</span><br><span class="line">mv client.conf server.conf.orig keys/</span><br></pre></td></tr></table></figure></p>
+<h4 id="Windows下客户端：" class="article-heading"><a href="#Windows下客户端：" class="headerlink" title="Windows下客户端："></a>Windows下客户端：<a class="article-anchor" href="#Windows下客户端：" aria-hidden="true"></a></h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; 下载服务器端文件：</span><br><span class="line">ca.crt test.crt test.key client.conf</span><br><span class="line"></span><br><span class="line">打包，复制到</span><br><span class="line">&gt; OpenVPN/conf/</span><br><span class="line"></span><br><span class="line">default client.conf:</span><br><span class="line">&gt; egrep -v <span class="string">"^#|;|^$"</span> keys/client.conf </span><br><span class="line">client</span><br><span class="line">dev tun</span><br><span class="line">proto udp   &lt;</span><br><span class="line">remote 59.108.85.71 5911    &lt; </span><br><span class="line">resolv-retry infinite</span><br><span class="line">nobind</span><br><span class="line">persist-key</span><br><span class="line">persist-tun</span><br><span class="line">ca ca.crt</span><br><span class="line">cert test.crt</span><br><span class="line">key test.key</span><br><span class="line">ns-cert-type server</span><br><span class="line">comp-lzo</span><br><span class="line">verb 3</span><br></pre></td></tr></table></figure>
+<p>企业生产环境client.conf配置：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">client</span><br><span class="line">dev tun</span><br><span class="line">proto udp</span><br><span class="line"><span class="comment"># 协议需要和服务器端一致</span></span><br><span class="line">remote 10.0.0.28 52115</span><br><span class="line"><span class="comment"># 服务器外网IP</span></span><br><span class="line">resolv-retry infinite</span><br><span class="line">nobind</span><br><span class="line">persist-key</span><br><span class="line">persist-tun</span><br><span class="line">ca ca.crt</span><br><span class="line">* </span><br><span class="line">cert oldboy.crt</span><br><span class="line">key oldboy.key</span><br><span class="line">* </span><br><span class="line">comp-lzo</span><br><span class="line">verb 3</span><br></pre></td></tr></table></figure>
+<p>拷贝上面内容成test.ovpn，放入config</p>
+<h1 id="tcpdump-debug" class="article-heading"><a href="#tcpdump-debug" class="headerlink" title="tcpdump debug"></a>tcpdump debug<a class="article-anchor" href="#tcpdump-debug" aria-hidden="true"></a></h1><h2 id="在VPN的内网机器添加返回路由或者干脆把vpnserver的IP当作内网服务器的网关。" class="article-heading"><a href="#在VPN的内网机器添加返回路由或者干脆把vpnserver的IP当作内网服务器的网关。" class="headerlink" title="在VPN的内网机器添加返回路由或者干脆把vpnserver的IP当作内网服务器的网关。"></a>在VPN的内网机器添加返回路由或者干脆把vpnserver的IP当作内网服务器的网关。<a class="article-anchor" href="#在VPN的内网机器添加返回路由或者干脆把vpnserver的IP当作内网服务器的网关。" aria-hidden="true"></a></h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">route add default gw 172.16.1.28</span><br><span class="line">route del default gw 172.16.1.28</span><br><span class="line">OR：</span><br><span class="line">route add -net 10.8.0.0/24 gw 172.16.1.28</span><br></pre></td></tr></table></figure>
+<p><em>问题：</em></p>
+<blockquote>
+<p>当vpn客户端的GW不是vpn server内网地址的时候，所有的vpn客户端都要添加网络路由<br>此配置重启会失效，需要配置静态路由。参考oldboy博客</p>
+<ul>
+<li>1、/etc/sysconfig/static-router</li>
+<li>2、/etc/sysconfig/network-script/route-eth0</li>
+<li>3、放在rc.local</li>
+</ul>
+</blockquote>
+<h2 id="配置" class="article-heading"><a href="#配置" class="headerlink" title="配置"></a>配置<a class="article-anchor" href="#配置" aria-hidden="true"></a></h2><h2 id="成功连接（客户端日志）：" class="article-heading"><a href="#成功连接（客户端日志）：" class="headerlink" title="成功连接（客户端日志）："></a>成功连接（客户端日志）：<a class="article-anchor" href="#成功连接（客户端日志）：" aria-hidden="true"></a></h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; Sat Oct 24 19:34:06 2015 C:\WINDOWS\system32\route.exe ADD 192.168.20.0 MASK 255.255.255.0 10.8.0.5</span><br><span class="line">Sat Oct 24 19:34:06 2015 ROUTE: CreateIpForwardEntry succeeded with dwForwardMetric1=30 and dwForwardType=4</span><br><span class="line">Sat Oct 24 19:34:06 2015 Route addition via IPAPI succeeded [adaptive]</span><br><span class="line">Sat Oct 24 19:34:06 2015 C:\WINDOWS\system32\route.exe ADD 192.168.10.0 MASK 255.255.255.0 10.8.0.5</span><br><span class="line">Sat Oct 24 19:34:06 2015 ROUTE: CreateIpForwardEntry succeeded with dwForwardMetric1=30 and dwForwardType=4</span><br><span class="line">Sat Oct 24 19:34:06 2015 Route addition via IPAPI succeeded [adaptive]</span><br><span class="line">Sat Oct 24 19:34:06 2015 C:\WINDOWS\system32\route.exe ADD 10.8.0.0 MASK 255.255.255.0 10.8.0.5</span><br><span class="line">Sat Oct 24 19:34:06 2015 ROUTE: CreateIpForwardEntry succeeded with dwForwardMetric1=30 and dwForwardType=4</span><br><span class="line">Sat Oct 24 19:34:06 2015 Route addition via IPAPI succeeded [adaptive]</span><br><span class="line">Sat Oct 24 19:34:06 2015 Initialization Sequence Completed</span><br></pre></td></tr></table></figure>
+<h2 id="断开连接（客户端日志）：" class="article-heading"><a href="#断开连接（客户端日志）：" class="headerlink" title="断开连接（客户端日志）："></a>断开连接（客户端日志）：<a class="article-anchor" href="#断开连接（客户端日志）：" aria-hidden="true"></a></h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; Sat Oct 24 20:22:52 2015 TCP/UDP: Closing socket</span><br><span class="line">*Sat Oct 24 20:22:52 2015 C:\WINDOWS\system32\route.exe DELETE 10.8.0.0 MASK 255.255.255.0 10.8.0.5*</span><br><span class="line">Sat Oct 24 20:22:52 2015 Route deletion via IPAPI succeeded [adaptive]</span><br><span class="line">Sat Oct 24 20:22:52 2015 C:\WINDOWS\system32\route.exe DELETE 192.168.10.0 MASK 255.255.255.0 10.8.0.5</span><br><span class="line">Sat Oct 24 20:22:52 2015 Route deletion via IPAPI succeeded [adaptive]</span><br><span class="line">Sat Oct 24 20:22:52 2015 C:\WINDOWS\system32\route.exe DELETE 192.168.20.0 MASK 255.255.255.0 10.8.0.5</span><br><span class="line">Sat Oct 24 20:22:52 2015 Route deletion via IPAPI succeeded [adaptive]</span><br><span class="line">Sat Oct 24 20:22:52 2015 Closing TUN/TAP interface</span><br><span class="line">Sat Oct 24 20:22:52 2015 SIGTERM[hard,] received, process exiting</span><br></pre></td></tr></table></figure>
+<h1 id="设置NAT方式的VPN" class="article-heading"><a href="#设置NAT方式的VPN" class="headerlink" title="设置NAT方式的VPN"></a>设置NAT方式的VPN<a class="article-anchor" href="#设置NAT方式的VPN" aria-hidden="true"></a></h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">10.8.0.6变成内网192.168.20.11</span><br><span class="line"></span><br><span class="line">192.168.20.11 ==&gt; 192.168.20.12</span><br></pre></td></tr></table></figure>
+<h2 id="对应的防火墙规则为：" class="article-heading"><a href="#对应的防火墙规则为：" class="headerlink" title="对应的防火墙规则为："></a>对应的防火墙规则为：<a class="article-anchor" href="#对应的防火墙规则为：" aria-hidden="true"></a></h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -o eth1 -j SNAT --to-source 172.16.1.28</span><br><span class="line"></span><br><span class="line">OR</span><br><span class="line">[IP 地址伪装]</span><br><span class="line">iptables -t nat -I POSTROUTING -s 10.8.0.0/24 -o eth1 -j MASQUERADE</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>通过eth1,转接 10.8的地址为172.16.1.28</p>
+</blockquote>
+<p>办公网络添加实例：</p>
+<blockquote>
+<p>iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -o em2 -j SNAT –to-source 192.168.20.11<br>最后一项配置会修改客户端的默认路由为OpenVPN服务器。这样，通常还必须加入NAT转换：<br>iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -o em2 -j MASQUERADE</p>
+</blockquote>
+<h2 id="默认防火墙规则" class="article-heading"><a href="#默认防火墙规则" class="headerlink" title="默认防火墙规则"></a>默认防火墙规则<a class="article-anchor" href="#默认防火墙规则" aria-hidden="true"></a></h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Chain FORWARD</span><br><span class="line">target  prot    opt <span class="built_in">source</span>  des     </span><br><span class="line">REJECT  all     --  0.0.0.0 0.0.0.0 reject-with icmp-host-prohibited</span><br><span class="line"></span><br><span class="line">&gt; 取消这条Forward规则：</span><br><span class="line">cat /etc/sysconfig/iptables</span><br><span class="line">或者添加（从虚拟网卡进来就转发）：</span><br><span class="line">iptables -A FORWARD -i tunt -j ACCEPT</span><br></pre></td></tr></table></figure>
+<h3 id="openvpn-内置规则" class="article-heading"><a href="#openvpn-内置规则" class="headerlink" title="openvpn 内置规则"></a>openvpn 内置规则<a class="article-anchor" href="#openvpn-内置规则" aria-hidden="true"></a></h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/usr/<span class="built_in">local</span>/src/openvpn-2.2.2/sample-config-files/firewall.sh</span><br></pre></td></tr></table></figure>
+<h2 id="适用场景：" class="article-heading"><a href="#适用场景：" class="headerlink" title="适用场景："></a>适用场景：<a class="article-anchor" href="#适用场景：" aria-hidden="true"></a></h2><ol>
+<li>适合app client的网关不是vpn server的场景。如果app client的网关为vpn server则不用nat转发。</li>
+</ol>
+<h2 id="路由和nat模式区别：" class="article-heading"><a href="#路由和nat模式区别：" class="headerlink" title="路由和nat模式区别："></a>路由和nat模式区别：<a class="article-anchor" href="#路由和nat模式区别：" aria-hidden="true"></a></h2><ol>
+<li>nat适合app client的网关不是vpn server的场景。</li>
+<li>如果app client不是app server，又不用nat方式，还可以手动添加路由。（缺点是每个app client客户端都需要配置路由）<br>推荐：NAT，因为企业的多数场景，内部服务器的网关通常不是vpn server</li>
+</ol>
+<h2 id="企业vpn服务器维护" class="article-heading"><a href="#企业vpn服务器维护" class="headerlink" title="企业vpn服务器维护"></a>企业vpn服务器维护<a class="article-anchor" href="#企业vpn服务器维护" aria-hidden="true"></a></h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> openvpn-2.2.2/</span><br><span class="line"><span class="built_in">cd</span> easy-rsa/2.0/</span><br><span class="line"><span class="built_in">source</span> vars</span><br><span class="line">然后再运行</span><br><span class="line">./build-key client_name或</span><br><span class="line">./build-key-pass client_name</span><br><span class="line">ll easy-rsa/2.0/keys/</span><br></pre></td></tr></table></figure>
+<h1 id="企业发送证书给同事案例" class="article-heading"><a href="#企业发送证书给同事案例" class="headerlink" title="企业发送证书给同事案例"></a>企业发送证书给同事案例<a class="article-anchor" href="#企业发送证书给同事案例" aria-hidden="true"></a></h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&gt; 附件清单如下：</span><br><span class="line">xiaowang-key.zip        --- 里面是证书和配置文件</span><br><span class="line">openvpn-2.2.2-install.exe  --- windows7 及以上系统请用这个客户端</span><br><span class="line">如果win7的系统发现无法使用，请百度“openvpn windows7客户端”</span><br><span class="line">请大家表领错证书哈。</span><br><span class="line">首先，安装，默认路径，安装过程简单，多了红色电脑，不用管。</span><br><span class="line">安装后，解压证书压缩包，里面共6文件，将里面的6文件覆盖到OpenVPN\config里面</span><br><span class="line">覆盖后，双击右下角的红色电脑，弹出窗口，不用管，自动拨号。成功绿色，隐藏。</span><br></pre></td></tr></table></figure>
+<h2 id="穿墙" class="article-heading"><a href="#穿墙" class="headerlink" title="穿墙"></a>穿墙<a class="article-anchor" href="#穿墙" aria-hidden="true"></a></h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 和普通的配置相比，server.conf需要增加：</span></span><br><span class="line">push <span class="string">"redirect-gateway def1 bypass-dhcp bypass-dns"</span></span><br><span class="line">push <span class="string">"dhcp-option DNS"</span></span><br><span class="line">push <span class="string">"dhcp-option DNS"</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>完整配置如下：</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">local</span> xxxx</span><br><span class="line">port xxxx</span><br><span class="line">proto udp</span><br><span class="line">dev tun</span><br><span class="line">ca ca.crt</span><br><span class="line">cert server.crt</span><br><span class="line">key server.key</span><br><span class="line">dh dh1024.pem</span><br><span class="line">server 10.8.0.0 255.255.255.0</span><br><span class="line">push <span class="string">"route 10.0.0.0 255.255.255.0"</span></span><br><span class="line">push <span class="string">"redirect-gateway def1 bypass-dhcp bypass-dns"</span></span><br><span class="line">push <span class="string">"dhcp-option DNS"</span></span><br><span class="line">push <span class="string">"dhcp-option DNS"</span></span><br><span class="line"></span><br><span class="line">ifconfig-pool-persist ipp.txt</span><br><span class="line">client-to-client</span><br><span class="line">duplicate-cn</span><br><span class="line">keepalive 10 120</span><br><span class="line">comp-lzo</span><br><span class="line">persist-key</span><br><span class="line">persist-tun</span><br><span class="line">status /var/<span class="built_in">log</span>/openvpn/openvpn-status.log</span><br><span class="line"><span class="built_in">log</span> /var/<span class="built_in">log</span>/openvpn/openvpn.log</span><br><span class="line">verb 3</span><br></pre></td></tr></table></figure>
+<h1 id="吊销证书" class="article-heading"><a href="#吊销证书" class="headerlink" title="吊销证书"></a>吊销证书<a class="article-anchor" href="#吊销证书" aria-hidden="true"></a></h1><h2 id="单个" class="article-heading"><a href="#单个" class="headerlink" title="单个"></a>单个<a class="article-anchor" href="#单个" aria-hidden="true"></a></h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> 2.0/</span><br><span class="line"><span class="built_in">source</span> vars</span><br><span class="line">如果吊销有问题，请注释openssl.cnf后6行。</span><br><span class="line">./revoke-full client_name</span><br><span class="line">被吊销的用户（前面有R）：</span><br><span class="line">cat keys/index.txt</span><br><span class="line">cp keys/crl.pem /etc/openvpn/keys/</span><br><span class="line">cat &gt;&gt; server.conf &lt;&lt; EOF</span><br><span class="line">crl-verify /etc/openvpn/keys/crl.pem</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+<h2 id="多个" class="article-heading"><a href="#多个" class="headerlink" title="多个"></a>多个<a class="article-anchor" href="#多个" aria-hidden="true"></a></h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">同单个，都是加载删除列表。</span><br></pre></td></tr></table></figure>
+<h1 id="Linux安装vpn客户端" class="article-heading"><a href="#Linux安装vpn客户端" class="headerlink" title="Linux安装vpn客户端"></a>Linux安装vpn客户端<a class="article-anchor" href="#Linux安装vpn客户端" aria-hidden="true"></a></h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">1. 安装lzo模块</span><br><span class="line">2. 安装openvpn</span><br><span class="line">mkdir -p /etc/openvpn</span><br><span class="line">上传证书包</span><br><span class="line"><span class="built_in">cd</span> /etc/openvpn</span><br><span class="line">mv test.ovpn client.conf</span><br></pre></td></tr></table></figure>
+<h2 id="排错" class="article-heading"><a href="#排错" class="headerlink" title="排错"></a>排错<a class="article-anchor" href="#排错" aria-hidden="true"></a></h2><blockquote>
+<p>如果报’–script-security 2’warning，则：<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cat &gt;&gt; client_name.ovpn &lt;&lt; EOF</span><br><span class="line">--script-security 2</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>如果碰到’Cant load cert ‘，修改linux.conf为c.conf</p>
+</blockquote>
+<h2 id="验证" class="article-heading"><a href="#验证" class="headerlink" title="[验证]"></a>[验证]<a class="article-anchor" href="#验证" aria-hidden="true"></a></h2><blockquote>
+<p>ping内网的机器</p>
+</blockquote>
+<h1 id="Linux-openvpn-client使用场景" class="article-heading"><a href="#Linux-openvpn-client使用场景" class="headerlink" title="Linux openvpn client使用场景"></a>Linux openvpn client使用场景<a class="article-anchor" href="#Linux-openvpn-client使用场景" aria-hidden="true"></a></h1><ol>
+<li>多办公室或者多个企业网络互联</li>
+<li>办公室的Linux（如svn）同步数据到机房某个内网的机器</li>
+<li>跨机房的数据备份（备份服务器没有外网IP）</li>
+<li>摘掉所有不是必须使用外网IP的服务器（nagios，web）</li>
+</ol>
+<h1 id="多机房利用vpn互联架构" class="article-heading"><a href="#多机房利用vpn互联架构" class="headerlink" title="多机房利用vpn互联架构"></a>多机房利用vpn互联架构<a class="article-anchor" href="#多机房利用vpn互联架构" aria-hidden="true"></a></h1><h2 id="逻辑：" class="article-heading"><a href="#逻辑：" class="headerlink" title="逻辑："></a>逻辑：<a class="article-anchor" href="#逻辑：" aria-hidden="true"></a></h2><blockquote>
+<p>每个机房的机器使用openvpn server的内网ip地址作为网关。<br>Lclient:    Lserver:vpnclient   rserver:vpnserver rclient<br>eth0:       eth0:10.0.0.29      eth0:10.0.0.28  eth0:172.16.1.17<br>192.168.1.17 eth1:192.168.1.29  eth1:172.16.1.28    GW:172.16.1.28<br>GW:         GW:10.0.0.254       GW:10.0.0.254<br>192.168.1.29</p>
+</blockquote>
+<p><em>需求</em>:</p>
+<ol>
+<li>Lclient 可以ping通172.16.1.17</li>
+<li>rclient 可以ping通192.168.1.17</li>
+</ol>
+<h2 id="实际案例：" class="article-heading"><a href="#实际案例：" class="headerlink" title="实际案例："></a>实际案例：<a class="article-anchor" href="#实际案例：" aria-hidden="true"></a></h2><blockquote>
+<ol>
+<li>不做网关的玩法：###<br>client-conf-dir /usr/local/vpn/ccd<br>route       192.168.1.0 255.255.255.0</li>
+</ol>
+</blockquote>
+<pre><code>### 让局域网内的机器通过做网关的vpn client与vpn server局域网内部的机器通信。
+</code></pre><p>1.1. ### 在/usr/local/vpn/ccd下建立<br>web177# more xp<br>iroute 192.168.1.0  255.255.255.0<br>1.2.配置vpn客户端，同时把路由功能打开。ip_forward=1<br>1.3. vpn server的局域网服务器，增加一条到vpn client的路由。<br>route add 10.8.0.0/24 192.168.2.177<br>增加一条到vpn client后端服务器的路由：<br>route add 192.168.1.0/24 192.168.2.177</p>
+<p>关键字：openvpn多机房互联。</p>
+<h2 id="多机房利用openvpn应用场景：" class="article-heading"><a href="#多机房利用openvpn应用场景：" class="headerlink" title="多机房利用openvpn应用场景："></a>多机房利用openvpn应用场景：<a class="article-anchor" href="#多机房利用openvpn应用场景：" aria-hidden="true"></a></h2><blockquote>
+<ol>
+<li>企业之间互联</li>
+<li>多机房互联：<br> a. 数据同步、备份<br> b. 异地数据读取、写入<br>通过VPN传数据，本地读、远程写。</li>
+</ol>
+</blockquote>
+<blockquote>
+<p>蓝汛：每入职一个运维，开一个跳板机普通帐号，这个帐号可以访问任何机器（调用机器列表）。<br>赶集网：两层代理，每个机房一个代理，每台机器10个已经设定好权限的帐号</p>
+</blockquote>
+<h1 id="route、tcpdump总结" class="article-heading"><a href="#route、tcpdump总结" class="headerlink" title="route、tcpdump总结"></a>route、tcpdump总结<a class="article-anchor" href="#route、tcpdump总结" aria-hidden="true"></a></h1><h1 id="远程vpn架构，多机房互联" class="article-heading"><a href="#远程vpn架构，多机房互联" class="headerlink" title="远程vpn架构，多机房互联"></a>远程vpn架构，多机房互联<a class="article-anchor" href="#远程vpn架构，多机房互联" aria-hidden="true"></a></h1><h1 id="LDAP-插件结合预热" class="article-heading"><a href="#LDAP-插件结合预热" class="headerlink" title="LDAP 插件结合预热"></a>LDAP 插件结合预热<a class="article-anchor" href="#LDAP-插件结合预热" aria-hidden="true"></a></h1><h2 id="插件：" class="article-heading"><a href="#插件：" class="headerlink" title="插件："></a>插件：<a class="article-anchor" href="#插件：" aria-hidden="true"></a></h2><blockquote>
+<p>openvpn-auth-ldap</p>
+</blockquote>
+<ol>
+<li>编译安装</li>
+<li>yum 安装</li>
+</ol>
+<h1 id="8种openvpn验证方式" class="article-heading"><a href="#8种openvpn验证方式" class="headerlink" title="8种openvpn验证方式"></a>8种openvpn验证方式<a class="article-anchor" href="#8种openvpn验证方式" aria-hidden="true"></a></h1><h2 id="本地证书密钥认证" class="article-heading"><a href="#本地证书密钥认证" class="headerlink" title="本地证书密钥认证"></a>本地证书密钥认证<a class="article-anchor" href="#本地证书密钥认证" aria-hidden="true"></a></h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /etc/openvpn</span><br><span class="line">cat server.conf</span><br><span class="line">    auth-user-pass-verify /etc/openvpn/checkpsw.sh via-env</span><br><span class="line">    client-cert-not-required</span><br><span class="line">    username-as-common-name</span><br></pre></td></tr></table></figure>
+<p>获取：checkpsw.sh</p>
+<blockquote>
+</blockquote>
+<h2 id="本地文件认证" class="article-heading"><a href="#本地文件认证" class="headerlink" title="本地文件认证"></a>本地文件认证<a class="article-anchor" href="#本地文件认证" aria-hidden="true"></a></h2><h2 id="通过mysql数据库认证" class="article-heading"><a href="#通过mysql数据库认证" class="headerlink" title="通过mysql数据库认证"></a>通过mysql数据库认证<a class="article-anchor" href="#通过mysql数据库认证" aria-hidden="true"></a></h2><h2 id="LDAP认证" class="article-heading"><a href="#LDAP认证" class="headerlink" title="LDAP认证"></a>LDAP认证<a class="article-anchor" href="#LDAP认证" aria-hidden="true"></a></h2><h3 id="openvpn-auth-ldap" class="article-heading"><a href="#openvpn-auth-ldap" class="headerlink" title="openvpn-auth-ldap"></a>openvpn-auth-ldap<a class="article-anchor" href="#openvpn-auth-ldap" aria-hidden="true"></a></h3><h3 id="利用第一个文件认证的思路，去LDAP查询，还可以和本地文件比较，将授权和认证分开。" class="article-heading"><a href="#利用第一个文件认证的思路，去LDAP查询，还可以和本地文件比较，将授权和认证分开。" class="headerlink" title="利用第一个文件认证的思路，去LDAP查询，还可以和本地文件比较，将授权和认证分开。"></a>利用第一个文件认证的思路，去LDAP查询，还可以和本地文件比较，将授权和认证分开。<a class="article-anchor" href="#利用第一个文件认证的思路，去LDAP查询，还可以和本地文件比较，将授权和认证分开。" aria-hidden="true"></a></h3><h2 id="结合radius认证" class="article-heading"><a href="#结合radius认证" class="headerlink" title="结合radius认证"></a>结合radius认证<a class="article-anchor" href="#结合radius认证" aria-hidden="true"></a></h2><h2 id="结合AD" class="article-heading"><a href="#结合AD" class="headerlink" title="结合AD"></a>结合AD<a class="article-anchor" href="#结合AD" aria-hidden="true"></a></h2><h2 id="结合U盾等设备认证" class="article-heading"><a href="#结合U盾等设备认证" class="headerlink" title="结合U盾等设备认证"></a>结合U盾等设备认证<a class="article-anchor" href="#结合U盾等设备认证" aria-hidden="true"></a></h2><h1 id="VPN不做网关情况的企业多机房VPN互联" class="article-heading"><a href="#VPN不做网关情况的企业多机房VPN互联" class="headerlink" title="VPN不做网关情况的企业多机房VPN互联"></a>VPN不做网关情况的企业多机房VPN互联<a class="article-anchor" href="#VPN不做网关情况的企业多机房VPN互联" aria-hidden="true"></a></h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">route add -net 192.168.1.0/24 gw 172.16.1.28</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>表示：去192.168.1.0网段，使用172.16.1.28做网关</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">route add default gw 172.16.1.39</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>表示：访问0.0.0.0的网段，使用172.16.1.39做默认网关</p>
+</blockquote>
+<h3 id="本地文件验证" class="article-heading"><a href="#本地文件验证" class="headerlink" title="本地文件验证"></a>本地文件验证<a class="article-anchor" href="#本地文件验证" aria-hidden="true"></a></h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cat &gt;&gt; server.conf</span><br><span class="line">auth-user-pass-verify /etc/openvpn/checkpsw.sh via-env</span><br><span class="line">client-cert-not-required</span><br><span class="line">username-as-common-name</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+<h1 id="开发脚本实现openvpn通过ldap验证" class="article-heading"><a href="#开发脚本实现openvpn通过ldap验证" class="headerlink" title="开发脚本实现openvpn通过ldap验证"></a>开发脚本实现openvpn通过ldap验证<a class="article-anchor" href="#开发脚本实现openvpn通过ldap验证" aria-hidden="true"></a></h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">*user-auth.conf 用户授权文件(类似于svn)*</span><br><span class="line">*user.conf 测试用ldap用户、密码*</span><br><span class="line">*check_credit.py 验证脚本文件*</span><br></pre></td></tr></table></figure>
+<h2 id="如果本地文件验证出现error-TLS-8172-error" class="article-heading"><a href="#如果本地文件验证出现error-TLS-8172-error" class="headerlink" title="如果本地文件验证出现error : TLS-8172 error"></a>如果本地文件验证出现error : TLS-8172 error<a class="article-anchor" href="#如果本地文件验证出现error-TLS-8172-error" aria-hidden="true"></a></h2><p>cat &gt;&gt; /etc/openldap/ldap.conf &lt;&lt;(Cent 6.x)<br>TLS_REQCERT allow<br>EOF</p>
+<p>cat &gt;&gt; /etc/ldap.conf &lt;&lt;(Cent 5.x)<br>TLS_REQCERT allow<br>EOF</p>
+<h2 id="ldap实战" class="article-heading"><a href="#ldap实战" class="headerlink" title="ldap实战"></a>ldap实战<a class="article-anchor" href="#ldap实战" aria-hidden="true"></a></h2><p>cat &gt;&gt; /etc/openldap/ server.conf &lt;&lt;</p>
+<blockquote>
+<p>//# for python script ldap-auth<br>script-security 2<br>auth-user-pass-verify “/usr/bin/python /etc/openvpn/check_credit.py” via-file<br>client-cert-not-required<br>username-as-common-name<br>tmp-dir /dev/shm<br>auth-nocache</p>
+</blockquote>
+<blockquote>
+<p>via-env方式是openvpn将客户端提供的用户名、密码字符串设置成调用脚本的环境变量；via-file方式将ldap的用户名密码写入临时文件头两行，返回后删除。如果脚本坚持用户名密码，返回0成功，1失败。</p>
+</blockquote>
+<h3 id="客户端配置" class="article-heading"><a href="#客户端配置" class="headerlink" title="客户端配置"></a>客户端配置<a class="article-anchor" href="#客户端配置" aria-hidden="true"></a></h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cat &gt;&gt; client.ovpn &lt;&lt;</span><br><span class="line">//<span class="comment"># cert cl.cert</span></span><br><span class="line">//<span class="comment"># key xiaowang.key</span></span><br><span class="line">auth-user-pass</span><br><span class="line">auth-nocache</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"><span class="comment">### server端配置</span></span><br><span class="line">cat &gt;&gt; check_credit.py &lt;&lt;</span><br><span class="line">log_filename=<span class="string">''</span></span><br><span class="line">auth_filename=<span class="string">''</span></span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+<h3 id="普通生产版本client-opvn" class="article-heading"><a href="#普通生产版本client-opvn" class="headerlink" title="普通生产版本client.opvn"></a>普通生产版本client.opvn<a class="article-anchor" href="#普通生产版本client-opvn" aria-hidden="true"></a></h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; client</span><br><span class="line">proto udp</span><br><span class="line">dev tun</span><br><span class="line">remote auto.91taogu.com 5911</span><br><span class="line">resolv-retry infinite</span><br><span class="line">nobind</span><br><span class="line">\<span class="comment"># user nobody</span></span><br><span class="line">\<span class="comment"># group nobody</span></span><br><span class="line">persist-key</span><br><span class="line">persist-tun</span><br><span class="line">ca ca.crt</span><br><span class="line">comp-lzo</span><br><span class="line">verb 3</span><br><span class="line">auth-user-pass</span><br><span class="line">auth-nocache</span><br><span class="line">reneg-sec 360000</span><br></pre></td></tr></table></figure>
+<h3 id="ldap验证生产版本client-ovpn" class="article-heading"><a href="#ldap验证生产版本client-ovpn" class="headerlink" title="ldap验证生产版本client.ovpn"></a>ldap验证生产版本client.ovpn<a class="article-anchor" href="#ldap验证生产版本client-ovpn" aria-hidden="true"></a></h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&gt; client</span><br><span class="line">dev tun</span><br><span class="line">\# proto tcp</span><br><span class="line">proto udp</span><br><span class="line">remote vpn.91taogu.com 5911</span><br><span class="line">resolv-retry 60</span><br><span class="line">\# resolv-retry infinite</span><br><span class="line">nobind</span><br><span class="line">persist-key</span><br><span class="line">persist-tun</span><br><span class="line">ca ca.crt</span><br><span class="line">\# cert xx.crt</span><br><span class="line">\# key xx.key</span><br><span class="line">ns-cert-type server</span><br><span class="line">comp-lzo</span><br><span class="line">verb 3</span><br><span class="line">auth-user-pass</span><br><span class="line">auth-nocache</span><br></pre></td></tr></table></figure>
+
+  </div>
+  
+</article>
+
+    </div>
+  </div>
+</div>
+    <footer id="footer" class="wrapper">
+  <div class="inner">
+    <div id="footer-copyright">
+      &copy; 2019 <a href="https://github.com/hexojs/hexo/graphs/contributors" target="_blank">W0ng.Unic0rn</a><br>
+      Documentation licensed under <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a>.
+    </div>
+    <div id="footer-links">
+      <a href="https://twitter.com/" class="footer-link" target="_blank"><i class="fa fa-twitter"></i></a>
+      <a href="https://github.com/" class="footer-link" target="_blank"><i class="fa fa-github-alt"></i></a>
+    </div>
+  </div>
+</footer>
+
+  </div>
+  <div id="mobile-nav-dimmer"></div>
+  <nav id="mobile-nav">
+  <div id="mobile-nav-inner">
+    <ul id="mobile-nav-list">
+      <a href="/zh-cn/docs/" class="mobile-nav-link">文档</a><a href="/zh-cn/api/" class="mobile-nav-link">API</a><a href="/news/" class="mobile-nav-link">新闻</a><a href="/plugins/" class="mobile-nav-link">插件</a><a href="/themes/" class="mobile-nav-link">主题</a>
+      <li class="mobile-nav-item">
+        <a href="https://github.com/" class="mobile-nav-link" rel="external" target="_blank">GitHub</a>
+      </li>
+    </ul>
+    
+  </div>
+  <div id="mobile-lang-select-wrap">
+    <span id="mobile-lang-select-label"><i class="fa fa-globe"></i><span>简体中文</span></span>
+    <select id="mobile-lang-select" data-canonical="">
+      
+        <option value="en">English</option>
+      
+        <option value="zh-tw">正體中文</option>
+      
+        <option value="zh-cn" selected>简体中文</option>
+      
+        <option value="ru">Русский</option>
+      
+        <option value="ko">한국어</option>
+      
+        <option value="pt-br">Português (Brasil)</option>
+      
+        <option value="th">ภาษาไทย</option>
+      
+    </select>
+  </div>
+</nav>
+  <!-- Scripts -->
+<!-- Cookie -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.min.js"></script>
+<!-- build:js build/js/main.js -->
+<script src="/js/lang_select.js"></script>
+<script src="/js/toc.js"></script>
+<script src="/js/mobile_nav.js"></script>
+<!-- endbuild -->
+
+<!-- Algolia -->
+
+
+</body>
+</html>

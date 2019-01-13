@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head prefix="og: http://ogp.me/ns#"><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <title>redis cluster on centos7 | W0ng.Unic0rn blog</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://hexo.io/news/2019/01/13/redis-cluster-on-centos7.html">
+  <!-- Alternative links -->
+  
+  <!-- Icon -->
+  <link rel="apple-touch-icon" sizes="57x57" href="/icon/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/icon/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/icon/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/icon/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/icon/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/icon/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/icon/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/icon/apple-touch-icon-152x152.png">
+  <link rel="icon" type="image/png" href="/icon/favicon-196x196.png" sizes="196x196">
+  <link rel="icon" type="image/png" href="/icon/favicon-160x160.png" sizes="160x160">
+  <link rel="icon" type="image/png" href="/icon/favicon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/png" href="/icon/favicon-16x16.png" sizes="16x16">
+  <link rel="icon" type="image/png" href="/icon/favicon-32x32.png" sizes="32x32">
+  <meta name="msapplication-TileColor" content="#2f83cd">
+  <meta name="msapplication-TileImage" content="/icon/mstile-144x144.png">
+  <!-- CSS -->
+  <!-- build:css build/css/navy.css -->
+  <link rel="stylesheet" href="/css/navy.css">
+  <!-- endbuild -->
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css">
+  <!-- RSS -->
+  <link rel="alternate" href="/atom.xml" title="W0ng.Unic0rn blog">
+  <!-- Open Graph -->
+  <meta name="description" content="ref:  https://www.jianshu.com/p/d562ce7c344b ruby 2.2.x on centos7 https://blog.csdn.net/liu0808/article/details/80098568  初始化- 启动$ for i in `ls`; do screen -dmS redis_$i /usr/local/bin/redis-server">
+<meta property="og:type" content="article">
+<meta property="og:title" content="redis cluster on centos7">
+<meta property="og:url" content="https://hexo.io/news/2019/01/13/redis-cluster-on-centos7.html">
+<meta property="og:site_name" content="W0ng.Unic0rn blog">
+<meta property="og:description" content="ref:  https://www.jianshu.com/p/d562ce7c344b ruby 2.2.x on centos7 https://blog.csdn.net/liu0808/article/details/80098568  初始化- 启动$ for i in `ls`; do screen -dmS redis_$i /usr/local/bin/redis-server">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2019-01-12T17:07:34.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="redis cluster on centos7">
+<meta name="twitter:description" content="ref:  https://www.jianshu.com/p/d562ce7c344b ruby 2.2.x on centos7 https://blog.csdn.net/liu0808/article/details/80098568  初始化- 启动$ for i in `ls`; do screen -dmS redis_$i /usr/local/bin/redis-server">
+  <!-- Google Analytics -->
+  
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-6482217598104186",
+          enable_page_level_ads: true
+     });
+  </script>
+</head>
+
+<body>
+  <div id="container">
+    <header id="header" class="wrapper">
+  <div id="header-inner" class="inner">
+    <h1 id="logo-wrap">
+      <a href="/zh-cn/" id="logo">Hexo</a>
+    </h1>
+    <nav id="main-nav">
+      <a href="/zh-cn/docs/" class="main-nav-link">文档</a><a href="/zh-cn/api/" class="main-nav-link">API</a><a href="/news/" class="main-nav-link">新闻</a><a href="/plugins/" class="main-nav-link">插件</a><a href="/themes/" class="main-nav-link">主题</a>
+      <a href="https://github.com/" class="main-nav-link"><i class="fa fa-github-alt"></i></a>
+      <div id="search-input-wrap">
+        <div id="search-input-icon">
+          <i class="fa fa-search"></i>
+        </div>
+        <input type="search" id="search-input" placeholder="Search...">
+      </div>
+    </nav>
+    <div id="lang-select-wrap">
+      <label id="lang-select-label"><i class="fa fa-globe"></i><span>简体中文</span></label>
+      <select id="lang-select" data-canonical="">
+        
+          <option value="en">English</option>
+        
+          <option value="zh-tw">正體中文</option>
+        
+          <option value="zh-cn" selected>简体中文</option>
+        
+          <option value="ru">Русский</option>
+        
+          <option value="ko">한국어</option>
+        
+          <option value="pt-br">Português (Brasil)</option>
+        
+          <option value="th">ภาษาไทย</option>
+        
+      </select>
+    </div>
+    <a id="mobile-nav-toggle">
+      <span class="mobile-nav-toggle-bar"></span>
+      <span class="mobile-nav-toggle-bar"></span>
+      <span class="mobile-nav-toggle-bar"></span>
+    </a>
+  </div>
+</header>
+
+    <div id="content-wrap">
+  <div class="wrapper">
+    <div class="inner">
+      <article class="article post" itemscope itemtype="http://schema.org/Article">
+  <header class="article-header">
+    
+      <h1 class="article-title" itemprop="name">redis cluster on centos7</h1>
+    
+    <a href="/news/2019/01/13/redis-cluster-on-centos7.html" class="article-date"><time datetime="2019-01-12T16:00:00.000Z">2019-01-13</time></a>
+  </header>
+  <div class="article-content" itemprop="articleBody">
+    <ul>
+<li>ref:</li>
+</ul>
+<p><a href="https://www.jianshu.com/p/d562ce7c344b" target="_blank" rel="noopener">https://www.jianshu.com/p/d562ce7c344b</a></p>
+<p>ruby 2.2.x on centos7</p>
+<p><a href="https://blog.csdn.net/liu0808/article/details/80098568" target="_blank" rel="noopener">https://blog.csdn.net/liu0808/article/details/80098568</a></p>
+<hr>
+<h2 id="初始化" class="article-heading"><a href="#初始化" class="headerlink" title="初始化"></a>初始化<a class="article-anchor" href="#初始化" aria-hidden="true"></a></h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">- 启动</span><br><span class="line">$ <span class="keyword">for</span> i <span class="keyword">in</span> `ls`; <span class="keyword">do</span> screen -dmS redis_<span class="variable">$i</span> /usr/<span class="built_in">local</span>/bin/redis-server <span class="variable">$i</span>/redis.conf; <span class="keyword">done</span></span><br><span class="line"></span><br><span class="line">$ <span class="built_in">pwd</span></span><br><span class="line">/tmp/redis-4.0.12/src</span><br><span class="line"></span><br><span class="line">- 本机集群：</span><br><span class="line">$ ./redis-trib.rb create --replicas 1 127.0.0.1:6379 127.0.0.1:6380 127.0.0.1:6381 127.0.0.1:6382 127.0.0.1:6383 127.0.0.1:6384</span><br><span class="line">&gt;&gt;&gt; Creating cluster</span><br><span class="line">&gt;&gt;&gt; Performing <span class="built_in">hash</span> slots allocation on 6 nodes...</span><br><span class="line">Using 3 masters:</span><br><span class="line">127.0.0.1:6379</span><br><span class="line">127.0.0.1:6380</span><br><span class="line">127.0.0.1:6381</span><br><span class="line">Adding replica 127.0.0.1:6383 to 127.0.0.1:6379</span><br><span class="line">Adding replica 127.0.0.1:6384 to 127.0.0.1:6380</span><br><span class="line">Adding replica 127.0.0.1:6382 to 127.0.0.1:6381</span><br><span class="line">&gt;&gt;&gt; Trying to optimize slaves allocation <span class="keyword">for</span> anti-affinity</span><br><span class="line">[WARNING] Some slaves are <span class="keyword">in</span> the same host as their master</span><br><span class="line">M: 09d82a93f51a0ece0082f7ea76cd9b24d6f187fa 127.0.0.1:6379</span><br><span class="line">slots:0-5460 (5461 slots) master</span><br><span class="line">M: 784850a914cb7c815633d948548df92742286e59 127.0.0.1:6380</span><br><span class="line">slots:5461-10922 (5462 slots) master</span><br><span class="line">M: b8fad58d5b99a12e26005fffab0ac4ec398ba6d7 127.0.0.1:6381</span><br><span class="line">slots:10923-16383 (5461 slots) master</span><br><span class="line">S: 505e30fd3e2bfc2169fbe716fae91a5074098aa1 127.0.0.1:6382</span><br><span class="line">replicates b8fad58d5b99a12e26005fffab0ac4ec398ba6d7</span><br><span class="line">S: d7668819f6336df0486de69bae820901c7c745ec 127.0.0.1:6383</span><br><span class="line">replicates 09d82a93f51a0ece0082f7ea76cd9b24d6f187fa</span><br><span class="line">S: fe028a59e6c053c30b7b6d0665f16f42bbb27f6c 127.0.0.1:6384</span><br><span class="line">replicates 784850a914cb7c815633d948548df92742286e59</span><br><span class="line">Can I <span class="built_in">set</span> the above configuration? (<span class="built_in">type</span> <span class="string">'yes'</span> to accept): yes</span><br><span class="line">&gt;&gt;&gt; Nodes configuration updated</span><br><span class="line">&gt;&gt;&gt; Assign a different config epoch to each node</span><br><span class="line">&gt;&gt;&gt; Sending CLUSTER MEET messages to join the cluster</span><br><span class="line">Waiting <span class="keyword">for</span> the cluster to join.....</span><br><span class="line">&gt;&gt;&gt; Performing Cluster Check (using node 127.0.0.1:6379)</span><br><span class="line">M: 09d82a93f51a0ece0082f7ea76cd9b24d6f187fa 127.0.0.1:6379</span><br><span class="line">slots:0-5460 (5461 slots) master</span><br><span class="line">1 additional replica(s)</span><br><span class="line">S: d7668819f6336df0486de69bae820901c7c745ec 127.0.0.1:6383</span><br><span class="line">slots: (0 slots) slave</span><br><span class="line">replicates 09d82a93f51a0ece0082f7ea76cd9b24d6f187fa</span><br><span class="line">M: 784850a914cb7c815633d948548df92742286e59 127.0.0.1:6380</span><br><span class="line">slots:5461-10922 (5462 slots) master</span><br><span class="line">1 additional replica(s)</span><br><span class="line">M: b8fad58d5b99a12e26005fffab0ac4ec398ba6d7 127.0.0.1:6381</span><br><span class="line">slots:10923-16383 (5461 slots) master</span><br><span class="line">1 additional replica(s)</span><br><span class="line">S: 505e30fd3e2bfc2169fbe716fae91a5074098aa1 127.0.0.1:6382</span><br><span class="line">slots: (0 slots) slave</span><br><span class="line">replicates b8fad58d5b99a12e26005fffab0ac4ec398ba6d7</span><br><span class="line">S: fe028a59e6c053c30b7b6d0665f16f42bbb27f6c 127.0.0.1:6384</span><br><span class="line">slots: (0 slots) slave</span><br><span class="line">replicates 784850a914cb7c815633d948548df92742286e59</span><br><span class="line">[OK] All nodes agree about slots configuration.</span><br><span class="line">&gt;&gt;&gt; Check <span class="keyword">for</span> open slots...</span><br><span class="line">&gt;&gt;&gt; Check slots coverage...</span><br><span class="line">[OK] All 16384 slots covered.</span><br><span class="line"></span><br><span class="line"><span class="comment">## 连接测试</span></span><br><span class="line">$ redis-cli -c</span><br><span class="line">127.0.0.1:6379&gt; <span class="built_in">set</span> x y</span><br><span class="line">-&gt; Redirected to slot [16287] located at 127.0.0.1:6381</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6381&gt; get x</span><br><span class="line"><span class="string">"y"</span></span><br></pre></td></tr></table></figure>
+
+  </div>
+  
+</article>
+
+    </div>
+  </div>
+</div>
+    <footer id="footer" class="wrapper">
+  <div class="inner">
+    <div id="footer-copyright">
+      &copy; 2019 <a href="https://github.com/hexojs/hexo/graphs/contributors" target="_blank">W0ng.Unic0rn</a><br>
+      Documentation licensed under <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a>.
+    </div>
+    <div id="footer-links">
+      <a href="https://twitter.com/" class="footer-link" target="_blank"><i class="fa fa-twitter"></i></a>
+      <a href="https://github.com/" class="footer-link" target="_blank"><i class="fa fa-github-alt"></i></a>
+    </div>
+  </div>
+</footer>
+
+  </div>
+  <div id="mobile-nav-dimmer"></div>
+  <nav id="mobile-nav">
+  <div id="mobile-nav-inner">
+    <ul id="mobile-nav-list">
+      <a href="/zh-cn/docs/" class="mobile-nav-link">文档</a><a href="/zh-cn/api/" class="mobile-nav-link">API</a><a href="/news/" class="mobile-nav-link">新闻</a><a href="/plugins/" class="mobile-nav-link">插件</a><a href="/themes/" class="mobile-nav-link">主题</a>
+      <li class="mobile-nav-item">
+        <a href="https://github.com/" class="mobile-nav-link" rel="external" target="_blank">GitHub</a>
+      </li>
+    </ul>
+    
+  </div>
+  <div id="mobile-lang-select-wrap">
+    <span id="mobile-lang-select-label"><i class="fa fa-globe"></i><span>简体中文</span></span>
+    <select id="mobile-lang-select" data-canonical="">
+      
+        <option value="en">English</option>
+      
+        <option value="zh-tw">正體中文</option>
+      
+        <option value="zh-cn" selected>简体中文</option>
+      
+        <option value="ru">Русский</option>
+      
+        <option value="ko">한국어</option>
+      
+        <option value="pt-br">Português (Brasil)</option>
+      
+        <option value="th">ภาษาไทย</option>
+      
+    </select>
+  </div>
+</nav>
+  <!-- Scripts -->
+<!-- Cookie -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.min.js"></script>
+<!-- build:js build/js/main.js -->
+<script src="/js/lang_select.js"></script>
+<script src="/js/toc.js"></script>
+<script src="/js/mobile_nav.js"></script>
+<!-- endbuild -->
+
+<!-- Algolia -->
+
+
+</body>
+</html>
