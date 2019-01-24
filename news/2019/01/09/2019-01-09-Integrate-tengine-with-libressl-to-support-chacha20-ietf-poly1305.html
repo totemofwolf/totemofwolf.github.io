@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head prefix="og: http://ogp.me/ns#"><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <title>Integrate tengine with libressl to support chacha20-ietf-poly1305 | W0ng.Unic0rn blog</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://hexo.io/news/2019/01/09/2019-01-09-Integrate-tengine-with-libressl-to-support-chacha20-ietf-poly1305.html">
+  <!-- Alternative links -->
+  
+  <!-- Icon -->
+  <link rel="apple-touch-icon" sizes="57x57" href="/icon/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/icon/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/icon/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/icon/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/icon/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/icon/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/icon/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/icon/apple-touch-icon-152x152.png">
+  <link rel="icon" type="image/png" href="/icon/favicon-196x196.png" sizes="196x196">
+  <link rel="icon" type="image/png" href="/icon/favicon-160x160.png" sizes="160x160">
+  <link rel="icon" type="image/png" href="/icon/favicon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/png" href="/icon/favicon-16x16.png" sizes="16x16">
+  <link rel="icon" type="image/png" href="/icon/favicon-32x32.png" sizes="32x32">
+  <meta name="msapplication-TileColor" content="#2f83cd">
+  <meta name="msapplication-TileImage" content="/icon/mstile-144x144.png">
+  <!-- CSS -->
+  <!-- build:css build/css/navy.css -->
+  <link rel="stylesheet" href="/css/navy.css">
+  <!-- endbuild -->
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css">
+  <!-- RSS -->
+  <link rel="alternate" href="/atom.xml" title="W0ng.Unic0rn blog">
+  <!-- Open Graph -->
+  <meta name="description" content="更换背景# Mac 基础套件ssh, php以及alpine Linux已经切换openssl到libressl➜  ~ ssh -VOpenSSH_7.8p1, LibreSSL 2.6.2➜  ~ php -iphpinfo()PHP Version =&amp;gt; 7.1.16root:xnu-4570.71.17~1/RELEASE_X86_64 x86_64Build Date =&amp;gt;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Integrate tengine with libressl to support chacha20-ietf-poly1305">
+<meta property="og:url" content="https://hexo.io/news/2019/01/09/2019-01-09-Integrate-tengine-with-libressl-to-support-chacha20-ietf-poly1305.html">
+<meta property="og:site_name" content="W0ng.Unic0rn blog">
+<meta property="og:description" content="更换背景# Mac 基础套件ssh, php以及alpine Linux已经切换openssl到libressl➜  ~ ssh -VOpenSSH_7.8p1, LibreSSL 2.6.2➜  ~ php -iphpinfo()PHP Version =&amp;gt; 7.1.16root:xnu-4570.71.17~1/RELEASE_X86_64 x86_64Build Date =&amp;gt;">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2019-01-12T07:19:20.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Integrate tengine with libressl to support chacha20-ietf-poly1305">
+<meta name="twitter:description" content="更换背景# Mac 基础套件ssh, php以及alpine Linux已经切换openssl到libressl➜  ~ ssh -VOpenSSH_7.8p1, LibreSSL 2.6.2➜  ~ php -iphpinfo()PHP Version =&amp;gt; 7.1.16root:xnu-4570.71.17~1/RELEASE_X86_64 x86_64Build Date =&amp;gt;">
+  <!-- Google Analytics -->
+  
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-6482217598104186",
+          enable_page_level_ads: true
+     });
+  </script>
+</head>
+
+<body>
+  <div id="container">
+    <header id="header" class="wrapper">
+  <div id="header-inner" class="inner">
+    <h1 id="logo-wrap">
+      <a href="/zh-cn/" id="logo">Hexo</a>
+    </h1>
+    <nav id="main-nav">
+      <a href="/zh-cn/docs/" class="main-nav-link">文档</a><a href="/zh-cn/api/" class="main-nav-link">API</a><a href="/news/" class="main-nav-link">新闻</a><a href="/plugins/" class="main-nav-link">插件</a><a href="/themes/" class="main-nav-link">主题</a>
+      <a href="https://github.com/" class="main-nav-link"><i class="fa fa-github-alt"></i></a>
+      <div id="search-input-wrap">
+        <div id="search-input-icon">
+          <i class="fa fa-search"></i>
+        </div>
+        <input type="search" id="search-input" placeholder="Search...">
+      </div>
+    </nav>
+    <div id="lang-select-wrap">
+      <label id="lang-select-label"><i class="fa fa-globe"></i><span>简体中文</span></label>
+      <select id="lang-select" data-canonical="">
+        
+          <option value="en">English</option>
+        
+          <option value="zh-tw">正體中文</option>
+        
+          <option value="zh-cn" selected>简体中文</option>
+        
+          <option value="ru">Русский</option>
+        
+          <option value="ko">한국어</option>
+        
+          <option value="pt-br">Português (Brasil)</option>
+        
+          <option value="th">ภาษาไทย</option>
+        
+      </select>
+    </div>
+    <a id="mobile-nav-toggle">
+      <span class="mobile-nav-toggle-bar"></span>
+      <span class="mobile-nav-toggle-bar"></span>
+      <span class="mobile-nav-toggle-bar"></span>
+    </a>
+  </div>
+</header>
+
+    <div id="content-wrap">
+  <div class="wrapper">
+    <div class="inner">
+      <article class="article post" itemscope itemtype="http://schema.org/Article">
+  <header class="article-header">
+    
+      <h1 class="article-title" itemprop="name">Integrate tengine with libressl to support chacha20-ietf-poly1305</h1>
+    
+    <a href="/news/2019/01/09/2019-01-09-Integrate-tengine-with-libressl-to-support-chacha20-ietf-poly1305.html" class="article-date"><time datetime="2019-01-09T10:09:46.000Z">2019-01-09</time></a>
+  </header>
+  <div class="article-content" itemprop="articleBody">
+    <hr>
+<h2 id="更换背景" class="article-heading"><a href="#更换背景" class="headerlink" title="更换背景"></a>更换背景<a class="article-anchor" href="#更换背景" aria-hidden="true"></a></h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Mac 基础套件ssh, php以及alpine Linux已经切换openssl到libressl</span></span><br><span class="line">➜  ~ ssh -V</span><br><span class="line">OpenSSH_7.8p1, LibreSSL 2.6.2</span><br><span class="line"></span><br><span class="line">➜  ~ php -i</span><br><span class="line">phpinfo()</span><br><span class="line">PHP Version =&gt; 7.1.16</span><br><span class="line"></span><br><span class="line">root:xnu-4570.71.17~1/RELEASE_X86_64 x86_64</span><br><span class="line">Build Date =&gt; Apr  1 2018 13:47:29</span><br><span class="line">Configure Command =&gt; <span class="string">'....</span></span><br><span class="line"><span class="string">--with-openssl=/BuildRoot/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.Internal.sdk/usr/local/libressl</span></span><br><span class="line"><span class="string">...'</span></span><br></pre></td></tr></table></figure>
+<h2 id="环境说明" class="article-heading"><a href="#环境说明" class="headerlink" title="环境说明"></a>环境说明<a class="article-anchor" href="#环境说明" aria-hidden="true"></a></h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ cat /etc/redhat-release</span><br><span class="line">CentOS Linux release 7.6.1810 (Core)</span><br><span class="line"></span><br><span class="line">$ uname -a</span><br><span class="line">Linux izj6c0ahnyudgp7qwa7ah8z 4.14.90 <span class="comment">#1 SMP Mon Dec 24 04:50:20 UTC 2018 x86_64 x86_64 x86_64 GNU/Linux</span></span><br></pre></td></tr></table></figure>
+<h2 id="编译libressl" class="article-heading"><a href="#编译libressl" class="headerlink" title="编译libressl"></a>编译libressl<a class="article-anchor" href="#编译libressl" aria-hidden="true"></a></h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/src/</span><br><span class="line">wget -c https://ftp.openbsd.org/pub/OpenBSD/LibreSSL/libressl-2.6.5.tar.gz</span><br><span class="line"><span class="comment"># centos 7 gcc需要额外设置编译参数-fPIC</span></span><br><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/src/libressl/</span><br><span class="line"><span class="built_in">export</span> CFLAGS=<span class="string">"<span class="variable">$CFLAGS</span> -fPIC -g -O2"</span> &amp;&amp; ./config --prefix=/usr/<span class="built_in">local</span>/src/libressl/.openssl no-shared</span><br><span class="line">make -j4 &amp;&amp; make install-strip distclean</span><br><span class="line"><span class="built_in">unset</span> CFLAGS</span><br></pre></td></tr></table></figure>
+<h2 id="编译tengine，使用libressl" class="article-heading"><a href="#编译tengine，使用libressl" class="headerlink" title="编译tengine，使用libressl"></a>编译tengine，使用libressl<a class="article-anchor" href="#编译tengine，使用libressl" aria-hidden="true"></a></h2><hr>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/src/tengine/</span><br><span class="line">make clean</span><br><span class="line"></span><br><span class="line">./configure \</span><br><span class="line">--prefix=/usr/share/nginx \</span><br><span class="line">--conf-path=/etc/nginx/nginx.conf \</span><br><span class="line">--error-log-path=/var/<span class="built_in">log</span>/nginx/error.log \</span><br><span class="line">--http-client-body-temp-path=/var/cache/nginx/client_temp \</span><br><span class="line">--http-fastcgi-temp-path=/var/cache/nginx/fastcgi_temp \</span><br><span class="line">--http-log-path=/var/<span class="built_in">log</span>/nginx/access.log \</span><br><span class="line">--http-proxy-temp-path=/var/cache/nginx/proxy_temp \</span><br><span class="line">--http-scgi-temp-path=/var/cache/nginx/scgi_temp \</span><br><span class="line">--http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp \</span><br><span class="line">--lock-path=/var/run/lock/nginx.lock \</span><br><span class="line">--pid-path=/var/run/nginx.pid \</span><br><span class="line">--sbin-path=/usr/sbin/nginx \</span><br><span class="line">--dso-tool-path=/usr/sbin/dso_tool \</span><br><span class="line">--group=nginx \</span><br><span class="line">--user=nginx \</span><br><span class="line">--with-file-aio \</span><br><span class="line">--with-http_addition_module=shared \</span><br><span class="line">--with-http_auth_request_module \</span><br><span class="line">--with-http_concat_module=shared \</span><br><span class="line">--with-http_dav_module \</span><br><span class="line">--with-http_degradation_module \</span><br><span class="line">--with-http_dyups_module \</span><br><span class="line">--with-http_flv_module=shared \</span><br><span class="line">--with-http_geoip_module=shared \</span><br><span class="line">--with-http_gunzip_module \</span><br><span class="line">--with-http_gzip_static_module \</span><br><span class="line">--with-http_memcached_module=shared \</span><br><span class="line">--with-http_random_index_module=shared \</span><br><span class="line">--with-http_realip_module \</span><br><span class="line">--with-http_reqstat_module=shared \</span><br><span class="line">--with-http_secure_link_module=shared \</span><br><span class="line">--with-http_slice_module=shared \</span><br><span class="line">--with-http_sub_module=shared \</span><br><span class="line">--with-http_sysguard_module=shared \</span><br><span class="line">--with-http_v2_module \</span><br><span class="line">--with-ipv6 \</span><br><span class="line">--with-jemalloc \</span><br><span class="line">--with-http_xslt_module=shared \</span><br><span class="line">--with-pcre \</span><br><span class="line">--with-pcre-jit \</span><br><span class="line">--with-openssl=/usr/<span class="built_in">local</span>/src/libressl \</span><br><span class="line">--with-cc-opt=<span class="string">'-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector-strong --param=ssp-buffer-size=4 -grecord-gcc-switches -m64 -mtune=native -fPIC'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 更新libressl header文件时间戳防止再次编译</span></span><br><span class="line">touch /usr/<span class="built_in">local</span>/src/libressl/.openssl/include/openssl/ssl.h</span><br><span class="line"></span><br><span class="line"><span class="comment"># 编译安装</span></span><br><span class="line">make -j3 &amp;&amp; sudo make install clean &amp;&amp; sudo mkdir -pv /var/cache/nginx/client_temp</span><br></pre></td></tr></table></figure>
+<h2 id="启动脚本" class="article-heading"><a href="#启动脚本" class="headerlink" title="启动脚本"></a>启动脚本<a class="article-anchor" href="#启动脚本" aria-hidden="true"></a></h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@nat-gw-jms-254-2 ~]<span class="comment"># cat &gt; /usr/lib/systemd/system/nginx.service</span></span><br><span class="line">[Unit]</span><br><span class="line">Description=The nginx HTTP and reverse proxy server</span><br><span class="line">After=network.target remote-fs.target nss-lookup.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=forking</span><br><span class="line">PIDFile=/run/nginx.pid</span><br><span class="line"><span class="comment"># Nginx will fail to start if /run/nginx.pid already exists but has the wrong</span></span><br><span class="line"><span class="comment"># SELinux context. This might happen when running `nginx -t` from the cmdline.</span></span><br><span class="line"><span class="comment"># https://bugzilla.redhat.com/show_bug.cgi?id=1268621</span></span><br><span class="line">ExecStartPre=/usr/bin/rm -f /run/nginx.pid</span><br><span class="line">ExecStartPre=/usr/sbin/nginx -t</span><br><span class="line">ExecStart=/usr/sbin/nginx</span><br><span class="line">ExecReload=/bin/<span class="built_in">kill</span> -s HUP <span class="variable">$MAINPID</span></span><br><span class="line">KillSignal=SIGQUIT</span><br><span class="line">TimeoutStopSec=5</span><br><span class="line">KillMode=process</span><br><span class="line">PrivateTmp=<span class="literal">true</span></span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+<h2 id="额外设置" class="article-heading"><a href="#额外设置" class="headerlink" title="额外设置"></a>额外设置<a class="article-anchor" href="#额外设置" aria-hidden="true"></a></h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">chkconfig nginx on</span><br></pre></td></tr></table></figure>
+
+  </div>
+  
+</article>
+
+    </div>
+  </div>
+</div>
+    <footer id="footer" class="wrapper">
+  <div class="inner">
+    <div id="footer-copyright">
+      &copy; 2019 <a href="https://github.com/hexojs/hexo/graphs/contributors" target="_blank">W0ng.Unic0rn</a><br>
+      Documentation licensed under <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a>.
+    </div>
+    <div id="footer-links">
+      <a href="https://twitter.com/" class="footer-link" target="_blank"><i class="fa fa-twitter"></i></a>
+      <a href="https://github.com/" class="footer-link" target="_blank"><i class="fa fa-github-alt"></i></a>
+    </div>
+  </div>
+</footer>
+
+  </div>
+  <div id="mobile-nav-dimmer"></div>
+  <nav id="mobile-nav">
+  <div id="mobile-nav-inner">
+    <ul id="mobile-nav-list">
+      <a href="/zh-cn/docs/" class="mobile-nav-link">文档</a><a href="/zh-cn/api/" class="mobile-nav-link">API</a><a href="/news/" class="mobile-nav-link">新闻</a><a href="/plugins/" class="mobile-nav-link">插件</a><a href="/themes/" class="mobile-nav-link">主题</a>
+      <li class="mobile-nav-item">
+        <a href="https://github.com/" class="mobile-nav-link" rel="external" target="_blank">GitHub</a>
+      </li>
+    </ul>
+    
+  </div>
+  <div id="mobile-lang-select-wrap">
+    <span id="mobile-lang-select-label"><i class="fa fa-globe"></i><span>简体中文</span></span>
+    <select id="mobile-lang-select" data-canonical="">
+      
+        <option value="en">English</option>
+      
+        <option value="zh-tw">正體中文</option>
+      
+        <option value="zh-cn" selected>简体中文</option>
+      
+        <option value="ru">Русский</option>
+      
+        <option value="ko">한국어</option>
+      
+        <option value="pt-br">Português (Brasil)</option>
+      
+        <option value="th">ภาษาไทย</option>
+      
+    </select>
+  </div>
+</nav>
+  <!-- Scripts -->
+<!-- Cookie -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.min.js"></script>
+<!-- build:js build/js/main.js -->
+<script src="/js/lang_select.js"></script>
+<script src="/js/toc.js"></script>
+<script src="/js/mobile_nav.js"></script>
+<!-- endbuild -->
+
+<!-- Algolia -->
+
+
+</body>
+</html>

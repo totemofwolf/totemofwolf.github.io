@@ -111,19 +111,18 @@
   <header class="article-header">
     
       <h1>
-        <a href="/news/2019/01/13/centos-lvm-usage.html" class="article-title" itemprop="name">centos lvm usage</a>
+        <a href="/news/2019/01/13/2019-01-13-speedup-typecho-using-memcached.html" class="article-title" itemprop="name">speedup typecho using memcached</a>
       </h1>
     
-    <a href="/news/2019/01/13/centos-lvm-usage.html" class="article-date"><time datetime="2019-01-12T16:00:00.000Z">2019-01-13</time></a>
+    <a href="/news/2019/01/13/2019-01-13-speedup-typecho-using-memcached.html" class="article-date"><time datetime="2019-01-13T05:42:21.000Z">2019-01-13</time></a>
   </header>
   <div class="article-content" itemprop="articleBody">
-    <ul>
-<li>ref: <a href="https://blog.csdn.net/u012439646/article/details/73380197" target="_blank" rel="noopener">https://blog.csdn.net/u012439646/article/details/73380197</a></li>
-</ul>
-<hr>
-<h2 id="使用lvm" class="article-heading"><a href="#使用lvm" class="headerlink" title="使用lvm"></a>使用lvm<a class="article-anchor" href="#使用lvm" aria-hidden="true"></a></h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># fdisk -l</span></span><br><span class="line">Disk /dev/vdc: 107.4 GB, 107374182400 bytes, 209715200 sectors</span><br><span class="line">Units = sectors of 1 * 512 = 512 bytes</span><br><span class="line">Sector size (logical/physical): 512 bytes / 512 bytes</span><br><span class="line">I/O size (minimum/optimal): 512 bytes / 512 bytes</span><br><span class="line"></span><br><span class="line"><span class="comment"># pvcreate /dev/vdc</span></span><br><span class="line">Physical volume <span class="string">"/dev/vdc"</span> successfully created.</span><br><span class="line"><span class="comment"># pvs</span></span><br><span class="line">PV VG Fmt Attr PSize PFree</span><br><span class="line">/dev/vdc lvm2 --- 100.00g 100.00g</span><br><span class="line"></span><br><span class="line"><span class="comment"># vgcreate vg0 /dev/vdc</span></span><br><span class="line">Volume group <span class="string">"vg0"</span> successfully created</span><br><span class="line"><span class="comment"># vgs</span></span><br><span class="line">VG <span class="comment">#PV #LV #SN Attr VSize VFree</span></span><br><span class="line">vg0 1 0 0 wz--n- &lt;100.00g &lt;100.00g</span><br><span class="line"></span><br><span class="line"><span class="comment"># lvcreate -n lv0 -l 100%FREE vg0</span></span><br><span class="line">Logical volume <span class="string">"lv0"</span> created.</span><br><span class="line"><span class="comment"># lvs</span></span><br><span class="line">LV VG Attr LSize Pool Origin Data% Meta% Move Log Cpy%Sync Convert</span><br><span class="line">lv0 vg0 -wi<span class="_">-a</span>----- &lt;100.00g</span><br><span class="line"></span><br><span class="line"><span class="comment"># fdisk -l</span></span><br><span class="line">Disk /dev/mapper/vg0-lv0: 107.4 GB, 107369988096 bytes, 209707008 sectors</span><br><span class="line">Units = sectors of 1 * 512 = 512 bytes</span><br><span class="line">Sector size (logical/physical): 512 bytes / 512 bytes</span><br><span class="line">I/O size (minimum/optimal): 512 bytes / 512 bytes</span><br><span class="line"></span><br><span class="line"><span class="comment"># mkfs.xfs /dev/mapper/vg0-lv0</span></span><br><span class="line">meta-data=/dev/mapper/vg0-lv0 isize=512 agcount=4, agsize=6553344 blks</span><br><span class="line">= sectsz=512 attr=2, projid32bit=1</span><br><span class="line">= crc=1 finobt=0, sparse=0</span><br><span class="line">data = bsize=4096 blocks=26213376, imaxpct=25</span><br><span class="line">= sunit=0 swidth=0 blks</span><br><span class="line">naming =version 2 bsize=4096 ascii-ci=0 ftype=1</span><br><span class="line"><span class="built_in">log</span> =internal <span class="built_in">log</span> bsize=4096 blocks=12799, version=2</span><br><span class="line">= sectsz=512 sunit=0 blks, lazy-count=1</span><br><span class="line">realtime =none extsz=4096 blocks=0, rtextents=0</span><br><span class="line"></span><br><span class="line"><span class="comment"># mount -t xfs /dev/mapper/vg0-lv0 /program1</span></span><br><span class="line"><span class="comment"># mount</span></span><br><span class="line">/dev/mapper/vg0-lv0 on /program1 <span class="built_in">type</span> xfs (rw,relatime,attr2,inode64,noquota)</span><br></pre></td></tr></table></figure>
-<h2 id="lvm动态扩容" class="article-heading"><a href="#lvm动态扩容" class="headerlink" title="lvm动态扩容"></a>lvm动态扩容<a class="article-anchor" href="#lvm动态扩容" aria-hidden="true"></a></h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># df -h</span></span><br><span class="line">Filesystem Size Used Avail Use% Mounted on</span><br><span class="line">/dev/mapper/vg0-lv0 100G 80G 21G 80% /production</span><br><span class="line"></span><br><span class="line">- 格式化磁盘</span><br><span class="line"><span class="comment"># fdisk /dev/vdc</span></span><br><span class="line">Welcome to fdisk (util-linux 2.23.2).</span><br><span class="line">Changes will remain <span class="keyword">in</span> memory only, until you decide to write them.</span><br><span class="line">Be careful before using the write <span class="built_in">command</span>.</span><br><span class="line">Device does not contain a recognized partition table</span><br><span class="line">Building a new DOS disklabel with disk identifier 0x8198bb09.</span><br><span class="line">Command (m <span class="keyword">for</span> <span class="built_in">help</span>): n</span><br><span class="line">Partition <span class="built_in">type</span>:</span><br><span class="line">p primary (0 primary, 0 extended, 4 free)</span><br><span class="line">e extended</span><br><span class="line">Select (default p): p</span><br><span class="line">Partition number (1-4, default 1): 1</span><br><span class="line">First sector (2048-209715199, default 2048):</span><br><span class="line">Using default value 2048</span><br><span class="line">Last sector, +sectors or +size&#123;K,M,G&#125; (2048-209715199, default 209715199):</span><br><span class="line">Using default value 209715199</span><br><span class="line">Partition 1 of <span class="built_in">type</span> Linux and of size 100 GiB is <span class="built_in">set</span></span><br><span class="line">Command (m <span class="keyword">for</span> <span class="built_in">help</span>): wq</span><br><span class="line">The partition table has been altered!</span><br><span class="line">Calling ioctl() to re-read partition table.</span><br><span class="line">Syncing disks.</span><br><span class="line"></span><br><span class="line"><span class="comment"># fdisk -l</span></span><br><span class="line">Disk /dev/vdc: 107.4 GB, 107374182400 bytes, 209715200 sectors</span><br><span class="line">Units = sectors of 1 * 512 = 512 bytes</span><br><span class="line">Sector size (logical/physical): 512 bytes / 512 bytes</span><br><span class="line">I/O size (minimum/optimal): 512 bytes / 512 bytes</span><br><span class="line">Disk label <span class="built_in">type</span>: dos</span><br><span class="line">Disk identifier: 0x8198bb09</span><br><span class="line">Device Boot Start End Blocks Id System</span><br><span class="line">/dev/vdc1 2048 209715199 104856576 83 Linux</span><br><span class="line"></span><br><span class="line"><span class="comment"># pvcreate /dev/vdc1</span></span><br><span class="line">Physical volume <span class="string">"/dev/vdc1"</span> successfully created.</span><br><span class="line"></span><br><span class="line"><span class="comment"># vgdisplay</span></span><br><span class="line">--- Volume group ---</span><br><span class="line">VG Name vg0</span><br><span class="line">System ID</span><br><span class="line">Format lvm2</span><br><span class="line">Metadata Areas 1</span><br><span class="line">Metadata Sequence No 2</span><br><span class="line">VG Access <span class="built_in">read</span>/write</span><br><span class="line">VG Status resizable</span><br><span class="line">MAX LV 0</span><br><span class="line">Cur LV 1</span><br><span class="line">Open LV 1</span><br><span class="line">Max PV 0</span><br><span class="line">Cur PV 1</span><br><span class="line">Act PV 1</span><br><span class="line">VG Size &lt;100.00 GiB</span><br><span class="line">PE Size 4.00 MiB</span><br><span class="line">Total PE 25599</span><br><span class="line">Alloc PE / Size 25550 / 99.80 GiB</span><br><span class="line">Free PE / Size 49 / 196.00 MiB</span><br><span class="line">VG UUID IN0nD4-p7Hs-WHS1-ABGF-yv6r-NzJa-WAbNbr</span><br><span class="line"></span><br><span class="line"><span class="comment"># vgextend vg0 /dev/vdc1</span></span><br><span class="line">Volume group <span class="string">"vg0"</span> successfully extended</span><br><span class="line"></span><br><span class="line"><span class="comment"># vgdisplay</span></span><br><span class="line">--- Volume group ---</span><br><span class="line">VG Name vg0</span><br><span class="line">System ID</span><br><span class="line">Format lvm2</span><br><span class="line">Metadata Areas 2</span><br><span class="line">Metadata Sequence No 3</span><br><span class="line">VG Access <span class="built_in">read</span>/write</span><br><span class="line">VG Status resizable</span><br><span class="line">MAX LV 0</span><br><span class="line">Cur LV 1</span><br><span class="line">Open LV 1</span><br><span class="line">Max PV 0</span><br><span class="line">Cur PV 2</span><br><span class="line">Act PV 2</span><br><span class="line">VG Size 199.99 GiB</span><br><span class="line">PE Size 4.00 MiB</span><br><span class="line">Total PE 51198</span><br><span class="line">Alloc PE / Size 25550 / 99.80 GiB</span><br><span class="line">Free PE / Size 25648 / &lt;100.19 GiB</span><br><span class="line">VG UUID IN0nD4-p7Hs-WHS1-ABGF-yv6r-NzJa-WAbNbr</span><br><span class="line"></span><br><span class="line"><span class="comment"># lvdisplay</span></span><br><span class="line">--- Logical volume ---</span><br><span class="line">LV Path /dev/vg0/lv0</span><br><span class="line">LV Name lv0</span><br><span class="line">VG Name vg0</span><br><span class="line">LV UUID VPxQt7-Ryf0-scQb-u39k-AtH6-Un6i-F9nbro</span><br><span class="line">LV Write Access <span class="built_in">read</span>/write</span><br><span class="line">LV Creation host, time wiki-jira-nexus-gitlab-29-202, 2018-05-25 16:55:10 +0800</span><br><span class="line">LV Status available</span><br><span class="line"><span class="comment"># open 1</span></span><br><span class="line">LV Size 99.80 GiB</span><br><span class="line">Current LE 25550</span><br><span class="line">Segments 1</span><br><span class="line">Allocation inherit</span><br><span class="line">Read ahead sectors auto</span><br><span class="line">- currently <span class="built_in">set</span> to 256</span><br><span class="line">Block device 252:0</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># lvextend -l +100%FREE /dev/vg0/lv0</span></span><br><span class="line">Size of logical volume vg0/lv0 changed from 99.80 GiB (25550 extents) to 199.99 GiB (51198 extents).</span><br><span class="line">Logical volume vg0/lv0 successfully resized.</span><br><span class="line"><span class="comment"># lvdisplay</span></span><br><span class="line">--- Logical volume ---</span><br><span class="line">LV Path /dev/vg0/lv0</span><br><span class="line">LV Name lv0</span><br><span class="line">VG Name vg0</span><br><span class="line">LV UUID VPxQt7-Ryf0-scQb-u39k-AtH6-Un6i-F9nbro</span><br><span class="line">LV Write Access <span class="built_in">read</span>/write</span><br><span class="line">LV Creation host, time wiki-jira-nexus-gitlab-29-202, 2018-05-25 16:55:10 +0800</span><br><span class="line">LV Status available</span><br><span class="line"><span class="comment"># open 1</span></span><br><span class="line">LV Size 199.99 GiB</span><br><span class="line">Current LE 51198</span><br><span class="line">Segments 2</span><br><span class="line">Allocation inherit</span><br><span class="line">Read ahead sectors auto</span><br><span class="line">- currently <span class="built_in">set</span> to 256</span><br><span class="line">Block device 252:0</span><br><span class="line"></span><br><span class="line">查看磁盘格式：</span><br><span class="line"><span class="comment"># mount</span></span><br><span class="line">/dev/mapper/vg0-lv0 on /production <span class="built_in">type</span> xfs</span><br><span class="line"></span><br><span class="line">- xfs扩容</span><br><span class="line"><span class="comment"># xfs_growfs /dev/vg0/lv0</span></span><br><span class="line">meta-data=/dev/mapper/vg0-lv0 isize=512 agcount=4, agsize=6540800 blks</span><br><span class="line">= sectsz=512 attr=2, projid32bit=1</span><br><span class="line">= crc=1 finobt=0 spinodes=0</span><br><span class="line">data = bsize=4096 blocks=26163200, imaxpct=25</span><br><span class="line">= sunit=0 swidth=0 blks</span><br><span class="line">naming =version 2 bsize=4096 ascii-ci=0 ftype=1</span><br><span class="line"><span class="built_in">log</span> =internal bsize=4096 blocks=12775, version=2</span><br><span class="line">= sectsz=512 sunit=0 blks, lazy-count=1</span><br><span class="line">realtime =none extsz=4096 blocks=0, rtextents=0</span><br><span class="line">data blocks changed from 26163200 to 52426752</span><br><span class="line"></span><br><span class="line"><span class="comment"># df -h | grep /production</span></span><br><span class="line">/dev/mapper/vg0-lv0 200G 80G 121G 40% /production</span><br></pre></td></tr></table></figure>
-
+    <hr>
+<h2 id="安装libmemcached" class="article-heading"><a href="#安装libmemcached" class="headerlink" title="安装libmemcached"></a>安装libmemcached<a class="article-anchor" href="#安装libmemcached" aria-hidden="true"></a></h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum install cyrus-sasl-devel -y</span><br><span class="line">wget https://launchpad.net/libmemcached/1.0/1.0.18/+download/libmemcached-1.0.18.tar.gz</span><br><span class="line">tar zxf libmemcached-1.0.18.tar.gz</span><br><span class="line"><span class="built_in">cd</span> libmemcached-1.0.18</span><br><span class="line">./configure --libdir=/usr/lib64</span><br><span class="line">make</span><br><span class="line">make install clean</span><br><span class="line">ldconfig</span><br><span class="line"></span><br><span class="line"><span class="comment"># ll /usr/lib64/libmemcached* -th</span></span><br><span class="line">-rw-r--r-- 1 root root 212K Jan 14 19:01 /usr/lib64/libmemcachedutil.a</span><br><span class="line">-rw-r--r-- 1 root root 2.9M Jan 14 19:01 /usr/lib64/libmemcached.a</span><br><span class="line">-rwxr-xr-x 1 root root 1.1K Jan 14 19:01 /usr/lib64/libmemcachedutil.la</span><br><span class="line">lrwxrwxrwx 1 root root   25 Jan 14 19:01 /usr/lib64/libmemcachedutil.so -&gt; libmemcachedutil.so.2.0.0</span><br><span class="line">lrwxrwxrwx 1 root root   25 Jan 14 19:01 /usr/lib64/libmemcachedutil.so.2 -&gt; libmemcachedutil.so.2.0.0</span><br><span class="line">-rwxr-xr-x 1 root root 111K Jan 14 19:01 /usr/lib64/libmemcachedutil.so.2.0.0</span><br><span class="line">-rwxr-xr-x 1 root root  974 Jan 14 19:01 /usr/lib64/libmemcached.la</span><br><span class="line">lrwxrwxrwx 1 root root   22 Jan 14 19:01 /usr/lib64/libmemcached.so -&gt; libmemcached.so.11.0.0</span><br><span class="line">lrwxrwxrwx 1 root root   22 Jan 14 19:01 /usr/lib64/libmemcached.so.11 -&gt; libmemcached.so.11.0.0</span><br><span class="line">-rwxr-xr-x 1 root root 1.3M Jan 14 19:01 /usr/lib64/libmemcached.so.11.0.0</span><br><span class="line">lrwxrwxrwx 1 root root   25 Jan 14 18:31 /usr/lib64/libmemcachedutil.so.0 -&gt; libmemcachedutil.so.0.0.0</span><br><span class="line">lrwxrwxrwx 1 root root   21 Jan 14 18:31 /usr/lib64/libmemcached.so.2 -&gt; libmemcached.so.2.0.0</span><br><span class="line">-rwxr-xr-x 1 root root  64K Nov 12  2010 /usr/lib64/libmemcached.so.2.0.0</span><br><span class="line">-rwxr-xr-x 1 root root 6.9K Nov 12  2010 /usr/lib64/libmemcachedutil.so.0.0.0</span><br></pre></td></tr></table></figure>
+<h2 id="安装php-memcached" class="article-heading"><a href="#安装php-memcached" class="headerlink" title="安装php-memcached"></a>安装php-memcached<a class="article-anchor" href="#安装php-memcached" aria-hidden="true"></a></h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/production/server/php/bin/phpize</span><br><span class="line">./configure --with-php-config=/production/server/php/bin/php-config --<span class="built_in">enable</span>-memcached --<span class="built_in">enable</span>-memcached-json</span><br><span class="line">make -j2</span><br><span class="line">make install clean</span><br><span class="line"></span><br><span class="line">Installing shared extensions:     /production/server/php/lib/php/extensions/no-debug-non-zts-20131226/</span><br><span class="line">find . -name \*.gcno -o -name \*.gcda | xargs rm -f</span><br><span class="line">find . -name \*.lo -o -name \*.o | xargs rm -f</span><br><span class="line">find . -name \*.la -o -name \*.a | xargs rm -f</span><br><span class="line">find . -name \*.so | xargs rm -f</span><br><span class="line">find . -name .libs -a -<span class="built_in">type</span> d|xargs rm -rf</span><br><span class="line">rm -f libphp.la       modules/* libs/*</span><br></pre></td></tr></table></figure>
+<h2 id="打开扩展" class="article-heading"><a href="#打开扩展" class="headerlink" title="打开扩展"></a>打开扩展<a class="article-anchor" href="#打开扩展" aria-hidden="true"></a></h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">vim php/etc/php.ini</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加以下配置</span></span><br><span class="line">[memcached]</span><br><span class="line">extension=memcached.so</span><br><span class="line"></span><br><span class="line">sbin/php-fpm -t</span><br><span class="line">[14-Jan-2018 19:13:55] NOTICE: configuration file /production/server/php/etc/php-fpm.conf <span class="built_in">test</span> is successful</span><br><span class="line"></span><br><span class="line"><span class="comment"># service php-fpm reload</span></span><br><span class="line"><span class="comment"># /production/server/php/bin/php -m | grep memcached</span></span><br><span class="line">memcached</span><br></pre></td></tr></table></figure>
+<h2 id="安装配置memcached" class="article-heading"><a href="#安装配置memcached" class="headerlink" title="安装配置memcached"></a>安装配置memcached<a class="article-anchor" href="#安装配置memcached" aria-hidden="true"></a></h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum install memcached -y</span><br><span class="line">diff /etc/sysconfig/memcached /etc/sysconfig/memcached.ori</span><br><span class="line">5c5</span><br><span class="line">&lt; OPTIONS=<span class="string">"-l 127.0.0.1"</span></span><br><span class="line">---</span><br><span class="line">&gt; OPTIONS=<span class="string">""</span></span><br></pre></td></tr></table></figure>
+<h2 id="安装插件" class="article-heading"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件<a class="article-anchor" href="#安装插件" aria-hidden="true"></a></h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/phpgao/TpCache.git</span><br></pre></td></tr></table></figure>
   </div>
   
 </article>
@@ -132,72 +131,72 @@
       
         
           <article class="article post archive-post" itemscope itemtype="http://schema.org/Article">
-            <a class="archive-post-link" href="/news/2019/01/13/build-ruby-2-2-x-on-centos7.html">
-              <strong class="archive-post-title" itemprop="name">build ruby 2.2.x on centos7</strong>
-              <span class="archive-post-date"><time datetime="2019-01-12T16:00:00.000Z">2019-01-13</time></span>
-            </a>
-          </article>
-        
-      
-        
-          <article class="article post archive-post" itemscope itemtype="http://schema.org/Article">
-            <a class="archive-post-link" href="/news/2019/01/13/redis-cluster-on-centos7.html">
-              <strong class="archive-post-title" itemprop="name">redis cluster on centos7</strong>
-              <span class="archive-post-date"><time datetime="2019-01-12T16:00:00.000Z">2019-01-13</time></span>
-            </a>
-          </article>
-        
-      
-        
-          <article class="article post archive-post" itemscope itemtype="http://schema.org/Article">
-            <a class="archive-post-link" href="/news/2019/01/13/build-shadowsocks-libev-rpm-pkgs-on-centos7.html">
-              <strong class="archive-post-title" itemprop="name">build shadowsocks-libev rpm pkgs on centos7</strong>
-              <span class="archive-post-date"><time datetime="2019-01-12T16:00:00.000Z">2019-01-13</time></span>
-            </a>
-          </article>
-        
-      
-        
-          <article class="article post archive-post" itemscope itemtype="http://schema.org/Article">
-            <a class="archive-post-link" href="/news/2019/01/13/nginx-proxy-pass-keepalive-settings.html">
+            <a class="archive-post-link" href="/news/2019/01/13/2019-01-13-nginx-proxy-pass-keepalive-settings.html">
               <strong class="archive-post-title" itemprop="name">nginx proxy_pass keepalive settings</strong>
-              <span class="archive-post-date"><time datetime="2019-01-12T16:00:00.000Z">2019-01-13</time></span>
+              <span class="archive-post-date"><time datetime="2019-01-13T02:18:08.000Z">2019-01-13</time></span>
             </a>
           </article>
         
       
         
           <article class="article post archive-post" itemscope itemtype="http://schema.org/Article">
-            <a class="archive-post-link" href="/news/2019/01/13/speedup-typecho-using-memcached.html">
-              <strong class="archive-post-title" itemprop="name">speedup typecho using memcached</strong>
-              <span class="archive-post-date"><time datetime="2019-01-12T16:00:00.000Z">2019-01-13</time></span>
+            <a class="archive-post-link" href="/news/2019/01/13/2019-01-13-build-shadowsocks-libev-rpm-pkgs-on-centos7.html">
+              <strong class="archive-post-title" itemprop="name">build shadowsocks-libev rpm pkgs on centos7</strong>
+              <span class="archive-post-date"><time datetime="2019-01-13T01:41:47.000Z">2019-01-13</time></span>
             </a>
           </article>
         
       
         
           <article class="article post archive-post" itemscope itemtype="http://schema.org/Article">
-            <a class="archive-post-link" href="/news/2019/01/12/Build-openvpn.html">
-              <strong class="archive-post-title" itemprop="name">Build openvpn</strong>
-              <span class="archive-post-date"><time datetime="2019-01-11T16:00:00.000Z">2019-01-12</time></span>
+            <a class="archive-post-link" href="/news/2019/01/13/2019-01-13-redis-cluster-on-centos7.html">
+              <strong class="archive-post-title" itemprop="name">redis cluster on centos7</strong>
+              <span class="archive-post-date"><time datetime="2019-01-12T17:04:03.000Z">2019-01-13</time></span>
             </a>
           </article>
         
       
         
           <article class="article post archive-post" itemscope itemtype="http://schema.org/Article">
-            <a class="archive-post-link" href="/news/2019/01/12/dns-and-smart-dns.html">
+            <a class="archive-post-link" href="/news/2019/01/13/2019-01-13-build-ruby-2-2-x-on-centos7.html">
+              <strong class="archive-post-title" itemprop="name">build ruby 2.2.x on centos7</strong>
+              <span class="archive-post-date"><time datetime="2019-01-12T17:00:05.000Z">2019-01-13</time></span>
+            </a>
+          </article>
+        
+      
+        
+          <article class="article post archive-post" itemscope itemtype="http://schema.org/Article">
+            <a class="archive-post-link" href="/news/2019/01/13/2019-01-13-centos-lvm-usage.html">
+              <strong class="archive-post-title" itemprop="name">centos lvm usage</strong>
+              <span class="archive-post-date"><time datetime="2019-01-12T16:50:40.000Z">2019-01-13</time></span>
+            </a>
+          </article>
+        
+      
+        
+          <article class="article post archive-post" itemscope itemtype="http://schema.org/Article">
+            <a class="archive-post-link" href="/news/2019/01/12/2019-01-12-dns-and-smart-dns.html">
               <strong class="archive-post-title" itemprop="name">dns and smart dns</strong>
-              <span class="archive-post-date"><time datetime="2019-01-11T16:00:00.000Z">2019-01-12</time></span>
+              <span class="archive-post-date"><time datetime="2019-01-12T09:05:43.000Z">2019-01-12</time></span>
             </a>
           </article>
         
       
         
           <article class="article post archive-post" itemscope itemtype="http://schema.org/Article">
-            <a class="archive-post-link" href="/news/2019/01/09/Integrate-tengine-with-libressl-to-support-chacha20-ietf-poly1305.html">
+            <a class="archive-post-link" href="/news/2019/01/12/2019-01-12-Build-openvpn.html">
+              <strong class="archive-post-title" itemprop="name">Build openvpn</strong>
+              <span class="archive-post-date"><time datetime="2019-01-12T08:32:15.000Z">2019-01-12</time></span>
+            </a>
+          </article>
+        
+      
+        
+          <article class="article post archive-post" itemscope itemtype="http://schema.org/Article">
+            <a class="archive-post-link" href="/news/2019/01/09/2019-01-09-Integrate-tengine-with-libressl-to-support-chacha20-ietf-poly1305.html">
               <strong class="archive-post-title" itemprop="name">Integrate tengine with libressl to support chacha20-ietf-poly1305</strong>
-              <span class="archive-post-date"><time datetime="2019-01-08T16:00:00.000Z">2019-01-09</time></span>
+              <span class="archive-post-date"><time datetime="2019-01-09T10:09:46.000Z">2019-01-09</time></span>
             </a>
           </article>
         

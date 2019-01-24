@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head prefix="og: http://ogp.me/ns#"><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <title>nginx proxy_pass keepalive settings | W0ng.Unic0rn blog</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://hexo.io/news/2019/01/13/2019-01-13-nginx-proxy-pass-keepalive-settings.html">
+  <!-- Alternative links -->
+  
+  <!-- Icon -->
+  <link rel="apple-touch-icon" sizes="57x57" href="/icon/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/icon/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/icon/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/icon/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/icon/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/icon/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/icon/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/icon/apple-touch-icon-152x152.png">
+  <link rel="icon" type="image/png" href="/icon/favicon-196x196.png" sizes="196x196">
+  <link rel="icon" type="image/png" href="/icon/favicon-160x160.png" sizes="160x160">
+  <link rel="icon" type="image/png" href="/icon/favicon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/png" href="/icon/favicon-16x16.png" sizes="16x16">
+  <link rel="icon" type="image/png" href="/icon/favicon-32x32.png" sizes="32x32">
+  <meta name="msapplication-TileColor" content="#2f83cd">
+  <meta name="msapplication-TileImage" content="/icon/mstile-144x144.png">
+  <!-- CSS -->
+  <!-- build:css build/css/navy.css -->
+  <link rel="stylesheet" href="/css/navy.css">
+  <!-- endbuild -->
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css">
+  <!-- RSS -->
+  <link rel="alternate" href="/atom.xml" title="W0ng.Unic0rn blog">
+  <!-- Open Graph -->
+  <meta name="description" content="抓包# ngrep -d lo -W byline &apos;GET /&apos; &apos;tcp and dst port 6000&apos; 原始返回T 127.0.0.1:33310 -&amp;gt; 127.0.0.1:6000 [AP]GET / HTTP/1.1.Host: www.example.com.X-Real-IP: 1.2.3.4X-Forwarded-For: 1.2.3.4--&amp;gt; Connecti">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nginx proxy_pass keepalive settings">
+<meta property="og:url" content="https://hexo.io/news/2019/01/13/2019-01-13-nginx-proxy-pass-keepalive-settings.html">
+<meta property="og:site_name" content="W0ng.Unic0rn blog">
+<meta property="og:description" content="抓包# ngrep -d lo -W byline &apos;GET /&apos; &apos;tcp and dst port 6000&apos; 原始返回T 127.0.0.1:33310 -&amp;gt; 127.0.0.1:6000 [AP]GET / HTTP/1.1.Host: www.example.com.X-Real-IP: 1.2.3.4X-Forwarded-For: 1.2.3.4--&amp;gt; Connecti">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2019-01-13T02:30:42.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="nginx proxy_pass keepalive settings">
+<meta name="twitter:description" content="抓包# ngrep -d lo -W byline &apos;GET /&apos; &apos;tcp and dst port 6000&apos; 原始返回T 127.0.0.1:33310 -&amp;gt; 127.0.0.1:6000 [AP]GET / HTTP/1.1.Host: www.example.com.X-Real-IP: 1.2.3.4X-Forwarded-For: 1.2.3.4--&amp;gt; Connecti">
+  <!-- Google Analytics -->
+  
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-6482217598104186",
+          enable_page_level_ads: true
+     });
+  </script>
+</head>
+
+<body>
+  <div id="container">
+    <header id="header" class="wrapper">
+  <div id="header-inner" class="inner">
+    <h1 id="logo-wrap">
+      <a href="/zh-cn/" id="logo">Hexo</a>
+    </h1>
+    <nav id="main-nav">
+      <a href="/zh-cn/docs/" class="main-nav-link">文档</a><a href="/zh-cn/api/" class="main-nav-link">API</a><a href="/news/" class="main-nav-link">新闻</a><a href="/plugins/" class="main-nav-link">插件</a><a href="/themes/" class="main-nav-link">主题</a>
+      <a href="https://github.com/" class="main-nav-link"><i class="fa fa-github-alt"></i></a>
+      <div id="search-input-wrap">
+        <div id="search-input-icon">
+          <i class="fa fa-search"></i>
+        </div>
+        <input type="search" id="search-input" placeholder="Search...">
+      </div>
+    </nav>
+    <div id="lang-select-wrap">
+      <label id="lang-select-label"><i class="fa fa-globe"></i><span>简体中文</span></label>
+      <select id="lang-select" data-canonical="">
+        
+          <option value="en">English</option>
+        
+          <option value="zh-tw">正體中文</option>
+        
+          <option value="zh-cn" selected>简体中文</option>
+        
+          <option value="ru">Русский</option>
+        
+          <option value="ko">한국어</option>
+        
+          <option value="pt-br">Português (Brasil)</option>
+        
+          <option value="th">ภาษาไทย</option>
+        
+      </select>
+    </div>
+    <a id="mobile-nav-toggle">
+      <span class="mobile-nav-toggle-bar"></span>
+      <span class="mobile-nav-toggle-bar"></span>
+      <span class="mobile-nav-toggle-bar"></span>
+    </a>
+  </div>
+</header>
+
+    <div id="content-wrap">
+  <div class="wrapper">
+    <div class="inner">
+      <article class="article post" itemscope itemtype="http://schema.org/Article">
+  <header class="article-header">
+    
+      <h1 class="article-title" itemprop="name">nginx proxy_pass keepalive settings</h1>
+    
+    <a href="/news/2019/01/13/2019-01-13-nginx-proxy-pass-keepalive-settings.html" class="article-date"><time datetime="2019-01-13T02:18:08.000Z">2019-01-13</time></a>
+  </header>
+  <div class="article-content" itemprop="articleBody">
+    <hr>
+<h2 id="抓包" class="article-heading"><a href="#抓包" class="headerlink" title="抓包"></a>抓包<a class="article-anchor" href="#抓包" aria-hidden="true"></a></h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># ngrep -d lo -W byline 'GET /' 'tcp and dst port 6000'</span></span><br></pre></td></tr></table></figure>
+<h3 id="原始返回" class="article-heading"><a href="#原始返回" class="headerlink" title="原始返回"></a>原始返回<a class="article-anchor" href="#原始返回" aria-hidden="true"></a></h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">T 127.0.0.1:33310 -&gt; 127.0.0.1:6000 [AP]</span><br><span class="line">GET / HTTP/1.1.</span><br><span class="line">Host: www.example.com.</span><br><span class="line">X-Real-IP: 1.2.3.4</span><br><span class="line">X-Forwarded-For: 1.2.3.4</span><br><span class="line">--&gt; Connection: close.</span><br><span class="line">upgrade-insecure-requests: 1.</span><br><span class="line"></span><br><span class="line"><span class="comment"># 默认发送header Connection: close.</span></span><br></pre></td></tr></table></figure>
+<h2 id="打开upstream的keepalive" class="article-heading"><a href="#打开upstream的keepalive" class="headerlink" title="打开upstream的keepalive"></a>打开upstream的keepalive<a class="article-anchor" href="#打开upstream的keepalive" aria-hidden="true"></a></h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">upstream node_svr_learntadotcom &#123;</span><br><span class="line">server 127.0.0.1:6000;</span><br><span class="line">--&gt; keepalive 32;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="返回内容没有变化" class="article-heading"><a href="#返回内容没有变化" class="headerlink" title="返回内容没有变化"></a>返回内容没有变化<a class="article-anchor" href="#返回内容没有变化" aria-hidden="true"></a></h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">T 127.0.0.1:33956 -&gt; 127.0.0.1:6000 [AP]</span><br><span class="line">GET / HTTP/1.1.</span><br><span class="line">Host: www.example.com.</span><br><span class="line">X-Real-IP: 1.2.3.4</span><br><span class="line">X-Forwarded-For: 1.2.3.4</span><br><span class="line">--&gt; Connection: close.</span><br><span class="line">upgrade-insecure-requests: 1.</span><br></pre></td></tr></table></figure>
+<h2 id="打开location中的proxy-http-version" class="article-heading"><a href="#打开location中的proxy-http-version" class="headerlink" title="打开location中的proxy_http_version"></a>打开location中的proxy_http_version<a class="article-anchor" href="#打开location中的proxy-http-version" aria-hidden="true"></a></h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">proxy_http_version 1.1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="问题依旧" class="article-heading"><a href="#问题依旧" class="headerlink" title="问题依旧"></a>问题依旧<a class="article-anchor" href="#问题依旧" aria-hidden="true"></a></h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">T 127.0.0.1:34746 -&gt; 127.0.0.1:6000 [AP]</span><br><span class="line">GET / HTTP/1.1.</span><br><span class="line">Host: www.example.com.</span><br><span class="line">X-Real-IP: 1.2.3.4</span><br><span class="line">X-Forwarded-For: 1.2.3.4</span><br><span class="line">--&gt; Connection: close.</span><br><span class="line">upgrade-insecure-requests: 1.</span><br></pre></td></tr></table></figure>
+<h2 id="打开location中的proxy-set-header" class="article-heading"><a href="#打开location中的proxy-set-header" class="headerlink" title="打开location中的proxy_set_header"></a>打开location中的proxy_set_header<a class="article-anchor" href="#打开location中的proxy-set-header" aria-hidden="true"></a></h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">proxy_set_header Connection <span class="string">""</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="返回不再包含Connection-close，打开长连接成功" class="article-heading"><a href="#返回不再包含Connection-close，打开长连接成功" class="headerlink" title="返回不再包含Connection: close，打开长连接成功"></a>返回不再包含Connection: close，打开长连接成功<a class="article-anchor" href="#返回不再包含Connection-close，打开长连接成功" aria-hidden="true"></a></h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">T 127.0.0.1:35342 -&gt; 127.0.0.1:6000 [AP]</span><br><span class="line">GET / HTTP/1.1.</span><br><span class="line">Host: www.example.com.</span><br><span class="line">X-Real-IP: 1.2.3.4</span><br><span class="line">X-Forwarded-For: 1.2.3.4</span><br><span class="line">cache-control: max-age=0.</span><br><span class="line">upgrade-insecure-requests: 1.</span><br></pre></td></tr></table></figure>
+<h3 id="短时间内再次刷新" class="article-heading"><a href="#短时间内再次刷新" class="headerlink" title="短时间内再次刷新"></a>短时间内再次刷新<a class="article-anchor" href="#短时间内再次刷新" aria-hidden="true"></a></h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">T 127.0.0.1:35342 -&gt; 127.0.0.1:6000 [AP]</span><br><span class="line">GET / HTTP/1.1.</span><br><span class="line">Host: www.example.com.</span><br><span class="line">X-Real-IP: 1.2.3.4.</span><br><span class="line">X-Forwarded-For: 1.2.3.4.</span><br><span class="line">cache-control: max-age=0.</span><br><span class="line">upgrade-insecure-requests: 1.</span><br><span class="line"></span><br><span class="line"><span class="comment"># client端的端口依旧是35342</span></span><br></pre></td></tr></table></figure>
+  </div>
+  
+</article>
+
+    </div>
+  </div>
+</div>
+    <footer id="footer" class="wrapper">
+  <div class="inner">
+    <div id="footer-copyright">
+      &copy; 2019 <a href="https://github.com/hexojs/hexo/graphs/contributors" target="_blank">W0ng.Unic0rn</a><br>
+      Documentation licensed under <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a>.
+    </div>
+    <div id="footer-links">
+      <a href="https://twitter.com/" class="footer-link" target="_blank"><i class="fa fa-twitter"></i></a>
+      <a href="https://github.com/" class="footer-link" target="_blank"><i class="fa fa-github-alt"></i></a>
+    </div>
+  </div>
+</footer>
+
+  </div>
+  <div id="mobile-nav-dimmer"></div>
+  <nav id="mobile-nav">
+  <div id="mobile-nav-inner">
+    <ul id="mobile-nav-list">
+      <a href="/zh-cn/docs/" class="mobile-nav-link">文档</a><a href="/zh-cn/api/" class="mobile-nav-link">API</a><a href="/news/" class="mobile-nav-link">新闻</a><a href="/plugins/" class="mobile-nav-link">插件</a><a href="/themes/" class="mobile-nav-link">主题</a>
+      <li class="mobile-nav-item">
+        <a href="https://github.com/" class="mobile-nav-link" rel="external" target="_blank">GitHub</a>
+      </li>
+    </ul>
+    
+  </div>
+  <div id="mobile-lang-select-wrap">
+    <span id="mobile-lang-select-label"><i class="fa fa-globe"></i><span>简体中文</span></span>
+    <select id="mobile-lang-select" data-canonical="">
+      
+        <option value="en">English</option>
+      
+        <option value="zh-tw">正體中文</option>
+      
+        <option value="zh-cn" selected>简体中文</option>
+      
+        <option value="ru">Русский</option>
+      
+        <option value="ko">한국어</option>
+      
+        <option value="pt-br">Português (Brasil)</option>
+      
+        <option value="th">ภาษาไทย</option>
+      
+    </select>
+  </div>
+</nav>
+  <!-- Scripts -->
+<!-- Cookie -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.min.js"></script>
+<!-- build:js build/js/main.js -->
+<script src="/js/lang_select.js"></script>
+<script src="/js/toc.js"></script>
+<script src="/js/mobile_nav.js"></script>
+<!-- endbuild -->
+
+<!-- Algolia -->
+
+
+</body>
+</html>
